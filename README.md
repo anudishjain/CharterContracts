@@ -1,0 +1,2 @@
+# Charter
+Rent Smart Contract
