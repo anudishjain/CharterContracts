@@ -58,7 +58,8 @@ contract Rent is Owned {
 
 		uint time_of_deploy;
 
-		string apiLink;
+		string latitude;
+		string longitude;
 
 		uint squareFootage;
 		uint numberBedrooms;
@@ -66,7 +67,6 @@ contract Rent is Owned {
 		string others;
 
 		bool isValid;	
-
 		bool completed;
 	}
 
@@ -114,7 +114,7 @@ contract Rent is Owned {
 
 	// -------------------------------------------------------------------------------------------------------
 
-	event registerParty(string message);
+	event registerParty(string message, uint status);
 
 	function registerParties(address _tenant) external 	{
 
@@ -128,7 +128,7 @@ contract Rent is Owned {
 				var newHouse = House('N/A', 'N/A', 0, 0, 0, 0, false);
 				allHouses.push(newHouse);
 
-				var newRent = OtherDetails(now, 'N/A', 0, 0, 'N/A', false, false);
+				var newRent = OtherDetails(now, 'N/A', 'N/A', 0, 0, 'N/A', false, false);
 				allOtherDetails.push(newRent);
 
 				var user = addressToPerson[msg.sender];
@@ -137,25 +137,25 @@ contract Rent is Owned {
 				var tenant = addressToPerson[_tenant];
 				tenant.myContractIndex.push(index);
 
-				registerParty('Step 1 Completed - Proceed to Step 2 to Register Contract Details');
+				registerParty('Step 1 Completed - Proceed to Step 2 to Register Contract Details', 1);
 			}
 
 			else
 			{
-				registerParty('Failed !! Lessee or Tenant not registered');
+				registerParty('Failed !! Lessee or Tenant not registered', 0);
 			}
 		}
 
 		else
 		{
-			registerParty('Failed !! Lessor or Landlord not registered');
+			registerParty('Failed !! Lessor or Landlord not registered', 0);
 		}
 	}
 
 
 	// --------		
 
-	event registerHome(string message);
+	event registerHome(string message, uint status, uint FeePayable);
 
 	function newHome(string _add, string _type, uint _timeMonths, uint _rent, uint _security) external {
 
@@ -167,90 +167,96 @@ contract Rent is Owned {
 
 			if(index < 0)
 			{
-				registerHome('Failed !! Complete Registration of Parties before this Step');
+				registerHome('Failed !! Complete Registration of Parties before this Step', 0, 0);
 			}
 
 			else
 			{
-				uint lastIndex = user.myContractIndex[index];
+				var houseOwner = allParties[index];
 
-				var home = allHouses[lastIndex];
-
-				if(home.completed == false)
+				if(houseOwner.landlord != msg.sender)
 				{
-					home.addressHouse = _add;
-					home.type_of_property = _type;
-					home.duration = _timeMonths;
-					home.rentAmount = _rent;
-					home.securityFee = _security;
-
-
-
-					if(_timeMonths <= 0)
-					{
-						registerHome('Failed !! Minimum Contract Duration allowed is 1 Month');
-						home.completed = false;
-					}
-
-					else if(_timeMonths < 12)
-					{
-						home.governFee = 100;
-						home.completed = true;
-
-						registerHome('Step 2 Completed - Proceed to Step 3 to Complete the Process');
-					}
-
-					else if(_timeMonths <= 60)
-					{
-						if(_security > 0)
-						home.governFee = 100 + ((2 * 12 * _rent) / 100) + 1100;
-
-						else
-						home.governFee = ((2 * 12 * _rent) / 100) + 1100;
-
-						home.completed = true;
-
-						registerHome('Step 2 Completed - Proceed to Step 3 to Complete the Process');
-					}
-
-					else if(_timeMonths <= 120)
-					{
-						if(_security > 0)
-						home.governFee = 100 + ((3 * 12 * _rent) / 100) + 1100;
-
-						else
-						home.governFee = ((3 * 12 * _rent) / 100) + 1100;		
-
-						home.completed = true;	
-
-						registerHome('Step 2 Completed - Proceed to Step 3 to Complete the Process');			
-					}
-
-					else if(_timeMonths <= 240)
-					{
-						if(_security > 0)
-						home.governFee = 100 + ((6 * 12 * _rent) / 100) + 1100;
-
-						else
-						home.governFee = ((6 * 12 * _rent) / 100) + 1100;
-
-						home.completed = true;
-
-						registerHome('Step 2 Completed - Proceed to Step 3 to Complete the Process');
-					}
-
-					else
-					{
-						registerHome('Failed !! Maximum Contract Duration allowed is 20 Years or 24 Months');
-						home.completed = false;
-
-						registerHome('Step 2 Completed - Proceed to Step 3 to Complete the Process');
-					}
+					registerHome('Failed !! User not registered as landlord..', 0, 0);
 				}
 
 				else
 				{
-					registerHome('Failed !! Home Registration already Completed ');
+					uint lastIndex = user.myContractIndex[index];
+
+					var home = allHouses[lastIndex];
+
+					if(home.completed == false)
+					{
+						home.addressHouse = _add;
+						home.type_of_property = _type;
+						home.duration = _timeMonths;
+						home.rentAmount = _rent;
+						home.securityFee = _security;
+
+						if(_timeMonths <= 0)
+						{
+							home.completed = false;
+							registerHome('Failed !! Minimum Contract Duration allowed is 1 Month', 0, 0);
+						}
+
+						else if(_timeMonths < 12)
+						{
+							home.governFee = 100;
+							home.completed = true;
+
+							registerHome('Step 2 Completed - Proceed to Step 3 to Complete the Process', 1, home.governFee);
+						}
+
+						else if(_timeMonths <= 60)
+						{
+							if(_security > 0)
+							home.governFee = 100 + ((2 * 12 * _rent) / 100) + 1100;
+
+							else
+							home.governFee = ((2 * 12 * _rent) / 100) + 1100;
+
+							home.completed = true;
+
+							registerHome('Step 2 Completed - Proceed to Step 3 to Complete the Process', 1, home.governFee);
+						}
+
+						else if(_timeMonths <= 120)
+						{
+							if(_security > 0)
+							home.governFee = 100 + ((3 * 12 * _rent) / 100) + 1100;
+
+							else
+							home.governFee = ((3 * 12 * _rent) / 100) + 1100;		
+
+							home.completed = true;	
+
+							registerHome('Step 2 Completed - Proceed to Step 3 to Complete the Process', 1, home.governFee);			
+						}
+
+						else if(_timeMonths <= 240)
+						{
+							if(_security > 0)
+							home.governFee = 100 + ((6 * 12 * _rent) / 100) + 1100;
+
+							else
+							home.governFee = ((6 * 12 * _rent) / 100) + 1100;
+
+							home.completed = true;
+
+							registerHome('Step 2 Completed - Proceed to Step 3 to Complete the Process', 1, home.governFee);
+						}
+
+						else
+						{
+							home.completed = false;
+							registerHome('Failed !! Maximum Contract Duration allowed is 20 Years or 24 Months', 0, 0);
+						}
+					}
+
+					else
+					{
+						registerHome('Failed !! Home Registration already Completed ', 0, 0);
+					}
 				}
 
 			}
@@ -258,11 +264,80 @@ contract Rent is Owned {
 
 		else
 		{
-			registerHome('Failed !! Lessor or Landlord not registered !!');
+			registerHome('Failed !! Lessor or Landlord not registered !!', 0, 0);
 		}
-
 	}
 
+
+	// -------------
+
+	event registerDetails(string message, uint status);
+
+	function newDetails(uint _ethInr, string _lat, string _lon, uint _sqFt, uint _rooms, string _extra) external payable {
+
+		// _ethInr is the API Value of rate of 1 ether in INR
+
+		if(checkUser[msg.sender] == true)
+		{
+			var user = addressToPerson[msg.sender];
+
+			uint index = user.myContractIndex.length - 1;
+
+			if(index < 0)
+			{
+				registerDetails('Failed !! Complete all the previous steps', 0);
+			}
+
+			else
+			{
+				var houseOwner = allParties[index];
+				var houseDetails = allHouses[index];
+
+				if(houseOwner.landlord != msg.sender)
+				{
+					registerDetails('Failed !! User not registered as landlord..', 0);
+				}
+
+				else
+				{
+					require(msg.value == (houseDetails.governFee / _ethInr));
+					owner.transfer(address(this).balance);
+
+					uint lastIndex = user.myContractIndex[index];
+
+					var details = allOtherDetails[lastIndex];
+
+					if(details.completed == false)
+					{
+						details.time_of_deploy = now;
+						details.latitude = _lat;
+						details.longitude = _lon;
+						details.squareFootage = _sqFt;
+						details.numberBedrooms = _rooms;
+						details.others = _extra;
+
+						details.isValid = false;
+						details.completed = true;
+
+						registerDetails('Step 3 Completed, Tenant and Government Verification Pending...', 1);
+					}
+
+					else
+					{
+						registerDetails('Failed !! Home Registration already Completed', 0);
+					}
+				}
+
+			}
+		}
+
+		else
+		{
+			registerDetails('Failed !! Lessor or Landlord not registered !!', 0);
+		}
+	}
+
+	// --------------------------------------------------------------------------------------------------------
 
 	
 }
