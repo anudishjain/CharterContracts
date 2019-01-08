@@ -80,7 +80,7 @@ button:focus {
 
 .userForm {
 
-	margin-left: 3rem;
+	margin-left: 4rem;
 	margin-top: 3rem;
 }
 
@@ -103,17 +103,15 @@ button:focus {
 .loader {
 
 	width: 15rem;
-	display: none;
 }
 
 .message {
 
-	margin-right: 5rem;
-	margin-left: 3rem;
+	margin-left: 1rem;
 	font-size: 1.2rem;
 	font-family: 'Abel', sans-serif;
 
-	display: none;
+	width : 80%;
 }
 
 input:focus {
@@ -121,17 +119,12 @@ input:focus {
 	outline: 0 !important;
 }
 
-.userForm {
-
-	margin-right: 2rem;
-}
-
 .formInput {
 
 	font-size: 1.2rem;
 	font-family: 'Abel', sans-serif;
 
-	width: 40%;
+	width: 60%;
 
 	margin-top: 1rem;
 	margin-bottom: 1rem;
