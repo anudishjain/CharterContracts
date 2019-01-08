@@ -118,9 +118,13 @@ input:focus {
 	outline: 0 !important;
 }
 
+.userForm {
+
+	margin-right: 2rem;
+}
+
 .formInput {
 
-	width: 30rem;
 	font-size: 1.4rem;
 	font-family: 'Abel', sans-serif;
 
