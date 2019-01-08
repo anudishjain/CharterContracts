@@ -103,6 +103,7 @@ button:focus {
 .loader {
 
 	width: 15rem;
+	display: none;
 }
 
 .message {
@@ -111,6 +112,8 @@ button:focus {
 	margin-left: 3rem;
 	font-size: 1.2rem;
 	font-family: 'Abel', sans-serif;
+
+	display: none;
 }
 
 input:focus {
@@ -125,8 +128,10 @@ input:focus {
 
 .formInput {
 
-	font-size: 1.4rem;
+	font-size: 1.2rem;
 	font-family: 'Abel', sans-serif;
+
+	width: 40%;
 
 	margin-top: 1rem;
 	margin-bottom: 1rem;
