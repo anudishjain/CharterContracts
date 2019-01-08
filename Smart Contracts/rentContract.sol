@@ -61,6 +61,8 @@ contract Rent is Owned {
 		string latitude;
 		string longitude;
 
+		string ipfs_url;
+
 		uint squareFootage;
 		uint numberBedrooms;
 
@@ -130,7 +132,7 @@ contract Rent is Owned {
 				var newHouse = House('N/A', 'N/A', 0, 0, 0, 0, false);
 				allHouses.push(newHouse);
 
-				var newRent = OtherDetails(now, 'N/A', 'N/A', 0, 0, 'N/A', false, false);
+				var newRent = OtherDetails(now, 'N/A', 'N/A', 'N/A' 0, 0, 'N/A', false, false);
 				allOtherDetails.push(newRent);
 
 				var user = addressToPerson[msg.sender];
@@ -275,7 +277,7 @@ contract Rent is Owned {
 
 	event registerDetails(string message, uint status);
 
-	function newDetails(uint _ethInr, string _lat, string _lon, uint _sqFt, uint _rooms, string _extra) external payable {
+	function newDetails(uint _ethInr, string _lat, string _lon, uint _sqFt, uint _rooms, string _extra, string _ipfs) external payable {
 
 		// _ethInr is the API Value of rate of 1 ether in INR
 
@@ -317,6 +319,8 @@ contract Rent is Owned {
 						details.squareFootage = _sqFt;
 						details.numberBedrooms = _rooms;
 						details.others = _extra;
+
+						details.ipfs_url = _ipfs;
 
 						details.isValid = false;
 						details.completed = true;

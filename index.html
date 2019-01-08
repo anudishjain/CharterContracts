@@ -30,7 +30,7 @@
 
       <h2 class="heading2 w3-animate-opacity">Ethereum Rental Smart Contracts</h2>
 
-    </div>
+  </div>
 
   <div class="container" align="center">
 
@@ -44,62 +44,23 @@
 
   <div class="container-fluid explain">
 
-   <div style="margin-left: 1rem; margin-right: 1rem">
-
-    <br>
-    <br>
-
-    <h1 class="heading3" style="color: white">How to Get Started ?</h1>
-
-    <br>
-
-    <p class="textPara">
-
-        <b> Download MetaMask Chrome Extension</b> - Every data upload to the Contract requires some Transaction Fees and this is paid using Ethereum Cryptocurrency, to simplify this process MetaMask Chrome Extension Wallet is used, read <a href="https://medium.com/@followcoin/how-to-install-metamask-88cbdabc1d28"><u>Here</u></a>
+     <div style="margin-left: 1rem; margin-right: 1rem">
 
         <br>
         <br>
 
-        <b>Get Ropsten TestCoins</b> - This application is deployed on Ropsten TestNet, users need to select Ropsten TestNet in their MetaMask wallets and get Test Coins (These are free) from <a href="https://faucet.ropsten.be/"><u>Here</u></a>
-
-        <br>
-        <br>
-        <br>
-        <br>
-
-    </p>
-
-    </div>
-
-</div>
-
-
-  <div class="container-fluid explain2">
-
-      <div style="margin-left: 1rem; margin-right: 1rem">
-
-        <br>
-        <br>
-
-        <h1 class="heading3" style="color: white">What are Smart Contracts and Why Use Them ?</h1>
+        <h1 class="heading3" style="color: white">How to Get Started ?</h1>
 
         <br>
 
         <p class="textPara">
 
-             <img class="img-fluid imagePara" src="elements/smartcontract.png">
-
-            - Like the Physical Contracts between organizations in Real World, smart contracts define the terms and conditions of contracts on a Digital Ledger, what makes these contracts 'Smart' is their capability of making automatic payments, when certain conditions are met. 
+            <b> Download MetaMask Chrome Extension</b> - Every data upload to the Contract requires some Transaction Fees and this is paid using Ethereum Cryptocurrency, to simplify this process MetaMask Chrome Extension Wallet is used, read <a href="https://medium.com/@followcoin/how-to-install-metamask-88cbdabc1d28"><u>Here</u></a>
 
             <br>
             <br>
 
-            - They automate the task of verification and payment processing and remove the third parties involved in the process thus making it more secure and faster.
-
-            <br>
-            <br>
-
-            - Once deployed a smart contract is tamper proof, and will permanently reside over the ledger, payments are done using Cryptocurrencies like Ethereum between organizations.
+            <b>Get Ropsten TestCoins</b> - This application is deployed on Ropsten TestNet, users need to select Ropsten TestNet in their MetaMask wallets and get Test Coins (These are free) from <a href="https://faucet.ropsten.be/"><u>Here</u></a>
 
             <br>
             <br>
@@ -112,9 +73,48 @@
 
 </div>
 
+
+<div class="container-fluid explain2">
+
+  <div style="margin-left: 1rem; margin-right: 1rem">
+
+    <br>
+    <br>
+
+    <h1 class="heading3" style="color: white">What are Smart Contracts and Why Use Them ?</h1>
+
+    <br>
+
+    <p class="textPara">
+
+       <img class="img-fluid imagePara" src="elements/smartcontract.png">
+
+       - Like the Physical Contracts between organizations in Real World, smart contracts define the terms and conditions of contracts on a Digital Ledger, what makes these contracts 'Smart' is their capability of making automatic payments, when certain conditions are met. 
+
+       <br>
+       <br>
+
+       - They automate the task of verification and payment processing and remove the third parties involved in the process thus making it more secure and faster.
+
+       <br>
+       <br>
+
+       - Once deployed a smart contract is tamper proof, and will permanently reside over the ledger, payments are done using Cryptocurrencies like Ethereum between organizations.
+
+       <br>
+       <br>
+       <br>
+       <br>
+
+   </p>
+
+</div>
+
+</div>
+
 <div class="container-fluid explain3">
 
-   <div style="margin-left: 1rem; margin-right: 1rem">
+ <div style="margin-left: 1rem; margin-right: 1rem">
 
     <br>
     <br>
@@ -139,7 +139,7 @@
 
     </p>
 
-    </div>
+</div>
 
 </div>
 
@@ -173,7 +173,45 @@
 
 </div>
 
-</body>
+<!--- Web3 Javascript Starts Below --->
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+
+<script>
+
+        window.addEventListener('load', async () => {
+            // Modern dapp browsers...
+            if (window.ethereum) {
+                window.web3 = new Web3(ethereum);
+                try {
+                        // Request account access if needed
+                        await ethereum.enable();
+                        // Acccounts now exposed
+                    web3.eth.sendTransaction({/* ... */});
+                } catch (error) {
+                    // User denied account access...
+                }
+            }
+                // Legacy dapp browsers...
+                else if (window.web3) {
+                    window.web3 = new Web3(web3.currentProvider);
+                // Acccounts always exposed
+            web3.eth.sendTransaction({/* ... */});
+        }
+            // Non-dapp browsers...
+            else {
+
+                alert('Install MetaMask Chrome Extension, for more info click Read More!');
+            }
+        });
+
+        web3.eth.defaultAccount = web3.eth.accounts[0];
+        // select the first account by default from list of accounts
+
+</script>
+
+    </body>
 
 
-</html>
+
+    </html>
