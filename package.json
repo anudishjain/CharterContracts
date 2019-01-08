@@ -1,0 +1,26 @@
+{
+  "name": "charter",
+  "version": "1.0.0",
+  "description": "Rental Smart Contracts",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "lite-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anudishjain/Charter.git"
+  },
+  "author": "Anudish Jain",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/anudishjain/Charter/issues"
+  },
+  "homepage": "https://github.com/anudishjain/Charter#readme",
+  "dependencies": {
+    "web3": "^0.20.6"
+  },
+  "devDependencies": {
+    "lite-server": "^2.4.0"
+  }
+}
