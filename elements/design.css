@@ -88,8 +88,7 @@ html {
 
 button:hover {
 
-	cursor: grab;
-
+	cursor: pointer;
 }
 
 button:focus {
@@ -99,7 +98,7 @@ button:focus {
 
 .explain {
 
-	margin-top: 20rem;
+	margin-top: 10rem;
 	background-color: #313642;
 }
 

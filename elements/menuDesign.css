@@ -89,7 +89,7 @@ html {
 
 button:hover {
 
-	cursor: grab;
+	cursor: pointer;
 }
 
 button:focus {

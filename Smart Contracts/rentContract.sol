@@ -68,6 +68,8 @@ contract Rent is Owned {
 
 		string others;
 
+		bool feePaid;
+
 		bool isValid;	
 		bool completed;
 	}
@@ -132,7 +134,7 @@ contract Rent is Owned {
 				var newHouse = House('N/A', 'N/A', 0, 0, 0, 0, false);
 				allHouses.push(newHouse);
 
-				var newRent = OtherDetails(now, 'N/A', 'N/A', 'N/A' 0, 0, 'N/A', false, false);
+				var newRent = OtherDetails(now, 'N/A', 'N/A', 'N/A', 0, 0, 'N/A', false, false, false);
 				allOtherDetails.push(newRent);
 
 				var user = addressToPerson[msg.sender];
@@ -277,9 +279,7 @@ contract Rent is Owned {
 
 	event registerDetails(string message, uint status);
 
-	function newDetails(uint _ethInr, string _lat, string _lon, uint _sqFt, uint _rooms, string _extra, string _ipfs) external payable {
-
-		// _ethInr is the API Value of rate of 1 ether in INR
+	function newDetails(string _lat, string _lon, uint _sqFt, uint _rooms, string _extra, string _ipfs) external payable {
 
 		if(checkUser[msg.sender] == true)
 		{
@@ -295,7 +295,6 @@ contract Rent is Owned {
 			else
 			{
 				var houseOwner = allParties[index];
-				var houseDetails = allHouses[index];
 
 				if(houseOwner.landlord != msg.sender)
 				{
@@ -304,9 +303,6 @@ contract Rent is Owned {
 
 				else
 				{
-					require(msg.value == (houseDetails.governFee / _ethInr));
-					owner.transfer(address(this).balance);
-
 					uint lastIndex = user.myContractIndex[index];
 
 					var details = allOtherDetails[lastIndex];
@@ -325,7 +321,7 @@ contract Rent is Owned {
 						details.isValid = false;
 						details.completed = true;
 
-						registerDetails('Step 3 Completed, Tenant and Government Verification Pending...', 1);
+						registerDetails('Step 3 Completed, pay Registration Fee Below', 1);
 					}
 
 					else
@@ -341,6 +337,25 @@ contract Rent is Owned {
 		{
 			registerDetails('Failed !! Lessor or Landlord not registered !!', 0);
 		}
+	}
+
+	// ----------------
+
+	event feePay(string message);
+
+	function feePayment(uint _amount) external payable 	{
+	    
+		require(msg.value == _amount);
+
+		var user = addressToPerson[msg.sender];
+
+		uint index = user.myContractIndex.length - 1;
+
+		var houseDetails = allOtherDetails[index];
+		houseDetails.feePaid = true;
+
+
+		feePay('Government Registration Fee Payment Successful');
 	}
 
 	// --------------------------------------------------------------------------------------------------------

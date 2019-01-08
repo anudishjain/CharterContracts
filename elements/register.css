@@ -64,7 +64,7 @@ html {
 
 button:hover {
 
-	cursor: grab;
+	cursor: pointer;
 }
 
 button:focus {
@@ -112,8 +112,6 @@ button:focus {
 	font-family: 'Abel', sans-serif;
 
 	width : 90%;
-
-	display: none;
 }
 
 input:focus {
