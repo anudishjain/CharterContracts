@@ -78,6 +78,7 @@ contract Rent is Owned {
 
 	mapping(address => Person) private addressToPerson;
 	mapping(address => bool) private checkUser;
+	mapping(uint => bool) private checkAadhaar;
 
 	// -------------------------------------------------------------------------------------------------------
 
@@ -96,19 +97,20 @@ contract Rent is Owned {
 
 	function createNewUser(string _name, string _email, uint _aadhaar) external {
 
-		if(checkUser[msg.sender] == true)
+		if((checkUser[msg.sender] == true)||(checkAadhaar[_aadhaar] == true))
 		{
-			startMessage('Oops !! User already exists..');
-		}		
+			startMessage('Failed !! User already registered..');
+		}
 
-		else
+		else if((checkUser[msg.sender] != true)&&(checkAadhaar[_aadhaar] != true))
 		{
 			var newUser = Person(msg.sender, _name, _email, _aadhaar, new uint[](0));
 			addressToPerson[msg.sender] = newUser;
 
 			checkUser[msg.sender] = true;
+			checkAadhaar[_aadhaar] = true;
 
-			startMessage('Welcome !! You are successfully registered..');
+			startMessage('Welcome !! Successfully registered..');
 		}
 	}
 

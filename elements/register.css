@@ -55,7 +55,7 @@ html {
 
 	border : none;
 
-	background: #443a59;
+	background: #3f4959;
 	color : white;
 
 	font-family: 'Anaheim', sans-serif;
@@ -101,7 +101,8 @@ button:focus {
 
 .loader {
 
-	width: 18rem;
+	width: 12rem;
+	display: none;
 }
 
 .message {
@@ -111,6 +112,8 @@ button:focus {
 	font-family: 'Abel', sans-serif;
 
 	width : 90%;
+
+	display: none;
 }
 
 input:focus {

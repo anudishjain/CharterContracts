@@ -70,18 +70,16 @@
 
     <br>
 
-    <h1 class="heading3"><b>Registration Form for New Users</b></h1>
+    <h1 class="heading3"><b>Registration Form</b></h1>
 
-    <img src="loader.gif" class="loader">
+    <img src="loader.gif" id="loaderGif" class="loader">
 
     <br>
     <br>
 
-    <div class="alert alert-success message" id="message">Transaction on EtherScan - <a href=""><b> Click Here</b></a></div>
+    <div class="alert alert-success message" id="message1">Transaction on EtherScan - <a href=""><b> Click Here</b></a></div>
     <br>
-    <div class="alert alert-danger message" id="message">-</div> 
-
-
+    <div class="alert alert-danger message" id="message2">-</div> 
 
     <br>
 
@@ -91,7 +89,7 @@
         <br>
         <input class="formInput form-control" type="email" name="email" placeholder="Enter your Email Address" required>
         <br>
-        <input class="formInput form-control" type="" name="aadhaar" placeholder="Enter your Aadhaar Number" maxlength="12" required>
+        <input class="formInput form-control" type="number" name="aadhaar" placeholder="Enter your Aadhaar Number" min="100000000000" max="999999999999" required>
 
         <br>
 
