@@ -306,8 +306,14 @@ contract Rent is Owned {
 					uint lastIndex = user.myContractIndex[index];
 
 					var details = allOtherDetails[lastIndex];
+					var home = allHouses[lastIndex];
 
-					if(details.completed == false)
+					if(home.completed == false)
+					{
+						registerDetails('Failed !! Complete Step 2 before proceeding to Step 3', 0);
+					}
+
+					else if((details.completed == false)&&(home.completed == true))
 					{
 						details.time_of_deploy = now;
 						details.latitude = _lat;

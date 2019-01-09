@@ -55,7 +55,7 @@ html {
 
 	border : none;
 
-	background: #3f4959;
+	background: #5e4a63;
 	color : white;
 
 	font-family: 'Anaheim', sans-serif;
@@ -80,7 +80,7 @@ button:focus {
 
 .userForm {
 
-	margin-top: 3rem;
+	margin-top: -0.5rem;
 }
 
 .heading3 {
@@ -88,7 +88,7 @@ button:focus {
 	font-size: 1.8rem;
 	font-family: 'Abel', sans-serif;
 
-	color : #443a59;
+	color : #373b42;
 }
 
 .textPara {
@@ -101,37 +101,35 @@ button:focus {
 
 .loader {
 
-	width: 12rem;
-	display: none;
+	width: 15rem;
+
 }
 
 .message {
 
 	margin-left: 0.5%;
-	font-size: 1.2rem;
+	font-size: 1.1rem;
 	font-family: 'Abel', sans-serif;
 
-	width : 90%;
-}
-
-input:focus {
-
-	outline: 0 !important;
+	width : 85%;
 }
 
 .formInput {
 
-	font-size: 1.2rem;
+	font-size: 1.3rem;
 	font-family: 'Abel', sans-serif;
 
-	width: 90%;
+	width: 80%;
 
 	margin-top: 1%;
 	margin-bottom: 1%;
 	margin-right: 1%;
 
-	border-color:  #443a59 !important;
-	border-width: 0.08rem !important;
+	text-decoration-color: #5e4a63;
+	font-weight: bold;
+
+	border-color:  #5e4a63 !important;
+	border-width: 0.15rem !important;
 
 	border-style: solid;
 
