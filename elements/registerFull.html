@@ -9,7 +9,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
-    <link rel="stylesheet" type="text/css" href="register.css">
+    <link rel="stylesheet" type="text/css" href="registerFull.css">
 
     <link href="https://fonts.googleapis.com/css?family=Anaheim|Abel" rel="stylesheet">
 
@@ -30,7 +30,8 @@
 
       <h1 class="heading w3-animate-opacity"><b>Charter</b></h1>
 
-      <h2 class="heading2 w3-animate-opacity">User Registration Dashboard</h2>
+      <h2 class="heading2 w3-animate-opacity">Contract Deployment Dashboard</h2>
+      <br>
 
   </div>
 
@@ -74,7 +75,8 @@
     <br>
     <br>
 
-    <h1 class="heading3"><b>Registration Form</b></h1>
+    <h1 class="heading3"><b>Step - I</b></h1>
+    <h1 class="heading3">Tenant's Information</h1>
     <br>
 
     <img src="loader.gif" id="loader" class="loader">
@@ -90,15 +92,159 @@
 
     <form style="margin-left: 1rem">
 
-        <input class="formInput form-control" type="text" id="legalName" placeholder="Enter Legal Name" required>
+        <input class="formInput form-control" type="text" id="tenantAdd" placeholder="Tenant's Ethereum Address" required>
         <br>
-        <input class="formInput form-control" type="email" id="email" placeholder="Enter Email Address" required>
+        <button type="submit" id="registerButton" class="getStarted">Submit</button>
+
+    </form>
+
+    <br>
+    <br>
+
+</div>
+
+<hr>
+<!------>
+
+<div class="userForm" align="center">
+
+    <br>
+    <br>
+    <br>
+
+    <h1 class="heading3"><b>Step - II</b></h1>
+    <h1 class="heading3">Property's Information</h1>
+    <br>
+
+    <img src="loader.gif" id="loader" class="loader">
+
+    <br>
+    <br>
+
+    <div class="alert alert-dark message"><b>Transaction on EtherScan - <a href="" id="hashBlock">Click Here</b></a></div>
+    <br>
+    <div class="alert alert-danger message" id="message1" style="font-weight: bold; display: none;"></div> 
+
+    <br>
+
+    <form style="margin-left: 1rem;">
+
+        <textarea class="formInput form-control" type="text" id="address" rows="5" placeholder="Complete Address of the Property" required></textarea>
         <br>
-        <input class="formInput form-control" type="number" id="aadhaar" placeholder="Enter Aadhaar (12 Digits)" min="100000000000" max="999999999999" required>
+        <select class="formInput" name="Property Type">
+        <option value="Residential Type">Residential Property Type</option>
+        <option value="Commercial Type">Commercial Property Type</option>
+        <option value="Others">Other Property Types</option>
+        </select>
+        <br>
+        <br>
+        <input class="formInput form-control" type="number" id="duration" placeholder="Duration (in Months) of Contract" required>
+        <br>
+        <input class="formInput form-control" type="number" id="rent" placeholder="Monthly Rent (in ₹)" required>
+        <input class="formInput form-control" type="text" id="security" placeholder="Security Deposit (0 if N/A, in ₹)" required>
+        <br>
+        <button type="submit" id="registerButton" class="getStarted">Submit</button>
+
+    </form>
+
+    <br>
+    <br>
+
+</div>
+
+<hr>
+<!------>
+
+<div class="userForm" align="center">
+
+    <br>
+    <br>
+    <br>
+
+    <h1 class="heading3"><b>Step - III</b></h1>
+    <h1 class="heading3">Miscellaneous Information</h1>
+    <br>
+
+    <img src="loader.gif" id="loader" class="loader">
+
+    <br>
+    <br>
+
+    <div class="alert alert-dark message"><b>Transaction on EtherScan - <a href="" id="hashBlock"> Click Here</b></a></div>
+    <br>
+    <div class="alert alert-danger message" id="message1" style="font-weight: bold; display: none;"></div> 
+
+    <br>
+
+    <div class="alert alert-info message"><b>Use the feature of GeoTagging, enter the Latitude, Longitude Coordinates of Property from Google Maps</b></div>
+    <div class="alert alert-warning message"><b>Upload your Physical Contracts here, so that this contract can be a Valid Document Proof for the Governments, Your Contracts will be Publicly Visible</b></div>
+    <br>
+    <br>
+
+    <form style="margin-left: 1rem">
+
+        <input class="formInput form-control" type="text" id="latitude" placeholder="Latitude Coordinate" required>
+        <input class="formInput form-control" type="text" id="longitude" placeholder="Longitude Coordinate" required>
+        <br>
+        <input class="formInput form-control" type="number" id="sqFt" placeholder="Square Footage of Property" required>
+        <input class="formInput form-control" type="number" id="rooms" placeholder="Number of Rooms (0 if N/A)" required>
+        <br>
+        <textarea class="formInput form-control" type="text" id="extra" placeholder="Other Terms of Contract, like (Maintenance Fees, Electricity, Insurance, Utilities, Repairs etc)" required rows="8"></textarea>
+        <br>
+        <br>
+
+        <div class="input-group mb-3" style="width: 80%; text-align: left; font-size: 1.2rem">
+        <div class="custom-file">
+        <input type="file" class="custom-file-input " id="inputGroupFile02" required>
+        <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Upload Contract</label>
+        </div>
+        </div>
 
         <br>
 
         <button type="submit" id="registerButton" class="getStarted">Submit</button>
+
+    </form>
+
+    <br>
+    <br>
+    <br>
+    <br>
+</div>
+
+
+
+<hr>
+<!------>
+
+<div class="userForm" align="center">
+
+    <br>
+    <br>
+    <br>
+
+    <h1 class="heading3"><b>Step - IV</b></h1>
+    <h1 class="heading3">Registration Fee Payment</h1>
+    <br>
+
+    <img src="loader.gif" id="loader" class="loader">
+
+    <br>
+    <br>
+
+    <div class="alert alert-dark message">Transaction on EtherScan - <a href="" id="hashBlock"><b> Click Here</b></a></div>
+    <br>
+    <div class="alert alert-danger message" id="message1" style="font-weight: bold; display: none;"></div> 
+
+    <br>
+    <br>
+    <div class="alert alert-danger message"><b>Please Make sure you have sufficient Ether Balance in your MetaMask Wallet</b></div>
+    <div class="alert alert-info message" id="showFee"><b>Fee to be Paid is - 0 ethers (First Complete above Steps)</b></div>
+    <br>
+
+    <form style="margin-left: 1rem">
+
+        <button type="submit" id="registerButton" class="getStarted">Pay Registration Fees</button>
 
     </form>
 
@@ -135,7 +281,7 @@
             // Non-dapp browsers...
             else {
 
-                alert('Install MetaMask Chrome Extension, read below for Instructions !!');
+                console.log('Install MetaMask Chrome Extension, read below for Instructions !!');
             }
         });
 

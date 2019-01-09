@@ -353,15 +353,24 @@ contract Rent is Owned {
 	    
 		require(msg.value == _amount);
 
-		var user = addressToPerson[msg.sender];
-
 		uint index = user.myContractIndex.length - 1;
+		var details = allOtherDetails[index];
+		var house = allHouses[index];
+		var party = allParties[index];
 
-		var houseDetails = allOtherDetails[index];
-		houseDetails.feePaid = true;
+		if((details.completed == true)&&(house.completed == true)&&(party.completed == true))
+		{
 
+			var user = addressToPerson[msg.sender];
+			houseDetails.feePaid = true;
 
-		feePay('Government Registration Fee Payment Successful');
+			feePay('Government Registration Fee Payment Successful');
+		}
+
+		else 
+		{
+			feePay('Complete all the Steps given above before fee payment');
+		}
 	}
 
 	// --------------------------------------------------------------------------------------------------------
