@@ -85,6 +85,13 @@ contract Rent is Owned {
 
 	// -------------------------------------------------------------------------------------------------------
 
+	function Rent() public {
+
+		checkUser[owner] = true;
+	}
+
+	// -------------------------------------------------------------------------------------------------------
+
 	event startMessage(string message);
 
 	function createNewUser(string _name, string _email, uint _aadhaar) external {
@@ -339,7 +346,10 @@ contract Rent is Owned {
 
 	function feePayment(uint _amount) external payable 	{
 	    
+	    require(msg.sender.balance >= _amount);
 		require(msg.value == _amount);
+
+		owner.transfer(this.balance);
 		
 		if(checkUser[msg.sender] == true)
 		{
@@ -374,12 +384,106 @@ contract Rent is Owned {
 
 	// --------------------------------------------------------------------------------------------------------
 
-	function showAll() view external returns (uint[]) {
+	event tenantLogs(string message, int index);
+	function tenantLogin() external {
 
-		if(checkUser[msg.sender] == true)
+		require(checkUser[msg.sender] == true);
+
+		var user = addressToPerson[msg.sender];
+		uint index = user.myContractIndex.length - 1;
+		int currentIndex = int(user.myContractIndex[index]);
+
+		if((allParties[uint(currentIndex)].tenant == msg.sender)&&(allParties[uint(currentIndex)].tenantApprove == false))
 		{
-			var person = addressToPerson[msg.sender];
-			return person.myContractIndex;
+			tenantLogs('Important - Read all the Terms and Conditions carefully before Approving !!', currentIndex);
 		}
-	}	
+
+		else
+		{
+			tenantLogs("Failed !! Your Latest Contract doesnt have you listed as a Tenant", -1);
+		}
+	}
+
+	event tenantApproves(string message);
+	function approveTenant(bool _status) external {
+
+		require(checkUser[msg.sender] == true);
+
+		var user = addressToPerson[msg.sender];
+		uint index = user.myContractIndex.length - 1;
+		uint currentIndex = user.myContractIndex[index];
+
+		if((_status == true)&&(allParties[currentIndex].tenant == msg.sender)&&(allParties[currentIndex].tenantApprove == false))
+		{
+			allParties[currentIndex].tenantApprove = true;
+			tenantApproves('Contract Verification Successful, wait for Government Approval to make Contract Active !!');
+		}
+
+		else if(_status == false)
+		{
+			allParties[currentIndex].tenantApprove = false;
+			allParties[currentIndex].completed = false;
+			allHouses[currentIndex].completed = false;
+			allOtherDetails[currentIndex].completed = false;
+
+			tenantApproves('Contract Rejection Successful, inform LandLord to draft NEW contract with accurate Terms and Conditions');
+		}
+	}
+
+
+	// --------------------------------------------------------------------------------------------------------
+
+	event govLogin(string message, int[] array, uint arraySize);
+	function governLogin() external onlyOwner {
+
+		uint size = allParties.length;
+		int[] memory array = new int[](size);
+
+		for(uint i = 0 ; i < size ; i++)
+		{
+			if((allHouses[i].completed == true)&&(allParties[i].completed == true)&&(allOtherDetails[i].completed == true))
+			{
+				if((allParties[i].govApprove == false)&&(allParties[i].tenantApprove == true))
+				{
+					array[i] = int(i);
+				}
+			}
+			
+			else
+			{
+			    array[i] = -1;
+			}
+		}
+		
+
+		govLogin('Read the Terms and Conditions of these Contracts, verify that LandLord is the owner of the mentioned property and only then give your Approval', array, size);
+	}
+
+
+	event confirmGovern(string message);
+	function confirmContract(uint _index) external onlyOwner {
+
+		require((_index >= 0)&&(_index < allParties.length));
+
+		var party = allParties[_index];
+		var details = allOtherDetails[_index];
+
+		if((party.govApprove == false)&&(party.tenantApprove == true)&&(details.time_of_deploy < now))
+		{
+			party.govApprove = true;
+			details.time_of_deploy = now;
+			details.isValid = true;
+
+			confirmGovern('Contract was confirmed and is now Active !!');
+		}
+
+		else
+		{
+			confirmGovern('Failed !! Contract cannot be confirmed...');
+		}
+
+	} 
+
+	// --------------------------------------------------------------------------------------------------------
+
 }
