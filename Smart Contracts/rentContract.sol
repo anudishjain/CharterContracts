@@ -18,7 +18,7 @@ contract Owned {
 
 contract Rent is Owned {
 
-	struct Person { // General Details of all Users
+	struct Person {
 
 		address eth;
 		string legalName;
@@ -76,24 +76,12 @@ contract Rent is Owned {
 
 
 	Parties[] public allParties; 
-	// ensure you reserve the SAME index for all 3 once the allParties is added, to prevent misMatch
 	House[] public allHouses;
 	OtherDetails[] public allOtherDetails;
 
 	mapping(address => Person) private addressToPerson;
 	mapping(address => bool) private checkUser;
 	mapping(uint => bool) private checkAadhaar;
-
-	// -------------------------------------------------------------------------------------------------------
-
-	function start() external view returns(bool) {
-
-		if(checkUser[msg.sender] == false)
-		return false;
-
-		else
-		return true;
-	}
 
 	// -------------------------------------------------------------------------------------------------------
 
@@ -279,7 +267,7 @@ contract Rent is Owned {
 
 	event registerDetails(string message, uint status);
 
-	function newDetails(string _lat, string _lon, uint _sqFt, uint _rooms, string _extra, string _ipfs) external payable {
+	function newDetails(string _lat, string _lon, uint _sqFt, uint _rooms, string _extra, string _ipfs) external {
 
 		if(checkUser[msg.sender] == true)
 		{
@@ -352,28 +340,46 @@ contract Rent is Owned {
 	function feePayment(uint _amount) external payable 	{
 	    
 		require(msg.value == _amount);
-
-		uint index = user.myContractIndex.length - 1;
-		var details = allOtherDetails[index];
-		var house = allHouses[index];
-		var party = allParties[index];
-
-		if((details.completed == true)&&(house.completed == true)&&(party.completed == true))
+		
+		if(checkUser[msg.sender] == true)
 		{
+		    var user = addressToPerson[msg.sender];
 
-			var user = addressToPerson[msg.sender];
-			houseDetails.feePaid = true;
+		    uint index = user.myContractIndex.length - 1;
+		    var details = allOtherDetails[index];
+		    var house = allHouses[index];
+		    var party = allParties[index];
+
+		    if((details.completed == true)&&(house.completed == true)&&(party.completed == true))
+		    {
+
+			user = addressToPerson[msg.sender];
+			details.feePaid = true;
 
 			feePay('Government Registration Fee Payment Successful');
-		}
+		    }
+		
 
-		else 
+		    else 
+		    {
+			    feePay('Complete all the Steps given above before fee payment');
+		    }
+		}
+		
+		else
 		{
-			feePay('Complete all the Steps given above before fee payment');
+		    feePay("Failed !! User not Registered..");
 		}
 	}
 
 	// --------------------------------------------------------------------------------------------------------
 
-	
+	function showAll() view external returns (uint[]) {
+
+		if(checkUser[msg.sender] == true)
+		{
+			var person = addressToPerson[msg.sender];
+			return person.myContractIndex;
+		}
+	}	
 }
