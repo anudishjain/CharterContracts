@@ -78,6 +78,11 @@
 
     <h1 class="heading3"><b>Registration Form</b></h1>
     <br>
+    <br>
+
+
+    <div class="alert alert-success message">New Users need to Verify their Public Address by signing the Disclaimer (First, <a href="termsconditions.html" class="message"><b>Read Terms and Conditions </b></a>) and then Complete your Registration.<br> You will need <b>MetaMask Wallet</b> for these Steps</div>
+    <br>
 
     <img src="loader.gif" id="loader" class="loader">
 
@@ -87,10 +92,7 @@
     <div class="alert alert-dark message"><b>Transaction on EtherScan - <a href="" id="hashBlock"> Click Here</b></a></div>
     <br>
     <div class="alert alert-danger message" id="message1" style="font-weight: bold; display: none;"></div> 
-    <br>
-    <div class="alert alert-danger message">New Users need to Verify their Public Address by signing the Disclaimer (First, <a href="termsconditions.html" class="message"><b>Read Terms and Conditions </b></a>) and then Complete your Registration.<br> You will need <b>MetaMask Wallet</b> for these Steps</div>
-    <br>
-    
+    <br>    
 
     <form style="margin-left: 1rem">
 
@@ -664,13 +666,23 @@
 
             if(ans != false)
             {
+                if(($("#legalName").val() != '')&&($("#email").val() != '')&&($("#aadhaar").val() != 0))
+                {
+
                 rentInfo.createNewUser($("#legalName").val(), $("#email").val(), $("#aadhaar").val(), message, (err, res) => {
             
                 if(err) {
                     $("#loader").hide();
                 }
+                });
 
-            });
+                }
+
+                else
+                {
+                    $("#loader").hide();
+                    alert('Fill the form Correctly');   
+                }
 
             }
 
