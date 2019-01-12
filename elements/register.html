@@ -32,6 +32,8 @@
 
       <h2 class="heading2 w3-animate-opacity">User Registration Dashboard</h2>
 
+      <br>
+
   </div>
 
   <div class="container-fluid explain">
@@ -41,7 +43,7 @@
         <br>
         <br>
 
-        <h1 class="heading3" style="color: white"><b> Kindly Read This <span class="text-muted">(Important)</span></b></h1>
+        <h1 class="heading3" style="color: white"><b> Read This <span class="text-muted">(Important)</span></b></h1>
 
         <br>
 
@@ -85,8 +87,10 @@
     <div class="alert alert-dark message"><b>Transaction on EtherScan - <a href="" id="hashBlock"> Click Here</b></a></div>
     <br>
     <div class="alert alert-danger message" id="message1" style="font-weight: bold; display: none;"></div> 
-
     <br>
+    <div class="alert alert-danger message">New Users need to Verify their Public Address by signing the Disclaimer (First, <a href="termsconditions.html" class="message"><b>Read Terms and Conditions </b></a>) and then Complete your Registration.<br> You will need <b>MetaMask Wallet</b> for these Steps</div>
+    <br>
+    
 
     <form style="margin-left: 1rem">
 
@@ -97,8 +101,9 @@
         <input class="formInput form-control" type="number" id="aadhaar" placeholder="Enter Aadhaar (12 Digits)" min="100000000000" max="999999999999" required>
 
         <br>
-
-        <button type="submit" id="registerButton" class="getStarted">Submit</button>
+        <button type="button" id="acceptButton" class="getStarted">Verify My Address</button>
+        <br>
+        <button type="button" id="registerButton" class="getStarted">Complete Registration</button>
 
     </form>
 
@@ -140,9 +145,37 @@
         });
 
         var rentContract = web3.eth.contract([
-        {
-            "constant": false,
-            "inputs": [
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "_status",
+                "type": "bool"
+            }
+        ],
+        "name": "approveTenant",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "_index",
+                "type": "uint256"
+            }
+        ],
+        "name": "confirmContract",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
             {
                 "name": "_name",
                 "type": "string"
@@ -154,75 +187,44 @@
             {
                 "name": "_aadhaar",
                 "type": "uint256"
+            },
+            {
+                "name": "_sign",
+                "type": "string"
             }
-            ],
-            "name": "createNewUser",
-            "outputs": [],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [
+        ],
+        "name": "createNewUser",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
             {
                 "name": "_amount",
                 "type": "uint256"
             }
-            ],
-            "name": "feePayment",
-            "outputs": [],
-            "payable": true,
-            "stateMutability": "payable",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [
-            {
-                "name": "_add",
-                "type": "string"
-            },
-            {
-                "name": "_type",
-                "type": "string"
-            },
-            {
-                "name": "_timeMonths",
-                "type": "uint256"
-            },
-            {
-                "name": "_rent",
-                "type": "uint256"
-            },
-            {
-                "name": "_security",
-                "type": "uint256"
-            }
-            ],
-            "name": "registerHomes",
-            "outputs": [],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [
-            {
-                "name": "_tenant",
-                "type": "address"
-            }
-            ],
-            "name": "registerParties",
-            "outputs": [],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [
+        ],
+        "name": "feePayment",
+        "outputs": [],
+        "payable": true,
+        "stateMutability": "payable",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [],
+        "name": "governLogin",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
             {
                 "name": "_lat",
                 "type": "string"
@@ -247,28 +249,87 @@
                 "name": "_ipfs",
                 "type": "string"
             }
-            ],
-            "name": "regsiterDetails",
-            "outputs": [],
-            "payable": true,
-            "stateMutability": "payable",
-            "type": "function"
-        },
-        {
-            "anonymous": false,
-            "inputs": [
+        ],
+        "name": "newDetails",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "_add",
+                "type": "string"
+            },
+            {
+                "name": "_type",
+                "type": "string"
+            },
+            {
+                "name": "_timeMonths",
+                "type": "uint256"
+            },
+            {
+                "name": "_rent",
+                "type": "uint256"
+            },
+            {
+                "name": "_security",
+                "type": "uint256"
+            }
+        ],
+        "name": "newHome",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "_tenant",
+                "type": "address"
+            }
+        ],
+        "name": "registerParties",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [],
+        "name": "tenantLogin",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
             {
                 "indexed": false,
                 "name": "message",
                 "type": "string"
             }
-            ],
-            "name": "startMessage",
-            "type": "event"
-        },
-        {
-            "anonymous": false,
-            "inputs": [
+        ],
+        "name": "startMessage",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
             {
                 "indexed": false,
                 "name": "message",
@@ -279,13 +340,13 @@
                 "name": "status",
                 "type": "uint256"
             }
-            ],
-            "name": "registerParty",
-            "type": "event"
-        },
-        {
-            "anonymous": false,
-            "inputs": [
+        ],
+        "name": "registerParty",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
             {
                 "indexed": false,
                 "name": "message",
@@ -301,13 +362,13 @@
                 "name": "FeePayable",
                 "type": "uint256"
             }
-            ],
-            "name": "registerHome",
-            "type": "event"
-        },
-        {
-            "anonymous": false,
-            "inputs": [
+        ],
+        "name": "registerHome",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
             {
                 "indexed": false,
                 "name": "message",
@@ -318,32 +379,95 @@
                 "name": "status",
                 "type": "uint256"
             }
-            ],
-            "name": "registerDetail",
-            "type": "event"
-        },
-        {
-            "anonymous": false,
-            "inputs": [
+        ],
+        "name": "registerDetails",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
             {
                 "indexed": false,
                 "name": "message",
                 "type": "string"
             }
-            ],
-            "name": "feePay",
-            "type": "event"
-        },
-        {
-            "constant": true,
-            "inputs": [
+        ],
+        "name": "feePay",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "name": "message",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "name": "index",
+                "type": "int256"
+            }
+        ],
+        "name": "tenantLogs",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "name": "message",
+                "type": "string"
+            }
+        ],
+        "name": "tenantApproves",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "name": "message",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "name": "array",
+                "type": "int256[]"
+            },
+            {
+                "indexed": false,
+                "name": "arraySize",
+                "type": "uint256"
+            }
+        ],
+        "name": "govLogin",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "name": "message",
+                "type": "string"
+            }
+        ],
+        "name": "confirmGovern",
+        "type": "event"
+    },
+    {
+        "constant": true,
+        "inputs": [
             {
                 "name": "",
                 "type": "uint256"
             }
-            ],
-            "name": "allHouses",
-            "outputs": [
+        ],
+        "name": "allHouses",
+        "outputs": [
             {
                 "name": "addressHouse",
                 "type": "string"
@@ -372,21 +496,21 @@
                 "name": "completed",
                 "type": "bool"
             }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
             {
                 "name": "",
                 "type": "uint256"
             }
-            ],
-            "name": "allOtherDetails",
-            "outputs": [
+        ],
+        "name": "allOtherDetails",
+        "outputs": [
             {
                 "name": "time_of_deploy",
                 "type": "uint256"
@@ -427,21 +551,21 @@
                 "name": "completed",
                 "type": "bool"
             }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
             {
                 "name": "",
                 "type": "uint256"
             }
-            ],
-            "name": "allParties",
-            "outputs": [
+        ],
+        "name": "allParties",
+        "outputs": [
             {
                 "name": "tenantApprove",
                 "type": "bool"
@@ -466,29 +590,17 @@
                 "name": "completed",
                 "type": "bool"
             }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [],
-            "name": "start",
-            "outputs": [
-            {
-                "name": "",
-                "type": "bool"
-            }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        }
-        ]);
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    }
+]);
 
-        var rentInfo = rentContract.at('0x5e6de4099a2d423894e9a98c27a5fbccfb7cfa37');
+        var rentInfo = rentContract.at('0x98906834bf09d94ab356ef5af7ba7ae184a3257e');
         // contract address ---------------------------------------------------------------------
+
+        web3.eth.defaultAccount = web3.eth.accounts[0];
 
         var event = rentInfo.startMessage({}, 'latest');
 
@@ -517,31 +629,59 @@
 
         });
 
-        $("#registerButton").click(function() {
+        var ans = false;
+        var message;
 
-            if(($("#legalName").val() != "")&&($("#email").val() != "")&&($("#aadhaar").val() != ""))
-            {
-                $("#loader").show();
+        $("#acceptButton").click(function() {
 
-                        // show loader once we have placed data
-                        rentInfo.createNewUser($("#legalName").val(), $("#email").val(), $("#aadhaar").val(), (err, res) => {
-                            // this is the part which will submit data from the button to the contract
+            $("#loader").show();
 
-                            if(err) {
-                                $("#loader").hide();
-                            }
+            var currentDate = new Date();
+            
+            web3.personal.sign(web3.toHex("Disclaimer - I have read the Terms and Conditions carefully, dated - " + currentDate), web3.eth.accounts[0], 
+                function(error, result){
 
-                        });
+                if(error)
+                {
+                    $("#loader").hide();
+                    alert('Failed !! Digital Message Signature cannot be performed..');
+                }
 
-            }
+                else
+                {
+                    message = result;
+                    ans = true;
+                    $("#loader").hide();
+                }
 
-            else
-            {
-                alert("Please fill the form correctly");
-            }
-
+           });
         });
 
+        $("#registerButton").click(function() {
+
+            $("#loader").show();
+            console.log(message);
+
+            if(ans != false)
+            {
+                rentInfo.createNewUser($("#legalName").val(), $("#email").val(), $("#aadhaar").val(), message, (err, res) => {
+            
+                if(err) {
+                    $("#loader").hide();
+                }
+
+            });
+
+            }
+
+            else {
+
+                alert('Complete Step 1 - Verify your Address, by signing the Disclaimer (Click Verify)');
+            }
+
+        });   
+
+        
 
     </script>
 

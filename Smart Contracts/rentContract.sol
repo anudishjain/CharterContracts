@@ -25,6 +25,7 @@ contract Rent is Owned {
 		string email;
 		uint aadhaar;
 
+		string sign;
 		uint[] myContractIndex;
 	}
 
@@ -94,7 +95,7 @@ contract Rent is Owned {
 
 	event startMessage(string message);
 
-	function createNewUser(string _name, string _email, uint _aadhaar) external {
+	function createNewUser(string _name, string _email, uint _aadhaar, string _sign) external {
 
 		if((checkUser[msg.sender] == true)||(checkAadhaar[_aadhaar] == true))
 		{
@@ -103,7 +104,7 @@ contract Rent is Owned {
 
 		else if((checkUser[msg.sender] != true)&&(checkAadhaar[_aadhaar] != true))
 		{
-			var newUser = Person(msg.sender, _name, _email, _aadhaar, new uint[](0));
+			var newUser = Person(msg.sender, _name, _email, _aadhaar, _sign, new uint[](0));
 			addressToPerson[msg.sender] = newUser;
 
 			checkUser[msg.sender] = true;

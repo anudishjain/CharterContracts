@@ -17,7 +17,7 @@ html {
 .icon {
 
 	width: 14rem;
-	margin-top: 4rem;
+	margin-top: 3rem;
 }
 
 .heading {
@@ -97,15 +97,10 @@ button:focus {
 	outline: 0 !important;
 }
 
-.explain {
-
-	margin-top: 8rem;
-	background-color: #313642;
-}
 
 .explain2 {
 
-	margin-top: -0.5rem;
+	margin-top: 8rem;
 	background-color: #adbadb;
 }
 
