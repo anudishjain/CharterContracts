@@ -1,4 +1,4 @@
-web3.eth.defaultAccount = web3.eth.accounts[0];
+        web3.eth.defaultAccount = web3.eth.accounts[0];
 
         var event = rentInfo.startMessage({}, 'latest');
 
@@ -10,11 +10,11 @@ web3.eth.defaultAccount = web3.eth.accounts[0];
                 $("#message1").show();
                 $("#hashBlock").show();
 
-            if(result.transactionHash != $("#hashBlock").html())
+                if(result.transactionHash != $("#hashBlock").html())
                 $("#loader").hide(); /// hide loader once we get successful response
 
-                $('#hashBlock').attr("href", "https://ropsten.etherscan.io/tx/" + result.transactionHash);
-                $("#message1").html(result.args.message);
+            $('#hashBlock').attr("href", "https://ropsten.etherscan.io/tx/" + result.transactionHash);
+            $("#message1").html(result.args.message);
                 /// load data once we get the data back from the event User()
                 //we used toAscii as we are using bytes we need to convert hex to string format for display
             }
@@ -39,20 +39,20 @@ web3.eth.defaultAccount = web3.eth.accounts[0];
             web3.personal.sign(web3.toHex("\n I have read the Terms and Conditions carefully and will follow the same while using the Charter Platform \n\n Dated - " + currentDate), web3.eth.accounts[0], 
                 function(error, result){
 
-                if(error)
-                {
-                    $("#loader").hide();
-                    alert('Failed !! Digital Message Signature cannot be performed..');
-                }
+                    if(error)
+                    {
+                        $("#loader").hide();
+                        alert('Failed !! Digital Message Signature cannot be performed..');
+                    }
 
-                else
-                {
-                    message = result;
-                    ans = true;
-                    $("#loader").hide();
-                }
+                    else
+                    {
+                        message = result;
+                        ans = true;
+                        $("#loader").hide();
+                    }
 
-           });
+                });
         });
 
         $("#registerButton").click(function() {
@@ -65,12 +65,12 @@ web3.eth.defaultAccount = web3.eth.accounts[0];
                 if(($("#legalName").val() != '')&&($("#email").val() != '')&&($("#aadhaar").val() != 0))
                 {
 
-                rentInfo.createNewUser($("#legalName").val(), $("#email").val(), $("#aadhaar").val(), message, (err, res) => {
-            
-                if(err) {
-                    $("#loader").hide();
-                }
-                });
+                    rentInfo.createNewUser($("#legalName").val(), $("#email").val(), $("#aadhaar").val(), message, (err, res) => {
+                        
+                        if(err) {
+                            $("#loader").hide();
+                        }
+                    });
 
                 }
 

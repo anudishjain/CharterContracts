@@ -79,12 +79,12 @@
     <h1 class="heading3">Tenant's Information</h1>
     <br>
 
-    <img src="extra/loader.gif" id="loader" class="loader">
+    <img src="extra/loader.gif" id="loader1" class="loader">
 
     <br>
     <br>
 
-    <div class="alert alert-dark message"><b>Transaction on EtherScan - <a href="" id="hashBlock"> Click Here</b></a></div>
+    <div class="alert alert-dark message"><b>Transaction on EtherScan - <a href="" id="hashBlock1"> Click Here</b></a></div>
     <br>
     <div class="alert alert-danger message" id="message1" style="font-weight: bold; display: none;"></div> 
 
@@ -94,7 +94,7 @@
 
         <input class="formInput form-control" type="text" id="tenantAdd" placeholder="Tenant's Ethereum Address" required>
         <br>
-        <button type="submit" id="registerButton" class="getStarted">Submit</button>
+        <button type="button" id="registerButton1" class="getStarted">Submit</button>
 
     </form>
 
@@ -116,14 +116,14 @@
     <h1 class="heading3">Property's Information</h1>
     <br>
 
-    <img src="extra/loader.gif" id="loader" class="loader">
+    <img src="extra/loader.gif" id="loader2" class="loader">
 
     <br>
     <br>
 
-    <div class="alert alert-dark message"><b>Transaction on EtherScan - <a href="" id="hashBlock">Click Here</b></a></div>
+    <div class="alert alert-dark message"><b>Transaction on EtherScan - <a href="" id="hashBlock2">Click Here</b></a></div>
     <br>
-    <div class="alert alert-danger message" id="message1" style="font-weight: bold; display: none;"></div> 
+    <div class="alert alert-danger message" id="message2" style="font-weight: bold; display: none;"></div> 
 
     <br>
 
@@ -131,19 +131,19 @@
 
         <textarea class="formInput form-control" type="text" id="address" rows="5" placeholder="Complete Address of the Property" required></textarea>
         <br>
-        <select class="formInput" name="Property Type">
+        <select class="formInput" name="Property Type" id="type">
         <option value="Residential Type">Residential Property Type</option>
         <option value="Commercial Type">Commercial Property Type</option>
-        <option value="Others">Other Property Types</option>
+        <option value="Other">Others</option>
         </select>
         <br>
         <br>
         <input class="formInput form-control" type="number" id="duration" placeholder="Duration (in Months) of Contract" required>
         <br>
-        <input class="formInput form-control" type="number" id="rent" placeholder="Monthly Rent (in ₹)" required>
+        <input class="formInput form-control" type="number" id="rent" placeholder="Monthly Rent (> 0 and in ₹)" required>
         <input class="formInput form-control" type="text" id="security" placeholder="Security Deposit (0 if N/A, in ₹)" required>
         <br>
-        <button type="submit" id="registerButton" class="getStarted">Submit</button>
+        <button type="button" id="registerButton2" class="getStarted">Submit</button>
 
     </form>
 
@@ -165,14 +165,14 @@
     <h1 class="heading3">Miscellaneous Information</h1>
     <br>
 
-    <img src="extra/loader.gif" id="loader" class="loader">
+    <img src="extra/loader.gif" id="loader3" class="loader">
 
     <br>
     <br>
 
-    <div class="alert alert-dark message"><b>Transaction on EtherScan - <a href="" id="hashBlock"> Click Here</b></a></div>
+    <div class="alert alert-dark message"><b>Transaction on EtherScan - <a href="" id="hashBlock3"> Click Here</b></a></div>
     <br>
-    <div class="alert alert-danger message" id="message1" style="font-weight: bold; display: none;"></div> 
+    <div class="alert alert-danger message" id="message3" style="font-weight: bold; display: none;"></div> 
 
     <br>
 
@@ -202,7 +202,7 @@
 
         <br>
 
-        <button type="submit" id="registerButton" class="getStarted">Submit</button>
+        <button type="submit" id="registerButton3" class="getStarted">Submit</button>
 
     </form>
 
@@ -227,24 +227,24 @@
     <h1 class="heading3">Registration Fee Payment</h1>
     <br>
 
-    <img src="extra/loader.gif" id="loader" class="loader">
+    <img src="extra/loader.gif" id="loader4" class="loader">
 
     <br>
     <br>
 
-    <div class="alert alert-dark message">Transaction on EtherScan - <a href="" id="hashBlock"><b> Click Here</b></a></div>
+    <div class="alert alert-dark message">Transaction on EtherScan - <a href="" id="hashBlock4"><b> Click Here</b></a></div>
     <br>
     <div class="alert alert-danger message" id="message1" style="font-weight: bold; display: none;"></div> 
 
     <br>
     <br>
-    <div class="alert alert-danger message"><b>Please Make sure you have sufficient Ether Balance in your MetaMask Wallet</b></div>
-    <div class="alert alert-info message" id="showFee"><b>Fee to be Paid is - 0 ethers (First Complete above Steps)</b></div>
+    <div class="alert alert-danger message"><b>Please make sure you have sufficient Ether Balance in your MetaMask Wallet</b></div>
+    <div class="alert alert-info message" id="showFee"><b>Fee to be paid - N/A (First Complete above Steps)</b></div>
     <br>
 
     <form style="margin-left: 1rem">
 
-        <button type="submit" id="registerButton" class="getStarted">Pay Registration Fees</button>
+        <button type="submit" id="registerButton4" class="getStarted">Pay Registration Fees</button>
 
     </form>
 
@@ -256,441 +256,8 @@
 </div>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="javascript/common.js"></script>
+<script src="javascript/registerFull.js"></script>
 
-<script>
-
-    window.addEventListener('load', async () => {
-            // Modern dapp browsers...
-            if (window.ethereum) {
-                window.web3 = new Web3(ethereum);
-                try {
-                        // Request account access if needed
-                        await ethereum.enable();
-                        // Acccounts now exposed
-                    web3.eth.sendTransaction({/* ... */});
-                } catch (error) {
-                    // User denied account access...
-                }
-            }
-                // Legacy dapp browsers...
-                else if (window.web3) {
-                    window.web3 = new Web3(web3.currentProvider);
-                // Acccounts always exposed
-            web3.eth.sendTransaction({/* ... */});
-        }
-            // Non-dapp browsers...
-            else {
-
-                alert('Install MetaMask Chrome Extension, read below for Instructions !!');
-            }
-        });
-
-        var rentContract = web3.eth.contract([
-        {
-            "constant": false,
-            "inputs": [
-            {
-                "name": "_name",
-                "type": "string"
-            },
-            {
-                "name": "_email",
-                "type": "string"
-            },
-            {
-                "name": "_aadhaar",
-                "type": "uint256"
-            }
-            ],
-            "name": "createNewUser",
-            "outputs": [],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [
-            {
-                "name": "_amount",
-                "type": "uint256"
-            }
-            ],
-            "name": "feePayment",
-            "outputs": [],
-            "payable": true,
-            "stateMutability": "payable",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [
-            {
-                "name": "_add",
-                "type": "string"
-            },
-            {
-                "name": "_type",
-                "type": "string"
-            },
-            {
-                "name": "_timeMonths",
-                "type": "uint256"
-            },
-            {
-                "name": "_rent",
-                "type": "uint256"
-            },
-            {
-                "name": "_security",
-                "type": "uint256"
-            }
-            ],
-            "name": "registerHomes",
-            "outputs": [],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [
-            {
-                "name": "_tenant",
-                "type": "address"
-            }
-            ],
-            "name": "registerParties",
-            "outputs": [],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [
-            {
-                "name": "_lat",
-                "type": "string"
-            },
-            {
-                "name": "_lon",
-                "type": "string"
-            },
-            {
-                "name": "_sqFt",
-                "type": "uint256"
-            },
-            {
-                "name": "_rooms",
-                "type": "uint256"
-            },
-            {
-                "name": "_extra",
-                "type": "string"
-            },
-            {
-                "name": "_ipfs",
-                "type": "string"
-            }
-            ],
-            "name": "regsiterDetails",
-            "outputs": [],
-            "payable": true,
-            "stateMutability": "payable",
-            "type": "function"
-        },
-        {
-            "anonymous": false,
-            "inputs": [
-            {
-                "indexed": false,
-                "name": "message",
-                "type": "string"
-            }
-            ],
-            "name": "startMessage",
-            "type": "event"
-        },
-        {
-            "anonymous": false,
-            "inputs": [
-            {
-                "indexed": false,
-                "name": "message",
-                "type": "string"
-            },
-            {
-                "indexed": false,
-                "name": "status",
-                "type": "uint256"
-            }
-            ],
-            "name": "registerParty",
-            "type": "event"
-        },
-        {
-            "anonymous": false,
-            "inputs": [
-            {
-                "indexed": false,
-                "name": "message",
-                "type": "string"
-            },
-            {
-                "indexed": false,
-                "name": "status",
-                "type": "uint256"
-            },
-            {
-                "indexed": false,
-                "name": "FeePayable",
-                "type": "uint256"
-            }
-            ],
-            "name": "registerHome",
-            "type": "event"
-        },
-        {
-            "anonymous": false,
-            "inputs": [
-            {
-                "indexed": false,
-                "name": "message",
-                "type": "string"
-            },
-            {
-                "indexed": false,
-                "name": "status",
-                "type": "uint256"
-            }
-            ],
-            "name": "registerDetail",
-            "type": "event"
-        },
-        {
-            "anonymous": false,
-            "inputs": [
-            {
-                "indexed": false,
-                "name": "message",
-                "type": "string"
-            }
-            ],
-            "name": "feePay",
-            "type": "event"
-        },
-        {
-            "constant": true,
-            "inputs": [
-            {
-                "name": "",
-                "type": "uint256"
-            }
-            ],
-            "name": "allHouses",
-            "outputs": [
-            {
-                "name": "addressHouse",
-                "type": "string"
-            },
-            {
-                "name": "type_of_property",
-                "type": "string"
-            },
-            {
-                "name": "duration",
-                "type": "uint256"
-            },
-            {
-                "name": "rentAmount",
-                "type": "uint256"
-            },
-            {
-                "name": "securityFee",
-                "type": "uint256"
-            },
-            {
-                "name": "governFee",
-                "type": "uint256"
-            },
-            {
-                "name": "completed",
-                "type": "bool"
-            }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [
-            {
-                "name": "",
-                "type": "uint256"
-            }
-            ],
-            "name": "allOtherDetails",
-            "outputs": [
-            {
-                "name": "time_of_deploy",
-                "type": "uint256"
-            },
-            {
-                "name": "latitude",
-                "type": "string"
-            },
-            {
-                "name": "longitude",
-                "type": "string"
-            },
-            {
-                "name": "ipfs_url",
-                "type": "string"
-            },
-            {
-                "name": "squareFootage",
-                "type": "uint256"
-            },
-            {
-                "name": "numberBedrooms",
-                "type": "uint256"
-            },
-            {
-                "name": "others",
-                "type": "string"
-            },
-            {
-                "name": "feePaid",
-                "type": "bool"
-            },
-            {
-                "name": "isValid",
-                "type": "bool"
-            },
-            {
-                "name": "completed",
-                "type": "bool"
-            }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [
-            {
-                "name": "",
-                "type": "uint256"
-            }
-            ],
-            "name": "allParties",
-            "outputs": [
-            {
-                "name": "tenantApprove",
-                "type": "bool"
-            },
-            {
-                "name": "govApprove",
-                "type": "bool"
-            },
-            {
-                "name": "landlord",
-                "type": "address"
-            },
-            {
-                "name": "tenant",
-                "type": "address"
-            },
-            {
-                "name": "government",
-                "type": "address"
-            },
-            {
-                "name": "completed",
-                "type": "bool"
-            }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [],
-            "name": "start",
-            "outputs": [
-            {
-                "name": "",
-                "type": "bool"
-            }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        }
-        ]);
-
-        var rentInfo = rentContract.at('0x5e6de4099a2d423894e9a98c27a5fbccfb7cfa37');
-        // contract address ---------------------------------------------------------------------
-
-        var event = rentInfo.startMessage({}, 'latest');
-
-        event.watch(function(error, result) {
-
-            if(!error)
-            {
-
-                $("#message1").show();
-                $("#hashBlock").show();
-
-            if(result.transactionHash != $("#hashBlock").html())
-                $("#loader").hide(); /// hide loader once we get successful response
-
-                $('#hashBlock').attr("href", "https://ropsten.etherscan.io/tx/" + result.transactionHash);
-                $("#message1").html(result.args.message);
-                /// load data once we get the data back from the event User()
-                //we used toAscii as we are using bytes we need to convert hex to string format for display
-            }
-
-            else
-            {
-                $('#loader').hide();
-                console.log(error);
-            }
-
-        });
-
-        $("#registerButton").click(function() {
-
-            if(($("#legalName").val() != "")&&($("#email").val() != "")&&($("#aadhaar").val() != ""))
-            {
-                $("#loader").show();
-
-                        // show loader once we have placed data
-                        rentInfo.createNewUser($("#legalName").val(), $("#email").val(), $("#aadhaar").val(), (err, res) => {
-                            // this is the part which will submit data from the button to the contract
-
-                            if(err) {
-                                $("#loader").hide();
-                            }
-
-                        });
-
-            }
-
-            else
-            {
-                alert("Please fill the form correctly");
-            }
-
-        });
-
-
-    </script>
-
-    </body>
-
-    </html>
+</body>
+</html>
