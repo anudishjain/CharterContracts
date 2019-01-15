@@ -174,7 +174,7 @@ contract Rent is Owned {
 
 			if(index < 0)
 			{
-				registerHome('Failed !! Complete Registration of Parties before this Step', 0, 0);
+				registerHome('Failed !! Complete  Step - 1 before this Step', 0, 0);
 			}
 
 			else

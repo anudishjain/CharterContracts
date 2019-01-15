@@ -53,7 +53,7 @@
             }
         });
 
-// ---------------------------------------------------------
+// -------------------------------------------------------------------------------------------------------------------
 
         var event = rentInfo.registerHome({}, 'latest');
 
@@ -87,7 +87,7 @@
         // -----------------
         var address = String($("#address").val());
 
-        var type = String($(‘select’).val());
+        var propType = String($("#type").val());
 
         var duration = String($("#duration").val());
         var rent = String($("#rent").val());
@@ -98,9 +98,9 @@
 
             $("#loader2").show();
 
-            if(($("#address").val() != '')&&(type != '')&&($("#address").val() != '')&&($("#rent").val() > 0))
+            if(($("#address").val() != '')&&($("#type").val() != '')&&($("#address").val() != '')&&($("#rent").val() > 0))
             {
-                rentInfo.registerParties($("#address").val(), type, $("#duration").val(), $("#rent").val(), 
+                rentInfo.newHome($("#address").val(), $("#type").val(), $("#duration").val(), $("#rent").val(), 
                     $("#security").val(), (err, res) => {
 
                     if(err) {
