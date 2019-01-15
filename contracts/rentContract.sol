@@ -350,7 +350,7 @@ contract Rent is Owned {
 
 	event feePay(string message);
 
-	function feePayment(uint _amount) external payable 	{
+	function feePayment(uint _amount, string sign) external payable	{
 	    
 	    require(msg.sender.balance >= _amount);
 		require(msg.value == _amount);
@@ -371,10 +371,10 @@ contract Rent is Owned {
 
 			user = addressToPerson[msg.sender];
 			details.feePaid = true;
+			party.sign_landlord = sign;
 
 			feePay('Government Registration Fee Payment Successful');
 		    }
-		
 
 		    else 
 		    {
