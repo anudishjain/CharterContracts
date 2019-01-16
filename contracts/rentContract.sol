@@ -26,7 +26,9 @@ contract Rent is Owned {
 		uint aadhaar;
 
 		string sign;
-		uint[] myContractIndex;
+		
+		uint[] myOwned;
+		uint[] myRented;
 	}
 
 	struct Parties {
@@ -107,7 +109,7 @@ contract Rent is Owned {
 
 		else if((checkUser[msg.sender] != true)&&(checkAadhaar[_aadhaar] != true))
 		{
-			var newUser = Person(msg.sender, _name, _email, _aadhaar, _sign, new uint[](0));
+			var newUser = Person(msg.sender, _name, _email, _aadhaar, _sign, new uint[](0), new uint[](0));
 			addressToPerson[msg.sender] = newUser;
 
 			checkUser[msg.sender] = true;
@@ -139,10 +141,10 @@ contract Rent is Owned {
 				allOtherDetails.push(newRent);
 
 				var user = addressToPerson[msg.sender];
-				user.myContractIndex.push(index);
+				user.myOwned.push(index);
 
 				var tenant = addressToPerson[_tenant];
-				tenant.myContractIndex.push(index);
+				tenant.myRented.push(index);
 
 				registerParty('Step 1 Completed - Proceed to Step 2 to enter Contract Details', 1);
 			}
@@ -170,7 +172,7 @@ contract Rent is Owned {
 		{
 			var user = addressToPerson[msg.sender];
 
-			uint index = user.myContractIndex.length - 1;
+			uint index = user.myOwned.length - 1;
 
 			if(index < 0)
 			{
@@ -188,7 +190,7 @@ contract Rent is Owned {
 
 				else
 				{
-					uint lastIndex = user.myContractIndex[index];
+					uint lastIndex = user.myOwned[index];
 
 					var home = allHouses[lastIndex];
 
@@ -286,7 +288,7 @@ contract Rent is Owned {
 		{
 			var user = addressToPerson[msg.sender];
 
-			uint index = user.myContractIndex.length - 1;
+			uint index = user.myOwned.length - 1;
 
 			if(index < 0)
 			{
@@ -304,7 +306,7 @@ contract Rent is Owned {
 
 				else
 				{
-					uint lastIndex = user.myContractIndex[index];
+					uint lastIndex = user.myOwned[index];
 
 					var details = allOtherDetails[lastIndex];
 					var home = allHouses[lastIndex];
@@ -361,7 +363,7 @@ contract Rent is Owned {
 		{
 		    var user = addressToPerson[msg.sender];
 
-		    uint index = user.myContractIndex.length - 1;
+		    uint index = user.myOwned.length - 1;
 		    var details = allOtherDetails[index];
 		    var house = allHouses[index];
 		    var party = allParties[index];

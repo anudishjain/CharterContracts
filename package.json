@@ -1,5 +1,5 @@
 {
-  "name": "charter",
+  "name": "chartercontracts",
   "version": "1.1.0",
   "description": "Charter Rental Smart Contracts",
   "main": "index.js",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/anudishjain/Charter.git"
+    "url": "git+https://github.com/anudishjain/CharterContracts.git"
   },
   "author": "Anudish Jain",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/anudishjain/Charter/issues"
+    "url": "https://github.com/anudishjain/CharterContracts/issues"
   },
-  "homepage": "https://github.com/anudishjain/Charter#readme",
+  "homepage": "https://github.com/anudishjain/CharterContracts#readme",
   "dependencies": {
     "web3": "^0.20.6"
   },

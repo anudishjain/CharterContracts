@@ -266,7 +266,7 @@ var event = rentInfo.feePay({}, 'latest');
 
             if(ans != false)
             {
-                rentInfo.feePayment(Number(amount), String(message), (err, res) => {
+                rentInfo.feePayment(parseInt(amount), String(message), (err, res) => {
                         
                     if(err) {
                         $("#loader4").hide();
