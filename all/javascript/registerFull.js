@@ -238,7 +238,7 @@ var event = rentInfo.feePay({}, 'latest');
 
             var currentDate = new Date();
             
-            web3.personal.sign(web3.toHex("\nI hereby lease Property Situated at \n" + ($("#address").val()) + "\n\nto Tenant Address -" + 
+            web3.personal.sign(web3.toHex("\nI hereby lease Property Situated at \n\n" + ($("#address").val()) + "\n\nto Tenant Address -" + 
             ($("#tenantAdd").val()) + '\n\nfor ' + String($("#duration").val()) + ' Months,' + ' at Rent Amount of ' + String($("#rent").val()) + 
             ' Rupees and Security Fee of ' + String($("#security").val()) + ' Rupees ' + '\nOther terms of agreement are - \n\n'+ ($("#extra").val()) + 
             '\n\nDated - ' + (currentDate) + '\n\n1 Ether priced at ' + String(price) + ' Rupees') ,web3.eth.accounts[0], function(error, result){
@@ -263,6 +263,8 @@ var event = rentInfo.feePay({}, 'latest');
 
             $("#loader4").show();
             console.log(message);
+
+            console.log(parseInt(amount));
 
             if(ans != false)
             {

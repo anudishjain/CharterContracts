@@ -353,11 +353,8 @@ contract Rent is Owned {
 	event feePay(string message);
 
 	function feePayment(uint _amount, string sign) external payable	{
-	    
-	    require(msg.sender.balance >= _amount);
-		require(msg.value == _amount);
 
-		owner.transfer(this.balance);
+		require(msg.value == _amount);
 		
 		if(checkUser[msg.sender] == true)
 		{

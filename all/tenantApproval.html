@@ -1,0 +1,162 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="css/tenantApproval.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Anaheim|Abel" rel="stylesheet">
+
+    <!-- W3 school CSS Effects -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <title>Tenant Approval</title>
+
+</head>
+
+<body>
+
+    <div id="ytWidget" align="right"></div><script src="https://translate.yandex.net/website-widget/v1/widget.js?widgetId=ytWidget&pageLang=en&widgetTheme=dark&autoMode=false" type="text/javascript"></script>
+
+    <div class="container" align="center">
+
+      <img class="icon" src="extra/icon.png" align="center">
+
+      <h1 class="heading w3-animate-opacity"><b>Charter for Tenants</b></h1>
+
+      <h2 class="heading2 w3-animate-opacity">Contract Verification Dashboard</h2>
+
+      <br>
+
+  </div>
+
+  <div class="container-fluid explain">
+
+   <div style="margin-left: 1rem; margin-right: 1rem;">
+
+    <br>
+    <br>
+    <br>
+    <h1 class="heading3" style="color: white"><b> Read This (Important)</b></h1>
+    <br>
+    <p class="textPara">
+
+        - Read all the Terms and Conditions of the Contract as deployed by the Landlord before signing the Contract. If any error is found contact the 
+        landlord to draft a new contract accordingly.
+        <br>
+        <br>
+        - Registration Fee of the Contract is paid by the Landlord at the time of Contract Deployment and is transferred to the Owner of the Contract 
+        (Government) immediately.
+        <br>
+        <br>
+        - Maintain sufficient balance in your MetaMask Ethereum Wallet as Tenants are required to pay the Security Deposit as mentioned in the Contract when signing the contract.
+        <br>
+        <br>
+        - The Security Deposit will be held in an Escrow Account and when Tenant and Landlord will provide approval, will be transferred to the Tenant back after deduction of the decided amount.
+        <br>
+        <br>
+        - <b>If you wish to accept the Contract, first Sign the Contract and then pay the Security Deposit.</b>
+        <br>
+    </p>
+
+</div>
+<div align="center"><button type="button" id="seeContract" class="getStarted">See the Contract</button></div>
+<br>
+<br>
+<br>
+</div>
+
+<br>
+
+
+<div class="container-fluid" align="center" id="contractDetails" style="background: #d3c3e0;" >
+
+    <div align="left" style="margin-left: 4%; margin-right: 8%">
+
+    <br>
+    <br>
+    <h1 class="jumboHead"><b>1. LandLord Details</b></h1>
+    <br>
+    <h1 class="jumboText"><b>Landlord's Name</b></h1>
+    <h1 class="jumboText" id="landlordName">Landlord Name</h1>
+    <h1 class="jumboText"><b>Landlord's Email</b></h1>
+    <h1 class="jumboText" id="landlordEmail">Landlord Email</h1>
+    <h1 class="jumboText"><b>Landlord's Aadhaar Number</b></h1>
+    <h1 class="jumboText" id="landlordAadhaar">Landlord Aadhaar</h1>
+    <hr>
+
+    <h1 class="jumboHead"><b>2. Tenant Details</b></h1>
+    <br>
+    <h1 class="jumboText"><b>Tenant's Name</b></h1>
+    <h1 class="jumboText" id="tenantName">Tenant Name</h1>
+    <h1 class="jumboText"><b>Tenant's Email</b></h1>
+    <h1 class="jumboText" id="tenantEmail">Tenant Email</h1>
+    <h1 class="jumboText"><b>Tenant's Aadhaar Number</b></h1>
+    <h1 class="jumboText" id="tenanatAadhaar">Tenant Aadhaar</h1>
+    <hr>
+
+    <h1 class="jumboHead"><b>3. Property Details</b></h1>
+    <br>
+    <h1 class="jumboText"><b>Property's Address</b></h1>
+    <h1 class="jumboText" id="propertyAddress">Property Address</h1>
+    <br>
+    <h1 class="jumboText"><b>Property Type</b></h1>
+    <h1 class="jumboText" id="propertyType">Property's Type</h1>
+    <h1 class="jumboText"><b>Duration of Contract (in Months)</b></h1>
+    <h1 class="jumboText" id="propertyDuration">Duration of Lease</h1>
+    <br>
+    <h1 class="jumboText"><b>Rent Amount per Month (in Rupees)</b></h1>
+    <h1 class="jumboText" id="propertyRent">Rent Amount per Month</h1>
+    <h1 class="jumboText"><b>Security Deposit (in Rupees, One Time)</b></h1>
+    <h1 class="jumboText" id="propertySecurity">Security Deposit</h1>   
+    <h1 class="jumboText"><b>Registration Fee (in Rupees, One Time)</b></h1>
+    <h1 class="jumboText" id="governFee">Registration Fee</h1> 
+    <hr>
+
+    <h1 class="jumboHead"><b>4. Other Details</b></h1>
+    <br>
+    <h1 class="jumboText"><b>GeoTagged Location</b></h1>
+    <h1 class="jumboText" id="geoLocation"><a href="">Check Here</a></h1>
+    <h1 class="jumboText"><b>Check your Real World Contract</b></h1>
+    <h1 class="jumboText" id="ipfsUrl">Currently not Supported</h1>
+    <br>
+    <h1 class="jumboText"><b>Square Foot Area of Property</b></h1>
+    <h1 class="jumboText" id="spFt">SqFt</h1>
+    <h1 class="jumboText"><b>Number of Rooms</b></h1>
+    <h1 class="jumboText" id="rooms">Number of Rooms</h1>
+    <br>
+    <h1 class="jumboText"><b>Other Terms of Agreement</b></h1>
+    <h1 class="jumboText" id="extra">Extra</h1>   
+
+    <br>
+    <br>
+    </div>
+
+    <button type="button" class="getStarted1" id="signButton" style="background: #64586d">Sign Contract</button>
+    <br>
+    <button type="button" class="getStarted1" id="payButton" style="background: #64586d">Pay Security Deposit</button>
+    <br>
+    <br>
+    <br>
+    <button type="button" class="getStarted1" id="rejectButton" style="background: #844853">Reject Contract</button>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="javascript/common.js"></script>
+<script src="javascript/register.js"></script>
+
+</body>
+</html>
