@@ -67,7 +67,7 @@
     </p>
 
 </div>
-<div align="center"><button type="button" id="seeContract" class="getStarted">See the Contract</button></div>
+<div align="center"><button type="button" id="seeContract" class="getStarted">Show Contract</button></div>
 <br>
 <br>
 <br>
@@ -76,9 +76,9 @@
 <br>
 
 
-<div class="container-fluid" align="center" id="contractDetails" style="background: #d3c3e0;" >
+<div class="container-fluid" align="center" id="contractDetails" style="display: none;">
 
-    <div align="left" style="margin-left: 1%; margin-right: 2%">
+    <div align="left" style="margin-left: 5%; margin-right: 8%">
 
     <br>
     <br>
@@ -92,6 +92,8 @@
     <h1 class="jumboText" id="landlordAadhaar">Landlord Aadhaar</h1>
     <hr>
 
+    <div align="right">
+
     <h1 class="jumboHead"><b>Tenant Details</b></h1>
     <br>
     <h1 class="jumboText"><b>Tenant's Name</b></h1>
@@ -102,13 +104,15 @@
     <h1 class="jumboText" id="tenanatAadhaar">Tenant Aadhaar</h1>
     <hr>
 
+    </div>
+
     <h1 class="jumboHead"><b>Property Details</b></h1>
     <br>
     <br>
     <div align="center">
-    <h1 class="jumboText" id="propertyAddress"><b>Geographical Location on Map</b></h1>
+    <h1 class="jumboText" id="propertyAddress"><b>Geographical Location of Property</b></h1>
     <br>
-    <div style="width: 25rem; height: 30rem" id="map"></div>
+    <div style="width: 24rem; height: 28rem" class="geoLoc" id="map"></div>
     </div>
     <br>
     <br>
@@ -120,6 +124,7 @@
     <h1 class="jumboText"><b>Duration of Contract (in Months)</b></h1>
     <h1 class="jumboText" id="propertyDuration">Duration of Lease</h1>
     <br>
+    <div align="right">
     <h1 class="jumboText"><b>Rent Amount per Month (in Rupees)</b></h1>
     <h1 class="jumboText" id="propertyRent">Rent Amount per Month</h1>
     <h1 class="jumboText"><b>Security Deposit (in Rupees, One Time)</b></h1>
@@ -127,6 +132,7 @@
     <h1 class="jumboText"><b>Registration Fee (in Rupees, One Time)</b></h1>
     <h1 class="jumboText" id="governFee">Registration Fee</h1> 
     <hr>
+    </div>
 
     <h1 class="jumboHead"><b>Other Details</b></h1>
     <br>
@@ -162,7 +168,6 @@
 
 
 <script src="https://apis.mapmyindia.com/advancedmaps/v1/6ayfijdpmpjdsz6ye2nw1yc5et4vu4hd/map_load?v=01."></script>
-
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="javascript/common.js"></script>
 <script src="javascript/tenantApproval.js"></script>

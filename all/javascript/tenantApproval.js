@@ -1,10 +1,11 @@
+        
     var map=new MapmyIndia.Map("map",{ center:[28.631154, 77.300466],zoomControl: true, hybrid:true});
     L.marker([28.631154, 77.300466]).addTo(map);
 
 
+    //---------------------------------------------------------------------------------------------------------------------------
 
 
-    //---------------------------------------------------------------------------
     web3.eth.defaultAccount = web3.eth.accounts[0];
 
     var event = rentInfo.registerParty({}, 'latest');

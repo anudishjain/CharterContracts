@@ -56,7 +56,7 @@ html {
 
 	border : none;
 
-	background: #776587;
+	background: #727296;
 	color : white;
 
 	font-family: 'Anaheim', sans-serif;
@@ -97,7 +97,7 @@ button:focus {
 .explain {
 
 	margin-top: 5rem;
-	background-color: #4b4551;
+	background-color: #464659;
 }
 
 .heading3 {
@@ -118,7 +118,7 @@ button:focus {
 
 .jumboHead {
 
-	font-size: 1.5rem;
+	font-size: 2rem;
 	font-family: 'Abel', sans-serif;
 
 	color : #263854;
@@ -126,8 +126,27 @@ button:focus {
 
 .jumboText {
 
-	font-size: 1.15rem;
+	font-size: 1.3rem;
 	font-family: 'Abel', sans-serif;
 
 	color : #263854;
+}
+
+@media only screen  and (min-width : 1024px) {
+
+.geoLoc {
+
+	width: 60rem !important;
+	height: 30rem !important;
+}
+}
+
+@media only screen and (min-device-width : 300px) and (max-device-width : 940px) and (orientation : landscape) {
+
+.geoLoc {
+
+	width: 40rem !important;
+	height: 30rem !important;
+}
+
 }

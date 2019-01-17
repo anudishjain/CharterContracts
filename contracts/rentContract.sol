@@ -388,4 +388,99 @@ contract Rent is Owned {
 	}
 
 	// --------------------------------------------------------------------------------------------------------
+
+	function tenantApproval1() view external returns( 
+	
+	    string lanlordName,
+		uint landlordAadhaar,
+
+		string addressHouse,
+		uint duration,
+		uint rent,
+		uint security,
+		uint registration) {
+
+		if(checkUser[msg.sender] == true)
+		{
+			var t = addressToPerson[msg.sender];
+
+			uint index = t.myRented.length - 1;
+
+			if(index < 0)
+			{
+				return ('N/A', 0, 'N/A', 0, 0, 0, 0);
+			}
+
+			else
+			{
+				var party = allParties[index];
+				var house = allHouses[index];
+				var details = allOtherDetails[index];
+
+				require((party.completed == true)&&(house.completed == true)&&(details.completed == true));
+
+				address landowner = party.landlord;
+				var land = addressToPerson[landowner];
+
+				return(land.legalName, land.aadhaar, house.addressHouse, house.duration, house.rentAmount, house.securityFee, 
+				house.governFee);
+			}
+		}
+
+		else
+		{
+			return('N/A', 0, 'N/A', 0, 0, 0, 0);
+		}
+	}
+
+	function tenantApproval2() view external returns( 
+	
+		string lat,
+		string long,
+		uint sqFt,
+		uint rooms,
+		string extra ){
+
+		if(checkUser[msg.sender] == true)
+		{
+			var t = addressToPerson[msg.sender];
+
+			uint index = t.myRented.length - 1;
+
+			if(index < 0)
+			{
+				return ('N/A', 'N/A', 0, 0, 'N/A');
+			}
+
+			else
+			{
+				var party = allParties[index];
+				var house = allHouses[index];
+				var details = allOtherDetails[index];
+
+				require((party.completed == true)&&(house.completed == true)&&(details.completed == true));
+
+				return(details.latitude, details.longitude, details.squareFootage, details.numberBedrooms, details.others);
+			}
+		}
+
+		else
+		{
+			return('N/A', 'N/A', 0, 0, 'N/A');
+		}
+	}
+
+
+
+	function tenantReject() external {
+
+
+	}
+
+	function tenantAccept(uint _security, string sign) external payable {
+
+
+
+	}
+
 }
