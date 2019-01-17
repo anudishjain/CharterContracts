@@ -395,6 +395,7 @@ contract Rent is Owned {
 		uint landlordAadhaar,
 
 		string addressHouse,
+		string typeProperty,
 		uint duration,
 		uint rent,
 		uint security,
@@ -408,7 +409,7 @@ contract Rent is Owned {
 
 			if(index < 0)
 			{
-				return ('N/A', 0, 'N/A', 0, 0, 0, 0);
+				return ('N/A', 0, 'N/A','N/A', 0, 0, 0, 0);
 			}
 
 			else
@@ -422,14 +423,14 @@ contract Rent is Owned {
 				address landowner = party.landlord;
 				var land = addressToPerson[landowner];
 
-				return(land.legalName, land.aadhaar, house.addressHouse, house.duration, house.rentAmount, house.securityFee, 
+				return(land.legalName, land.aadhaar, house.addressHouse, house.type_of_property, house.duration, house.rentAmount, house.securityFee, 
 				house.governFee);
 			}
 		}
 
 		else
 		{
-			return('N/A', 0, 'N/A', 0, 0, 0, 0);
+			return('N/A', 0, 'N/A', 'N/A', 0, 0, 0, 0);
 		}
 	}
 
