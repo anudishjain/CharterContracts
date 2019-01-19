@@ -1,33 +1,38 @@
 
 var latitude;
 var longitude;
+var value;
+var val;
 
 web3.eth.defaultAccount = web3.eth.accounts[0];
 
 $("#seeContract").click(function() {
 
-
     rentInfo.tenantApproval1(function(error, result ) {
 
         if(error)
         {
-            alert('Contract cannot be Displayed..');
+            alert('Error !! Contract cannot be Displayed..');
         }
 
         else
         {
-            $("#landlordName").html(result.landlordname);
-            $("#landlordAadhaar").html(result.landlordAadhaar);
-            $("#propertyAddress").html(result.addressHouse);
-            $("#propertyType").html(result.typeProperty);
-            $("#propertyDuration").html(result.duration);
-            $("#propertyRent").html(result.rent);
-            $("#propertySecurity").html(result.security);
-            $("#governFee").html(result.registration);
+            value = JSON.stringify(result); // convert the result to a String with all strings as part
+            value = value.replace(/'/g, '"'); // seperate the strings from the main string
+            value = JSON.parse(value);
+            console.log(value);
+
+            $("#landlordName").html(value[0]);
+            $("#landlordAadhaar").html(value[1]);
+            $("#propertyAddress").html(value[2]);
+            $("#propertyType").html(value[3]);
+            $("#propertyDuration").html(value[4]);
+            $("#propertyRent").html(value[5]);
+            $("#propertySecurity").html(value[6]);
+            $("#governFee").html(value[7]);
         }
 
     });
-
 
     rentInfo.tenantApproval2(function(error, result) {
 
@@ -38,19 +43,22 @@ $("#seeContract").click(function() {
 
         else
         {
+            val = JSON.stringify(result); // convert the result to a String with all strings as part
+            val = val.replace(/'/g, '"'); // seperate the strings from the main string
+            val = JSON.parse(val);
+            console.log(val);
 
-            latitude = result.lat;
-            longitude = result.long;
+            latitude = val[0];
+            longitude = val[1];
 
-            $("#sqFt").html(result.sqFt);
-            $("#rooms").html(result.rooms);
-            $("#extra").html(result.extra);
+            $("#sqFt").html(val[2]);
+            $("#rooms").html(val[3]);
+            $("#extra").html(val[4]);
+
+
+            var map=new MapmyIndia.Map("map",{ center:[latitude, longitude],zoomControl: true, hybrid:true});
+            L.marker([latitude, longitude]).addTo(map);
         }
-
-
-       // var map=new MapmyIndia.Map("map",{ center:[20.5937, 78.9629],zoomControl: true, hybrid:true});
-       // L.marker([20.5937, 78.9629]).addTo(map);
-
 
     });
 

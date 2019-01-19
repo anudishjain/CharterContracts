@@ -85,7 +85,7 @@ contract Rent is Owned {
 	House[] public allHouses;
 	OtherDetails[] public allOtherDetails;
 
-	mapping(address => Person) private addressToPerson;
+	mapping(address => Person) public addressToPerson;
 	mapping(address => bool) private checkUser;
 	mapping(uint => bool) private checkAadhaar;
 
@@ -391,7 +391,7 @@ contract Rent is Owned {
 
 	function tenantApproval1() view external returns( 
 	
-	    string lanlordName,
+	    string landlordName,
 		uint landlordAadhaar,
 
 		string addressHouse,

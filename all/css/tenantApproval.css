@@ -130,6 +130,8 @@ button:focus {
 	font-family: 'Abel', sans-serif;
 
 	color : #263854;
+
+	margin-top: 1rem;
 }
 
 @media only screen  and (min-width : 1024px) {
@@ -148,5 +150,4 @@ button:focus {
 	width: 40rem !important;
 	height: 30rem !important;
 }
-
 }
