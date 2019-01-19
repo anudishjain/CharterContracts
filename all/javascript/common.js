@@ -21,248 +21,11 @@
             // Non-dapp browsers...
             else {
 
-                alert('Install MetaMask Chrome Extension to use Charter Contracts..');
+                alert('Install MetaMask for using Charter Contracts ');
             }
         });
 
 var rentContract = web3.eth.contract([
-    {
-        "constant": true,
-        "inputs": [
-            {
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "name": "allOtherDetails",
-        "outputs": [
-            {
-                "name": "time_of_deploy",
-                "type": "uint256"
-            },
-            {
-                "name": "latitude",
-                "type": "string"
-            },
-            {
-                "name": "longitude",
-                "type": "string"
-            },
-            {
-                "name": "ipfs_url",
-                "type": "string"
-            },
-            {
-                "name": "squareFootage",
-                "type": "uint256"
-            },
-            {
-                "name": "numberBedrooms",
-                "type": "uint256"
-            },
-            {
-                "name": "others",
-                "type": "string"
-            },
-            {
-                "name": "feePaid",
-                "type": "bool"
-            },
-            {
-                "name": "isValid",
-                "type": "bool"
-            },
-            {
-                "name": "completed",
-                "type": "bool"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "constant": false,
-        "inputs": [
-            {
-                "name": "_tenant",
-                "type": "address"
-            }
-        ],
-        "name": "registerParties",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "constant": false,
-        "inputs": [
-            {
-                "name": "_add",
-                "type": "string"
-            },
-            {
-                "name": "_type",
-                "type": "string"
-            },
-            {
-                "name": "_timeMonths",
-                "type": "uint256"
-            },
-            {
-                "name": "_rent",
-                "type": "uint256"
-            },
-            {
-                "name": "_security",
-                "type": "uint256"
-            }
-        ],
-        "name": "newHome",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "constant": false,
-        "inputs": [
-            {
-                "name": "_amount",
-                "type": "uint256"
-            },
-            {
-                "name": "sign",
-                "type": "string"
-            }
-        ],
-        "name": "feePayment",
-        "outputs": [],
-        "payable": true,
-        "stateMutability": "payable",
-        "type": "function"
-    },
-    {
-        "constant": true,
-        "inputs": [
-            {
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "name": "allParties",
-        "outputs": [
-            {
-                "name": "tenantApprove",
-                "type": "bool"
-            },
-            {
-                "name": "govApprove",
-                "type": "bool"
-            },
-            {
-                "name": "landlord",
-                "type": "address"
-            },
-            {
-                "name": "tenant",
-                "type": "address"
-            },
-            {
-                "name": "government",
-                "type": "address"
-            },
-            {
-                "name": "completed",
-                "type": "bool"
-            },
-            {
-                "name": "sign_landlord",
-                "type": "string"
-            },
-            {
-                "name": "sign_tenant",
-                "type": "string"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "constant": true,
-        "inputs": [
-            {
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "name": "allHouses",
-        "outputs": [
-            {
-                "name": "addressHouse",
-                "type": "string"
-            },
-            {
-                "name": "type_of_property",
-                "type": "string"
-            },
-            {
-                "name": "duration",
-                "type": "uint256"
-            },
-            {
-                "name": "rentAmount",
-                "type": "uint256"
-            },
-            {
-                "name": "securityFee",
-                "type": "uint256"
-            },
-            {
-                "name": "governFee",
-                "type": "uint256"
-            },
-            {
-                "name": "completed",
-                "type": "bool"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "constant": true,
-        "inputs": [],
-        "name": "tenantApproval2",
-        "outputs": [
-            {
-                "name": "lat",
-                "type": "string"
-            },
-            {
-                "name": "long",
-                "type": "string"
-            },
-            {
-                "name": "sqFt",
-                "type": "uint256"
-            },
-            {
-                "name": "rooms",
-                "type": "uint256"
-            },
-            {
-                "name": "extra",
-                "type": "string"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    },
     {
         "constant": false,
         "inputs": [
@@ -290,54 +53,21 @@ var rentContract = web3.eth.contract([
         "type": "function"
     },
     {
-        "constant": true,
-        "inputs": [],
-        "name": "tenantApproval1",
-        "outputs": [
+        "constant": false,
+        "inputs": [
             {
-                "name": "lanlordName",
+                "name": "_amount",
+                "type": "uint256"
+            },
+            {
+                "name": "sign",
                 "type": "string"
-            },
-            {
-                "name": "landlordAadhaar",
-                "type": "uint256"
-            },
-            {
-                "name": "addressHouse",
-                "type": "string"
-            },
-            {
-                "name": "typeProperty",
-                "type": "string"
-            },
-            {
-                "name": "duration",
-                "type": "uint256"
-            },
-            {
-                "name": "rent",
-                "type": "uint256"
-            },
-            {
-                "name": "security",
-                "type": "uint256"
-            },
-            {
-                "name": "registration",
-                "type": "uint256"
             }
         ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "constant": false,
-        "inputs": [],
-        "name": "tenantReject",
+        "name": "feePayment",
         "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
+        "payable": true,
+        "stateMutability": "payable",
         "type": "function"
     },
     {
@@ -378,6 +108,50 @@ var rentContract = web3.eth.contract([
         "constant": false,
         "inputs": [
             {
+                "name": "_add",
+                "type": "string"
+            },
+            {
+                "name": "_type",
+                "type": "string"
+            },
+            {
+                "name": "_timeMonths",
+                "type": "uint256"
+            },
+            {
+                "name": "_rent",
+                "type": "uint256"
+            },
+            {
+                "name": "_security",
+                "type": "uint256"
+            }
+        ],
+        "name": "newHome",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "_tenant",
+                "type": "address"
+            }
+        ],
+        "name": "registerParties",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
                 "name": "_security",
                 "type": "uint256"
             },
@@ -390,6 +164,15 @@ var rentContract = web3.eth.contract([
         "outputs": [],
         "payable": true,
         "stateMutability": "payable",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [],
+        "name": "tenantReject",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
         "type": "function"
     },
     {
@@ -477,7 +260,224 @@ var rentContract = web3.eth.contract([
         ],
         "name": "feePay",
         "type": "event"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "allHouses",
+        "outputs": [
+            {
+                "name": "addressHouse",
+                "type": "string"
+            },
+            {
+                "name": "type_of_property",
+                "type": "string"
+            },
+            {
+                "name": "duration",
+                "type": "uint256"
+            },
+            {
+                "name": "rentAmount",
+                "type": "uint256"
+            },
+            {
+                "name": "securityFee",
+                "type": "uint256"
+            },
+            {
+                "name": "governFee",
+                "type": "uint256"
+            },
+            {
+                "name": "completed",
+                "type": "bool"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "allOtherDetails",
+        "outputs": [
+            {
+                "name": "time_of_deploy",
+                "type": "uint256"
+            },
+            {
+                "name": "latitude",
+                "type": "string"
+            },
+            {
+                "name": "longitude",
+                "type": "string"
+            },
+            {
+                "name": "ipfs_url",
+                "type": "string"
+            },
+            {
+                "name": "squareFootage",
+                "type": "uint256"
+            },
+            {
+                "name": "numberBedrooms",
+                "type": "uint256"
+            },
+            {
+                "name": "others",
+                "type": "string"
+            },
+            {
+                "name": "feePaid",
+                "type": "bool"
+            },
+            {
+                "name": "isValid",
+                "type": "bool"
+            },
+            {
+                "name": "completed",
+                "type": "bool"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "allParties",
+        "outputs": [
+            {
+                "name": "tenantApprove",
+                "type": "bool"
+            },
+            {
+                "name": "govApprove",
+                "type": "bool"
+            },
+            {
+                "name": "landlord",
+                "type": "address"
+            },
+            {
+                "name": "tenant",
+                "type": "address"
+            },
+            {
+                "name": "government",
+                "type": "address"
+            },
+            {
+                "name": "completed",
+                "type": "bool"
+            },
+            {
+                "name": "sign_landlord",
+                "type": "string"
+            },
+            {
+                "name": "sign_tenant",
+                "type": "string"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "tenantApproval1",
+        "outputs": [
+            {
+                "name": "lanlordName",
+                "type": "string"
+            },
+            {
+                "name": "landlordAadhaar",
+                "type": "uint256"
+            },
+            {
+                "name": "addressHouse",
+                "type": "string"
+            },
+            {
+                "name": "typeProperty",
+                "type": "string"
+            },
+            {
+                "name": "duration",
+                "type": "uint256"
+            },
+            {
+                "name": "rent",
+                "type": "uint256"
+            },
+            {
+                "name": "security",
+                "type": "uint256"
+            },
+            {
+                "name": "registration",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "tenantApproval2",
+        "outputs": [
+            {
+                "name": "lat",
+                "type": "string"
+            },
+            {
+                "name": "long",
+                "type": "string"
+            },
+            {
+                "name": "sqFt",
+                "type": "uint256"
+            },
+            {
+                "name": "rooms",
+                "type": "uint256"
+            },
+            {
+                "name": "extra",
+                "type": "string"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
     }
 ]);
 
-var rentInfo = rentContract.at('0xf89308a3d72f91baf841b5e15fd11aae7628cac3');
+var rentInfo = rentContract.at('0x984fab65f58fe488ab5fd371aa15b04340f3e50b');

@@ -1,35 +1,59 @@
 
-    var latitude;
-    var longitude;
+var latitude;
+var longitude;
 
-    web3.eth.defaultAccount = web3.eth.accounts[0];
+web3.eth.defaultAccount = web3.eth.accounts[0];
 
-    $("#seeContract").click(function() {
-
-        var val1 = rentInfo.tenantApproval1();
-        var val2 = rentInfo.tenantApproval2();
-
-        $("#landlordName").html(val1.landlordname);
-        $("#landlordAadhaar").html(val1.landlordAadhaar);
-        $("#propertyAddress").html(val1.addressHouse);
-        $("#propertyType").html(val1.typeProperty);
-        $("#propertyDuration").html(val1.duration);
-        $("#propertyRent").html(val1.rent);
-        $("#propertySecurity").html(val1.security);
-        $("#governFee").html(val1.registration);
+$("#seeContract").click(function() {
 
 
-        $("#sqFt").html(val2.sqFt);
-        $("#rooms").html(val2.rooms);
-        $("#extra").html(val2.extra);
+    rentInfo.tenantApproval1(function(error, result ) {
 
-        latitude = val2.lat;
-        longitude = val2.long;
+        if(error)
+        {
+            alert('Contract cannot be Displayed..');
+        }
 
-        var map=new MapmyIndia.Map("map",{ center:[window["latitude"], window["longitude"]],zoomControl: true, hybrid:true});
-        L.marker([window["latitude"], window["longitude"]]).addTo(map);
+        else
+        {
+            $("#landlordName").html(result.landlordname);
+            $("#landlordAadhaar").html(result.landlordAadhaar);
+            $("#propertyAddress").html(result.addressHouse);
+            $("#propertyType").html(result.typeProperty);
+            $("#propertyDuration").html(result.duration);
+            $("#propertyRent").html(result.rent);
+            $("#propertySecurity").html(result.security);
+            $("#governFee").html(result.registration);
+        }
 
-
-        $("#contractDetails").show();
     });
+
+
+    rentInfo.tenantApproval2(function(error, result) {
+
+        if(error)
+        {
+            alert('Contract cannot be Displayed..');
+        }
+
+        else
+        {
+
+            latitude = result.lat;
+            longitude = result.long;
+
+            $("#sqFt").html(result.sqFt);
+            $("#rooms").html(result.rooms);
+            $("#extra").html(result.extra);
+        }
+
+
+       // var map=new MapmyIndia.Map("map",{ center:[20.5937, 78.9629],zoomControl: true, hybrid:true});
+       // L.marker([20.5937, 78.9629]).addTo(map);
+
+
+    });
+
+    $("#contractDetails").show();
+});
 
