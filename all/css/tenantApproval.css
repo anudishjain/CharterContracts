@@ -132,6 +132,8 @@ button:focus {
 	color : #263854;
 
 	margin-top: 1rem;
+
+	word-wrap: break-word !important;
 }
 
 @media only screen  and (min-width : 1024px) {

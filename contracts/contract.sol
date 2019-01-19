@@ -94,6 +94,9 @@ contract Rent is Owned {
 	function Rent() public {
 
 		checkUser[owner] = true;
+		var govt = Person(owner, 'Government = Owner', 'Contact Government', 0, 'No Sign',  new uint[](0), new uint[](0));
+		
+		addressToPerson[owner] = govt;
 	}
 
 	// -------------------------------------------------------------------------------------------------------
@@ -418,13 +421,14 @@ contract Rent is Owned {
 				var house = allHouses[index];
 				var details = allOtherDetails[index];
 
-				require((party.completed == true)&&(house.completed == true)&&(details.completed == true));
+				if((party.completed == true)&&(house.completed == true)&&(details.completed == true)&&(details.feePaid = true))
+				{
+					address landowner = party.landlord;
+					var land = addressToPerson[landowner];
 
-				address landowner = party.landlord;
-				var land = addressToPerson[landowner];
-
-				return(land.legalName, land.aadhaar, house.addressHouse, house.type_of_property, house.duration, house.rentAmount, house.securityFee, 
-				house.governFee);
+					return(land.legalName, land.aadhaar, house.addressHouse, house.type_of_property, house.duration, house.rentAmount, 
+					house.securityFee, house.governFee);
+				}
 			}
 		}
 
