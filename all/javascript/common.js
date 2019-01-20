@@ -315,6 +315,10 @@ var rentContract = web3.eth.contract([
             {
                 "name": "end_date",
                 "type": "uint256"
+            },
+            {
+                "name": "rate",
+                "type": "uint256"
             }
         ],
         "payable": false,
@@ -534,4 +538,4 @@ var rentContract = web3.eth.contract([
     }
 ]);
 
-var rentInfo = rentContract.at('0x262a02c527758ddf3872ae4e35531890024bcb5f');
+var rentInfo = rentContract.at('0xe061cfc7c2945cb46dbe773d48b7f224287afbde');

@@ -74,13 +74,15 @@ contract Rent is Owned {
 	}
 	
 	struct Checks {
-	    
-	    bool isValid;
-	    bool registerFee;
-	    bool securityfee;
+		
+		bool isValid;
+		bool registerFee;
+		bool securityfee;
 
-	    uint time_of_deploy;
-	    uint end_date;
+		uint time_of_deploy;
+		uint end_date;
+		
+		uint rate;
 	}
 
 
@@ -147,7 +149,7 @@ contract Rent is Owned {
 				var newRent = OtherDetails('N/A', 'N/A', 'N/A', 0, 0, 'N/A', false);
 				allOtherDetails.push(newRent);
 				
-			    var newExtras = Checks(false, false, false, 0, 0);
+				var newExtras = Checks(false, false, false, 0, 0, 0);
 				allChecks.push(newExtras);
 
 				var user = addressToPerson[msg.sender];
@@ -183,15 +185,15 @@ contract Rent is Owned {
 			var user = addressToPerson[msg.sender];
 
 			uint num = user.myOwned.length - 1;
-			uint index = user.myOwned[num];
-
+			
 			if(num < 0)
 			{
 				registerHome('Failed !! Complete  Step - 1 before this Step', 0, 0);
 			}
-
+			
 			else
 			{
+				uint index = user.myOwned[num];
 				var houseOwner = allParties[index];
 
 				if(houseOwner.landlord != msg.sender)
@@ -201,9 +203,7 @@ contract Rent is Owned {
 
 				else
 				{
-					uint lastIndex = user.myOwned[index];
-
-					var home = allHouses[lastIndex];
+					var home = allHouses[index];
 
 					if(home.completed == false)
 					{
@@ -212,7 +212,7 @@ contract Rent is Owned {
 						home.duration = _timeMonths;
 						home.rentAmount = _rent;
 						home.securityFee = _security;
-
+						
 						if(_timeMonths <= 0)
 						{
 							home.completed = false;
@@ -292,19 +292,15 @@ contract Rent is Owned {
 	// -------------
 
 	event registerDetails(string message, uint status);
-	uint rate;
+	
 
 	function newDetails(string _lat, string _lon, uint _sqFt, uint _rooms, string _extra, uint _rate) external {
-	    
-	    rate = _rate;
-
+		
 		if(checkUser[msg.sender] == true)
 		{
 			var user = addressToPerson[msg.sender];
-
 			uint num = user.myOwned.length - 1;
-			uint index = user.myOwned[num];
-
+			
 			if(num < 0)
 			{
 				registerDetails('Failed !! Complete all the previous steps', 0);
@@ -312,6 +308,7 @@ contract Rent is Owned {
 
 			else
 			{
+				uint index = user.myOwned[num];
 				var houseOwner = allParties[index];
 
 				if(houseOwner.landlord != msg.sender)
@@ -321,10 +318,11 @@ contract Rent is Owned {
 
 				else
 				{
-					uint lastIndex = user.myOwned[index];
-
-					var details = allOtherDetails[lastIndex];
-					var home = allHouses[lastIndex];
+					var details = allOtherDetails[index];
+					var home = allHouses[index];
+					var check = allChecks[index];
+					
+					check.rate = _rate;
 
 					if(home.completed == false)
 					{
@@ -363,69 +361,79 @@ contract Rent is Owned {
 
 	event feePay(string message);
 
-	function feePayment(string sign) external payable	{
+	function feePayment(string sign) external payable {
+		
+		var user1 = addressToPerson[msg.sender];
+		uint num1 = user1.myOwned.length - 1;
+		
+		uint index1 = user1.myOwned[num1];
+		var amount = allChecks[index1];
 
-		require(msg.value == rate);
+		require(msg.value == amount.rate);
 		
 		if(checkUser[msg.sender] == true)
 		{
-		    var user = addressToPerson[msg.sender];
+			var user = addressToPerson[msg.sender];
 
-		    uint num = user.myOwned.length - 1;
-		    
-		    if(num < 0)
-		    {
-		        feePay('Complete all the Steps given above before Fee Payment !!');
-		    }
-		    
-		    uint index = user.myOwned[num];
-		    var details = allOtherDetails[index];
-		    var house = allHouses[index];
-		    var party = allParties[index];
-		    var checks = allChecks[index];
+			uint num = user.myOwned.length - 1;
+			
+			if(num < 0)
+			{
+				feePay('Complete all the Steps given above before Fee Payment !!');
+			}
+			
+			else
+			{
+				
+				uint index = user.myOwned[num];
+				var details = allOtherDetails[index];
+				var house = allHouses[index];
+				var party = allParties[index];
+				var checks = allChecks[index];
 
-		    if((details.completed == true)&&(house.completed == true)&&(party.completed == true))
-		    {
+				if((details.completed == true)&&(house.completed == true)&&(party.completed == true))
+				{
 
-			user = addressToPerson[msg.sender];
-			checks.registerFee = true;
-			party.sign_landlord = sign;
+					user = addressToPerson[msg.sender];
+					checks.registerFee = true;
+					party.sign_landlord = sign;
 
-			feePay('Government Registration Fee Payment Successful');
-		    }
+					feePay('Government Registration Fee Payment Successful');
+				}
 
-		    else 
-		    {
-			    feePay('Complete all the Steps given above before Fee Payment');
-		    }
+				else 
+				{
+					feePay('Complete all the Steps given above before Fee Payment');
+				}
+			}
 		}
 		
 		else
 		{
-		    feePay("Failed !! User not Registered..");
+			feePay("Failed !! User not Registered..");
 		}
 	}
 
 	// --------------------------------------------------------------------------------------------------------
 
 	function tenantApproval1() view external returns( 
-	
-	    string landlordName,
+		
+		string landlordName,
 		uint landlordAadhaar,
 
 		string addressHouse,
 		string typeProperty,
 		uint duration,
 		uint rent,
-		uint security) {
+		uint security) 
+	{
 
 		if(checkUser[msg.sender] == true)
 		{
 			var t = addressToPerson[msg.sender];
 
 			uint num = t.myRented.length - 1;
-			uint index = t.myRented[num];
-
+			
 			if(num < 0)
 			{
 				return ('N/A', 0, 'N/A','N/A', 0, 0, 0);
@@ -433,6 +441,8 @@ contract Rent is Owned {
 
 			else
 			{
+				uint index = t.myRented[num];
+				
 				var party = allParties[index];
 				var house = allHouses[index];
 				var details = allOtherDetails[index];
@@ -444,7 +454,7 @@ contract Rent is Owned {
 					var land = addressToPerson[landowner];
 
 					return(land.legalName, land.aadhaar, house.addressHouse, house.type_of_property, house.duration, house.rentAmount, 
-					house.securityFee);
+						house.securityFee);
 				}
 			}
 		}
@@ -456,21 +466,21 @@ contract Rent is Owned {
 	}
 
 	function tenantApproval2() view external returns( 
-	    
-	    uint registration,
+		
+		uint registration,
 		string lat,
 		string long,
 		uint sqFt,
 		uint rooms,
-		string extra ){
+		string extra )
+	{
 
 		if(checkUser[msg.sender] == true)
 		{
 			var t = addressToPerson[msg.sender];
 
 			uint num = t.myRented.length - 1;
-			uint index = t.myRented[num];
-
+			
 			if(num < 0)
 			{
 				return (0, 'N/A', 'N/A', 0, 0, 'N/A');
@@ -478,6 +488,8 @@ contract Rent is Owned {
 
 			else
 			{
+				uint index = t.myRented[num];
+				
 				var party = allParties[index];
 				var house = allHouses[index];
 				var details = allOtherDetails[index];
@@ -497,7 +509,6 @@ contract Rent is Owned {
 
 
 	function tenantReject() external {}
-
 	function tenantAccept(uint _security, string sign) external payable {}
 
 }
