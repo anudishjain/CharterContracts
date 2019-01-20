@@ -62,28 +62,32 @@ contract Rent is Owned {
 
 	struct OtherDetails {
 
-		uint time_of_deploy;
-
 		string latitude;
 		string longitude;
-
 		string ipfs_url;
 
 		uint squareFootage;
 		uint numberBedrooms;
 
 		string others;
-
-		bool feePaid;
-
-		bool isValid;	
 		bool completed;
+	}
+	
+	struct Checks {
+	    
+	    bool isValid;
+	    bool registerFee;
+	    bool securityfee;
+
+	    uint time_of_deploy;
+	    uint end_date;
 	}
 
 
 	Parties[] public allParties; 
 	House[] public allHouses;
 	OtherDetails[] public allOtherDetails;
+	Checks[] public allChecks;
 
 	mapping(address => Person) public addressToPerson;
 	mapping(address => bool) private checkUser;
@@ -140,8 +144,11 @@ contract Rent is Owned {
 				var newHouse = House('N/A', 'N/A', 0, 0, 0, 0, false);
 				allHouses.push(newHouse);
 
-				var newRent = OtherDetails(now, 'N/A', 'N/A', 'N/A', 0, 0, 'N/A', false, false, false);
+				var newRent = OtherDetails('N/A', 'N/A', 'N/A', 0, 0, 'N/A', false);
 				allOtherDetails.push(newRent);
+				
+			    var newExtras = Checks(false, false, false, 0, 0);
+				allChecks.push(newExtras);
 
 				var user = addressToPerson[msg.sender];
 				user.myOwned.push(index);
@@ -175,9 +182,10 @@ contract Rent is Owned {
 		{
 			var user = addressToPerson[msg.sender];
 
-			uint index = user.myOwned.length - 1;
+			uint num = user.myOwned.length - 1;
+			uint index = user.myOwned[num];
 
-			if(index < 0)
+			if(num < 0)
 			{
 				registerHome('Failed !! Complete  Step - 1 before this Step', 0, 0);
 			}
@@ -284,16 +292,20 @@ contract Rent is Owned {
 	// -------------
 
 	event registerDetails(string message, uint status);
+	uint rate;
 
-	function newDetails(string _lat, string _lon, uint _sqFt, uint _rooms, string _extra, string _ipfs) external {
+	function newDetails(string _lat, string _lon, uint _sqFt, uint _rooms, string _extra, uint _rate) external {
+	    
+	    rate = _rate;
 
 		if(checkUser[msg.sender] == true)
 		{
 			var user = addressToPerson[msg.sender];
 
-			uint index = user.myOwned.length - 1;
+			uint num = user.myOwned.length - 1;
+			uint index = user.myOwned[num];
 
-			if(index < 0)
+			if(num < 0)
 			{
 				registerDetails('Failed !! Complete all the previous steps', 0);
 			}
@@ -321,16 +333,12 @@ contract Rent is Owned {
 
 					else if((details.completed == false)&&(home.completed == true))
 					{
-						details.time_of_deploy = now;
 						details.latitude = _lat;
 						details.longitude = _lon;
 						details.squareFootage = _sqFt;
 						details.numberBedrooms = _rooms;
+						
 						details.others = _extra;
-
-						details.ipfs_url = _ipfs;
-
-						details.isValid = false;
 						details.completed = true;
 
 						registerDetails('Step 3 Completed, pay Registration Fee Below', 1);
@@ -355,24 +363,32 @@ contract Rent is Owned {
 
 	event feePay(string message);
 
-	function feePayment(uint _amount, string sign) external payable	{
+	function feePayment(string sign) external payable	{
 
-		require(msg.value == _amount);
+		require(msg.value == rate);
 		
 		if(checkUser[msg.sender] == true)
 		{
 		    var user = addressToPerson[msg.sender];
 
-		    uint index = user.myOwned.length - 1;
+		    uint num = user.myOwned.length - 1;
+		    
+		    if(num < 0)
+		    {
+		        feePay('Complete all the Steps given above before Fee Payment !!');
+		    }
+		    
+		    uint index = user.myOwned[num];
 		    var details = allOtherDetails[index];
 		    var house = allHouses[index];
 		    var party = allParties[index];
+		    var checks = allChecks[index];
 
 		    if((details.completed == true)&&(house.completed == true)&&(party.completed == true))
 		    {
 
 			user = addressToPerson[msg.sender];
-			details.feePaid = true;
+			checks.registerFee = true;
 			party.sign_landlord = sign;
 
 			feePay('Government Registration Fee Payment Successful');
@@ -401,18 +417,18 @@ contract Rent is Owned {
 		string typeProperty,
 		uint duration,
 		uint rent,
-		uint security,
-		uint registration) {
+		uint security) {
 
 		if(checkUser[msg.sender] == true)
 		{
 			var t = addressToPerson[msg.sender];
 
-			uint index = t.myRented.length - 1;
+			uint num = t.myRented.length - 1;
+			uint index = t.myRented[num];
 
-			if(index < 0)
+			if(num < 0)
 			{
-				return ('N/A', 0, 'N/A','N/A', 0, 0, 0, 0);
+				return ('N/A', 0, 'N/A','N/A', 0, 0, 0);
 			}
 
 			else
@@ -420,26 +436,28 @@ contract Rent is Owned {
 				var party = allParties[index];
 				var house = allHouses[index];
 				var details = allOtherDetails[index];
+				var checks = allChecks[index];
 
-				if((party.completed == true)&&(house.completed == true)&&(details.completed == true)&&(details.feePaid = true))
+				if((party.completed == true)&&(house.completed == true)&&(details.completed == true)&&(checks.registerFee = true))
 				{
 					address landowner = party.landlord;
 					var land = addressToPerson[landowner];
 
 					return(land.legalName, land.aadhaar, house.addressHouse, house.type_of_property, house.duration, house.rentAmount, 
-					house.securityFee, house.governFee);
+					house.securityFee);
 				}
 			}
 		}
 
 		else
 		{
-			return('N/A', 0, 'N/A', 'N/A', 0, 0, 0, 0);
+			return('N/A', 0, 'N/A', 'N/A', 0, 0, 0);
 		}
 	}
 
 	function tenantApproval2() view external returns( 
-	
+	    
+	    uint registration,
 		string lat,
 		string long,
 		uint sqFt,
@@ -450,11 +468,12 @@ contract Rent is Owned {
 		{
 			var t = addressToPerson[msg.sender];
 
-			uint index = t.myRented.length - 1;
+			uint num = t.myRented.length - 1;
+			uint index = t.myRented[num];
 
-			if(index < 0)
+			if(num < 0)
 			{
-				return ('N/A', 'N/A', 0, 0, 'N/A');
+				return (0, 'N/A', 'N/A', 0, 0, 'N/A');
 			}
 
 			else
@@ -465,27 +484,20 @@ contract Rent is Owned {
 
 				require((party.completed == true)&&(house.completed == true)&&(details.completed == true));
 
-				return(details.latitude, details.longitude, details.squareFootage, details.numberBedrooms, details.others);
+				return(house.governFee, details.latitude, details.longitude, details.squareFootage, details.numberBedrooms, details.others);
 			}
 		}
 
 		else
 		{
-			return('N/A', 'N/A', 0, 0, 'N/A');
+			return(0, 'N/A', 'N/A', 0, 0, 'N/A');
 		}
 	}
 
 
 
-	function tenantReject() external {
+	function tenantReject() external {}
 
-
-	}
-
-	function tenantAccept(uint _security, string sign) external payable {
-
-
-
-	}
+	function tenantAccept(uint _security, string sign) external payable {}
 
 }

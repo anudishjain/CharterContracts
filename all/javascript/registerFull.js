@@ -124,7 +124,28 @@ var feeGovern;
 
 
 // -------------------------------------------------------------------------------------------------------------------
-        
+
+// getting the ETH - RATE HERE
+var price;
+
+var request = new XMLHttpRequest();
+request.open('GET', "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=INR&api_key=090d85bbb88aab5c93774929f2196d54fb4664cabf15ffc234d2d4d1e74c792b", true);
+
+request.onload = function () {
+    
+    var data = JSON.parse(this.response);
+
+    price = parseFloat(data["INR"]);
+
+    console.log(price);
+}
+
+request.send();
+
+//--------------------
+
+var amount = Number(web3.toWei(String(feeGovern/price)));
+console.log(amount);
 
         var event = rentInfo.registerDetails({}, 'latest');
 
@@ -155,7 +176,6 @@ var feeGovern;
 
         // -----------------
         var extra = ($("#extra").val());
-        var temp_ipfs = "Currently not Supported"; /// NEw FEATURE HERE ------------------------------
         // -----------------
 
         $("#registerButton3").click(function() {
@@ -165,7 +185,7 @@ var feeGovern;
             if(($("#latitude").val() != '')&&($("#longitude").val() != '')&&($("#sqFt").val() != 0)&&($("#rooms").val() > 0)&&($("#extra").val() != 0))
             {
                 rentInfo.newDetails($("#latitude").val(), $("#longitude").val(), $("#sqFt").val(), $("#rooms").val(), 
-                    $("#extra").val(), temp_ipfs, (err, res) => {
+                    $("#extra").val(), amount,  (err, res) => {
 
                     if(err) {
                         $("#loader3").hide();
@@ -180,28 +200,9 @@ var feeGovern;
             }
         });
 
-// ---------------------------------------------------------------------------------------------------------
 
-// getting the ETH - RATE HERE
-var price;
+// -----------------------------------------------------------------------------------------------------
 
-var request = new XMLHttpRequest();
-request.open('GET', "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=INR&api_key=090d85bbb88aab5c93774929f2196d54fb4664cabf15ffc234d2d4d1e74c792b", true);
-
-request.onload = function () {
-    
-    var data = JSON.parse(this.response);
-
-    price = parseFloat(data["INR"]);
-
-    console.log(price);
-}
-
-request.send();
-
-//--------------------
-
-var amount = web3.toWei(String(feeGovern/price));
 var event = rentInfo.feePay({}, 'latest');
 
         event.watch(function(error, result) {
@@ -268,7 +269,7 @@ var event = rentInfo.feePay({}, 'latest');
 
             if(ans != false)
             {
-                rentInfo.feePayment(parseInt(amount), String(message), (err, res) => {
+                rentInfo.feePayment(String(message), (err, res) => {
                         
                     if(err) {
                         $("#loader4").hide();

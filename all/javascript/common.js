@@ -37,10 +37,6 @@ var rentContract = web3.eth.contract([
         "name": "allOtherDetails",
         "outputs": [
             {
-                "name": "time_of_deploy",
-                "type": "uint256"
-            },
-            {
                 "name": "latitude",
                 "type": "string"
             },
@@ -63,14 +59,6 @@ var rentContract = web3.eth.contract([
             {
                 "name": "others",
                 "type": "string"
-            },
-            {
-                "name": "feePaid",
-                "type": "bool"
-            },
-            {
-                "name": "isValid",
-                "type": "bool"
             },
             {
                 "name": "completed",
@@ -128,10 +116,6 @@ var rentContract = web3.eth.contract([
     {
         "constant": false,
         "inputs": [
-            {
-                "name": "_amount",
-                "type": "uint256"
-            },
             {
                 "name": "sign",
                 "type": "string"
@@ -274,6 +258,10 @@ var rentContract = web3.eth.contract([
         "name": "tenantApproval2",
         "outputs": [
             {
+                "name": "registration",
+                "type": "uint256"
+            },
+            {
                 "name": "lat",
                 "type": "string"
             },
@@ -292,6 +280,41 @@ var rentContract = web3.eth.contract([
             {
                 "name": "extra",
                 "type": "string"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "allChecks",
+        "outputs": [
+            {
+                "name": "isValid",
+                "type": "bool"
+            },
+            {
+                "name": "registerFee",
+                "type": "bool"
+            },
+            {
+                "name": "securityfee",
+                "type": "bool"
+            },
+            {
+                "name": "time_of_deploy",
+                "type": "uint256"
+            },
+            {
+                "name": "end_date",
+                "type": "uint256"
             }
         ],
         "payable": false,
@@ -356,23 +379,10 @@ var rentContract = web3.eth.contract([
             {
                 "name": "security",
                 "type": "uint256"
-            },
-            {
-                "name": "registration",
-                "type": "uint256"
             }
         ],
         "payable": false,
         "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "constant": false,
-        "inputs": [],
-        "name": "tenantReject",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
         "type": "function"
     },
     {
@@ -399,11 +409,20 @@ var rentContract = web3.eth.contract([
                 "type": "string"
             },
             {
-                "name": "_ipfs",
-                "type": "string"
+                "name": "_rate",
+                "type": "uint256"
             }
         ],
         "name": "newDetails",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [],
+        "name": "tenantReject",
         "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
@@ -515,4 +534,4 @@ var rentContract = web3.eth.contract([
     }
 ]);
 
-var rentInfo = rentContract.at('0xF9A258f4301eE2fb30c53589604a7b6159cdEAfC');
+var rentInfo = rentContract.at('0x262a02c527758ddf3872ae4e35531890024bcb5f');

@@ -29,7 +29,6 @@ $("#seeContract").click(function() {
             $("#propertyDuration").html(value[4]);
             $("#propertyRent").html(value[5]);
             $("#propertySecurity").html(value[6]);
-            $("#governFee").html(value[7]);
         }
 
     });
@@ -46,14 +45,15 @@ $("#seeContract").click(function() {
             val = JSON.stringify(result); // convert the result to a String with all strings as part
             val = val.replace(/'/g, '"'); // seperate the strings from the main string
             val = JSON.parse(val);
-            console.log(val);
+            console.log(val);            
 
-            latitude = val[0];
-            longitude = val[1];
+            latitude = val[1];
+            longitude = val[2];
 
-            $("#sqFt").html(val[2]);
-            $("#rooms").html(val[3]);
-            $("#extra").html(val[4]);
+            $("#governFee").html(val[0]);
+            $("#sqFt").html(val[3]);
+            $("#rooms").html(val[4]);
+            $("#extra").html(val[5]);
 
 
             var map=new MapmyIndia.Map("map",{ center:[latitude, longitude],zoomControl: true, hybrid:true});
