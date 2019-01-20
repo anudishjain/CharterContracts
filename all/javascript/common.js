@@ -258,6 +258,18 @@ var rentContract = web3.eth.contract([
         "type": "event"
     },
     {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "name": "str",
+                "type": "string"
+            }
+        ],
+        "name": "rejection",
+        "type": "event"
+    },
+    {
         "constant": true,
         "inputs": [
             {
@@ -538,4 +550,4 @@ var rentContract = web3.eth.contract([
     }
 ]);
 
-var rentInfo = rentContract.at('0xdc12dd4dc7c3ac745aedfcfd552628ababe313ce');
+var rentInfo = rentContract.at('0xb3df82b7696a8b95cf50151ab2dfec0d2ed7dfaa');

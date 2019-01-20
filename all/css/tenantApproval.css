@@ -40,6 +40,23 @@ html {
 	margin-bottom: 2rem;
 }
 
+.loader {
+
+	width: 15rem;
+	display: none;
+}
+
+.message {
+
+	margin-left: 0.5%;
+	font-size: 1.1rem;
+	font-family: 'Abel', sans-serif;
+
+	display: none;
+
+	width : 85%;
+}
+
 .getStarted{
 
 	padding-top: 0.6rem;

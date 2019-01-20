@@ -149,7 +149,7 @@ contract Rent is Owned {
 				var newRent = OtherDetails('N/A', 'N/A', 'N/A', 0, 0, 'N/A', false);
 				allOtherDetails.push(newRent);
 				
-				var newExtras = Checks(false, false, false, 0, 0, 0);
+				var newExtras = Checks(false, false, false, now, 0, 0);
 				allChecks.push(newExtras);
 
 				var user = addressToPerson[msg.sender];
@@ -393,7 +393,6 @@ contract Rent is Owned {
 
 				if((details.completed == true)&&(house.completed == true)&&(party.completed == true))
 				{
-
 					user = addressToPerson[msg.sender];
 					checks.registerFee = true;
 					party.sign_landlord = sign;
@@ -507,8 +506,39 @@ contract Rent is Owned {
 	}
 
 
+	event rejection(string str);
 
-	function tenantReject() external {}
+	function tenantReject() external {
+
+		if(checkUser[msg.sender] == true)
+		{
+			var t = addressToPerson[msg.sender];
+
+			uint num = t.myRented.length - 1;
+			uint index = t.myRented[num];
+
+			var party = allParties[index];
+			var house = allHouses[index];
+			var details = allOtherDetails[index];
+			var checks = allChecks[index];
+
+			if((party.completed == true)&&(house.completed == true)&&(details.completed == true)&&(checks.time_of_deploy > 0))
+			{
+				party.tenantApprove = false;
+				checks.isValid = false;
+				checks.time_of_deploy = 0;
+				
+				rejection("Contract Rejected, Inform Landlord to draft New Contract");
+			}
+		}
+
+		else
+		{
+			rejection("You are not registered on Charter. Join Today..");
+		}
+	}
+
+
 	function tenantAccept(uint _security, string sign) external payable {}
 
 }

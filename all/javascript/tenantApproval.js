@@ -4,6 +4,26 @@ var longitude;
 var value;
 var val;
 
+// ------------------------------------------------------------------------------------------------------
+var price;
+
+var request = new XMLHttpRequest();
+request.open('GET', "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=INR&api_key=090d85bbb88aab5c93774929f2196d54fb4664cabf15ffc234d2d4d1e74c792b", true);
+
+request.onload = function () {
+    
+    var data = JSON.parse(this.response);
+
+    price = parseFloat(data["INR"]);
+
+    console.log(price);
+}
+
+request.send();
+$("#contractDetails").hide();
+
+// -------------------------------------------------------------------------------------------------------------
+
 web3.eth.defaultAccount = web3.eth.accounts[0];
 
 $("#seeContract").click(function() {
@@ -65,3 +85,110 @@ $("#seeContract").click(function() {
     $("#contractDetails").show();
 });
 
+
+// --------------------------------------------------------------------------------------------------------
+
+        var ans = false;
+        var check = false;
+
+        var message;
+
+        $("#signButton").click(function() {
+
+            $("#loader").show();
+
+            var currentDate = new Date();
+            
+            web3.personal.sign(web3.toHex("I hereby declare that I accept all the terms as stated above & understand that once deployed details cannot be changed." + 
+            "\n\nI know that after this step a Thorough Government Verification of this Contract will be performed." + "\n\nDated - " + String(currentDate) + 
+            "\n\n1 Ether priced at - " + String(price) + " Rupees.") ,web3.eth.accounts[0], function(error, result){
+
+                    if(error)
+                    {
+                        $("#loader").hide();
+                        alert('Failed !! Contract Signature cannot be performed..');
+                    }
+
+                    else
+                    {
+                        message = result;
+                        ans = true;
+                        $("#loader").hide();
+                    }
+
+                });
+        });
+
+        $("#payButton").click(function() {
+
+            if(ans == false)
+            {
+               alert("Sign the Contract before paying the Security Deposit");
+            }  
+
+            else
+            {
+                $("#loader").show();
+                check = true;
+
+               // add solidity function....
+            }
+
+        });
+
+
+
+// ----------------------------------------------------------------------------------------------------------
+    var event = rentInfo.rejection({}, 'latest');
+
+        event.watch(function(error, result) {
+
+            if(!error)
+            {
+                $("#message").show();
+                $("#hashBlock").show();
+
+                if(result.transactionHash != $("#hashBlock").html())
+                $("#loader").hide(); /// hide loader once we get successful response
+
+            $('#hashBlock').attr("href", "https://ropsten.etherscan.io/tx/" + result.transactionHash);
+            $("#message").html(result.args.str);
+                /// load data once we get the data back from the event User()
+                //we used toAscii as we are using bytes we need to convert hex to string format for display
+            }
+
+            else
+            {
+                $('#loader').hide();
+                console.log(error);
+            }
+
+        });
+
+        //------
+
+
+         $("#rejectButton").click(function() {
+
+            if((ans == false)&&(check == false))
+            {
+                alert("Warning !! The Contract will be Permanently Rejected and Marked Unapproved. " + 
+                    "\n\nImportant - Inform Landlord to draft a New Contract with renewed Terms and Conditions." + 
+                    "\n\nClick Reject again to Complete Rejection.");
+
+                ans = true;
+            }
+
+            else if((ans == true)&&(check == false))
+            {
+                $("#loader").show();
+                $("#hashBlock2").show();
+
+                rentInfo.tenantReject((err, res) => {
+                    if(err) {
+                        $("#loader").hide();
+                    }
+                });
+            }
+
+        });
