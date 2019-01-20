@@ -269,7 +269,7 @@ contract Rent is Owned {
 						else
 						{
 							home.completed = false;
-							registerHome('Failed !! Maximum Contract Duration allowed is 20 Years or 24 Months', 0, 0);
+							registerHome('Failed !! Maximum Contract Duration allowed is 20 Years or 240 Months', 0, 0);
 						}
 					}
 

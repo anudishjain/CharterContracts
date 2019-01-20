@@ -144,8 +144,6 @@ request.send();
 
 //--------------------
 
-var amount = Number(web3.toWei(String(feeGovern/price)));
-console.log(amount);
 
         var event = rentInfo.registerDetails({}, 'latest');
 
@@ -182,10 +180,15 @@ console.log(amount);
 
             $("#loader3").show();
 
+            var amount = String(web3.toWei(String(feeGovern/price)));
+            console.log(amount);
+
+            var bigNum = web3.toBigNumber(amount);
+
             if(($("#latitude").val() != '')&&($("#longitude").val() != '')&&($("#sqFt").val() != 0)&&($("#rooms").val() > 0)&&($("#extra").val() != 0))
             {
                 rentInfo.newDetails($("#latitude").val(), $("#longitude").val(), $("#sqFt").val(), $("#rooms").val(), 
-                    $("#extra").val(), amount,  (err, res) => {
+                    $("#extra").val(), (bigNum.toNumber()),  (err, res) => {
 
                     if(err) {
                         $("#loader3").hide();
@@ -264,8 +267,6 @@ var event = rentInfo.feePay({}, 'latest');
 
             $("#loader4").show();
             console.log(message);
-
-            console.log(parseInt(amount));
 
             if(ans != false)
             {
