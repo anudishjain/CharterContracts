@@ -135,7 +135,7 @@ request.onload = function () {
     
     var data = JSON.parse(this.response);
 
-    price = parseFloat(data["INR"]);
+    price = parseInt(data["INR"]);
 
     console.log(price);
 }
@@ -180,15 +180,10 @@ request.send();
 
             $("#loader3").show();
 
-            var amount = String(web3.toWei(String(feeGovern/price)));
-            console.log(amount);
-
-            var bigNum = web3.toBigNumber(amount);
-
             if(($("#latitude").val() != '')&&($("#longitude").val() != '')&&($("#sqFt").val() != 0)&&($("#rooms").val() > 0)&&($("#extra").val() != 0))
             {
                 rentInfo.newDetails($("#latitude").val(), $("#longitude").val(), $("#sqFt").val(), $("#rooms").val(), 
-                    $("#extra").val(), (bigNum.toNumber()),  (err, res) => {
+                    $("#extra").val(), Number(price),  (err, res) => {
 
                     if(err) {
                         $("#loader3").hide();

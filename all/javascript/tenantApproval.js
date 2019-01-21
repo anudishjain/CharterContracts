@@ -14,7 +14,7 @@ request.onload = function () {
     
     var data = JSON.parse(this.response);
 
-    price = parseFloat(data["INR"]);
+    price = parseInt(data["INR"]);
 
     console.log(price);
 }
@@ -85,8 +85,34 @@ $("#seeContract").click(function() {
     $("#contractDetails").show();
 });
 
-
 // --------------------------------------------------------------------------------------------------------
+var event = rentInfo.rejection({}, 'latest');
+
+        event.watch(function(error, result) {
+
+            if(!error)
+            {
+                $("#message").show();
+                $("#hashBlock").show();
+
+                if(result.transactionHash != $("#hashBlock").html())
+                $("#loader").hide(); /// hide loader once we get successful response
+
+            $('#hashBlock').attr("href", "https://ropsten.etherscan.io/tx/" + result.transactionHash);
+            $("#message").html(result.args.str);
+                /// load data once we get the data back from the event User()
+                //we used toAscii as we are using bytes we need to convert hex to string format for display
+            }
+
+            else
+            {
+                $('#loader').hide();
+                console.log(error);
+            }
+
+        });
+
+        //---------------------
 
         var ans = false;
         var check = false;
@@ -131,7 +157,14 @@ $("#seeContract").click(function() {
                 $("#loader").show();
                 check = true;
 
-               // add solidity function....
+                $("#hashBlock2").show();
+
+                rentInfo.tenantAccept(message, Number(price), (err, res) => {
+
+                    if(err) {
+                        $("#loader").hide();
+                    }
+                });
             }
 
         });
@@ -139,34 +172,6 @@ $("#seeContract").click(function() {
 
 
 // ----------------------------------------------------------------------------------------------------------
-    var event = rentInfo.rejection({}, 'latest');
-
-        event.watch(function(error, result) {
-
-            if(!error)
-            {
-                $("#message").show();
-                $("#hashBlock").show();
-
-                if(result.transactionHash != $("#hashBlock").html())
-                $("#loader").hide(); /// hide loader once we get successful response
-
-            $('#hashBlock').attr("href", "https://ropsten.etherscan.io/tx/" + result.transactionHash);
-            $("#message").html(result.args.str);
-                /// load data once we get the data back from the event User()
-                //we used toAscii as we are using bytes we need to convert hex to string format for display
-            }
-
-            else
-            {
-                $('#loader').hide();
-                console.log(error);
-            }
-
-        });
-
-        //------
-
 
          $("#rejectButton").click(function() {
 
@@ -184,11 +189,16 @@ $("#seeContract").click(function() {
                 $("#loader").show();
                 $("#hashBlock2").show();
 
-                rentInfo.tenantReject((err, res) => {
+                rentInfo.tenantReject(Number(price), (err, res) => {
                     if(err) {
                         $("#loader").hide();
                     }
                 });
+            }
+
+            else
+            {
+                alert("Contract already Approved !!");
             }
 
         });
