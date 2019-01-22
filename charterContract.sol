@@ -55,7 +55,7 @@ contract Rent is Owned {
 		uint rentAmount;
 
 		uint securityFee;
-		uint governFee;
+		uint governFee; /// (also listed as registration fee)
 
 		bool completed;
 	}
@@ -77,13 +77,14 @@ contract Rent is Owned {
 		
 		bool isValid;
 		bool registerFee;
-		bool securityfee;
+		bool securityFee;
 
 		uint time_of_deploy;
 		uint end_date;
 	}
-
-
+	
+	uint private last_index;
+	
 	Parties[] public allParties; 
 	House[] public allHouses;
 	OtherDetails[] public allOtherDetails;
@@ -96,7 +97,6 @@ contract Rent is Owned {
 	mapping(address => uint) private landlordRegister;
 	mapping(address => uint) private tenantSecurity;
 
-	// -------------------------------------------------------------------------------------------------------
 
 	function Rent() public {
 
@@ -104,9 +104,11 @@ contract Rent is Owned {
 		var govt = Person(owner, 'Government = Owner', 'Contact Government', 0, 'No Sign',  new uint[](0), new uint[](0));
 		
 		addressToPerson[owner] = govt;
+		
+		last_index = 0;
 	}
 
-	// -------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------
 
 	event startMessage(string message);
 
@@ -129,7 +131,7 @@ contract Rent is Owned {
 		}
 	}
 
-	// -------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------
 
 	event registerParty(string message, uint status);
 
@@ -231,8 +233,8 @@ contract Rent is Owned {
 							home.governFee = 100;
 							home.completed = true;
 							
-						    tenantSecurity[_tenant] = _security;
-				            landlordRegister[msg.sender] = home.governFee;
+							tenantSecurity[_tenant] = _security;
+							landlordRegister[msg.sender] = home.governFee;
 
 							registerHome('Step 2 Completed - Proceed to Step 3 to Complete the Process', 1, home.governFee);
 						}
@@ -247,9 +249,9 @@ contract Rent is Owned {
 
 							home.completed = true;
 							
-						    tenantSecurity[_tenant] = _security;
-				            landlordRegister[msg.sender] = home.governFee;
-				            
+							tenantSecurity[_tenant] = _security;
+							landlordRegister[msg.sender] = home.governFee;
+							
 							registerHome('Step 2 Completed - Proceed to Step 3 to Complete the Process', 1, home.governFee);
 						}
 
@@ -263,8 +265,8 @@ contract Rent is Owned {
 
 							home.completed = true;
 
-						    tenantSecurity[_tenant] = _security;
-				            landlordRegister[msg.sender] = home.governFee;
+							tenantSecurity[_tenant] = _security;
+							landlordRegister[msg.sender] = home.governFee;
 
 							registerHome('Step 2 Completed - Proceed to Step 3 to Complete the Process', 1, home.governFee);			
 						}
@@ -279,8 +281,8 @@ contract Rent is Owned {
 
 							home.completed = true;
 
-						    tenantSecurity[_tenant] = _security;
-				            landlordRegister[msg.sender] = home.governFee;
+							tenantSecurity[_tenant] = _security;
+							landlordRegister[msg.sender] = home.governFee;
 
 							registerHome('Step 2 Completed - Proceed to Step 3 to Complete the Process', 1, home.governFee);
 						}
@@ -421,7 +423,7 @@ contract Rent is Owned {
 		}
 	}
 
-	// --------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------
 
 	function tenantApproval1() view external returns( 
 		
@@ -454,12 +456,12 @@ contract Rent is Owned {
 				var house = allHouses[index];
 				var details = allOtherDetails[index];
 				var checks = allChecks[index];
-        
-                if((party.tenantApprove == true)||(checks.time_of_deploy == 0))
+				
+				if((party.tenantApprove == true)||(checks.time_of_deploy == 0))
 				{
-				    return('No New Contracts', 0, 'No New Contracts', 'No New Contracts', 0, 0, 0);
+					return('No New Contracts', 0, 'No New Contracts', 'No New Contracts', 0, 0, 0);
 				}
-    
+				
 				else if((party.completed == true)&&(house.completed == true)&&(details.completed == true)&&(checks.registerFee = true))
 				{
 					address landowner = party.landlord;
@@ -509,13 +511,13 @@ contract Rent is Owned {
 				
 				if((party.tenantApprove == true)||(checks.time_of_deploy == 0))
 				{
-				    return(0, 'No New Contracts', 'No New Contracts', 0, 0, 'No New Contracts');
+					return(0, 'No New Contracts', 'No New Contracts', 0, 0, 'No New Contracts');
 				}
 
 				else if((party.completed == true)&&(house.completed == true)&&(details.completed == true))
 				{
-				    return(house.governFee, details.latitude, details.longitude, details.squareFootage, 
-				    details.numberBedrooms, details.others);
+					return(house.governFee, details.latitude, details.longitude, details.squareFootage, 
+						details.numberBedrooms, details.others);
 				}
 			}
 		}
@@ -557,7 +559,7 @@ contract Rent is Owned {
 			
 			else if(party.tenantApprove == true)
 			{
-			    rejection("Contract already Approved, Government Verification pending.."); 
+				rejection("Contract already Approved, Government Verification pending.."); 
 			}
 			
 			else
@@ -574,22 +576,22 @@ contract Rent is Owned {
 
 
 	function tenantAccept(string _sign, uint _currentRate) external { /// make payable ------------------------------------
-	
+		
 		if(checkUser[msg.sender] == true)
 		{
-		    var t = addressToPerson[msg.sender];
-		    uint num = t.myRented.length - 1;
-		    uint index = t.myRented[num];
-		    var party = allParties[index];
-		    var house = allHouses[index];
-		    var details = allOtherDetails[index];
-		    var checks = allChecks[index];
-		    
-		    if(checks.time_of_deploy == 0)
-		    {
-		        rejection('Contarct already Rejected ! Contact Landlord to draft New Contract');
-		    }
-		    
+			var t = addressToPerson[msg.sender];
+			uint num = t.myRented.length - 1;
+			uint index = t.myRented[num];
+			var party = allParties[index];
+			var house = allHouses[index];
+			var details = allOtherDetails[index];
+			var checks = allChecks[index];
+			
+			if(checks.time_of_deploy == 0)
+			{
+				rejection('Contarct already Rejected ! Contact Landlord to draft New Contract');
+			}
+			
 			else if((party.completed == true)&&(house.completed == true)&&(details.completed == true)&&(party.tenantApprove == false))
 			{
 				party.tenantApprove = true;
@@ -597,6 +599,7 @@ contract Rent is Owned {
 				checks.time_of_deploy = now;
 				
 				party.sign_tenant = _sign;
+				checks.securityFee = true;
 				
 				rejection("Contract Approved, Government Verification Pending..");
 			}
@@ -612,6 +615,82 @@ contract Rent is Owned {
 			rejection("You are not registered on Charter. Join Today..");
 		}
 		
+	}
+	
+	// --------------------------------------------------------------------------------------------------------------------------------
+	
+	function govLogin() view external onlyOwner returns(string message, uint[] array, uint size) {
+		
+		var len = allParties.length;
+		uint[] memory indexes = new uint[](len);
+		
+		if(last_index + 1 <= allParties.length)
+		{
+			uint num = 0;
+			
+			for(uint i = last_index ; i < allParties.length ; i++)
+			{
+				var party = allParties[i];
+				var home = allHouses[i];
+				var detail = allOtherDetails[i];
+				var checks = allChecks[i];
+				
+				if((party.completed == true)&&(home.completed == true)&&(detail.completed == true)&&(checks.registerFee == true)&&
+					(checks.securityFee == true)&&(party.tenantApprove == true)&&(checks.time_of_deploy > 0)&&(party.govApprove == false))
+				{
+					indexes[num] = i;
+					num++;
+				}
+			}
+			
+			last_index = allParties.length;
+			return('Following Contracts have their Verification Pending', array, num);
+		}
+		
+		else
+		return('Done for Today.. No Pending Verifications', array, 0);
+		
+	}
+	
+	
+	function govApproval(uint i) external onlyOwner {
+		
+		require(i < allParties.length);
+		
+		var party = allParties[i];
+		var home = allHouses[i];
+		var detail = allOtherDetails[i];
+		var checks = allChecks[i];
+		
+		if((party.completed == true)&&(home.completed == true)&&(detail.completed == true)&&(checks.registerFee == true)&&
+			(checks.securityFee == true)&&(party.tenantApprove == true)&&(checks.time_of_deploy > 0))
+		{
+			party.govApprove = true; // government approves
+			checks.isValid = true; // marked as valid
+			
+			checks.time_of_deploy = now;
+			checks.end_date = now + ((home.duration) * 4 weeks); /// months * 4 weeks
+		}
+	}
+	
+	function govReject(uint i) external onlyOwner {
+	    
+		require(i < allParties.length);
+		
+		var party = allParties[i];
+		var home = allHouses[i];
+		var detail = allOtherDetails[i];
+		var checks = allChecks[i];
+		
+		if((party.completed == true)&&(home.completed == true)&&(detail.completed == true)&&(checks.registerFee == true)&&
+			(checks.securityFee == true)&&(party.tenantApprove == true)&&(checks.time_of_deploy > 0))
+		{
+			party.govApprove = false; // government approves
+			checks.isValid = false; // marked as valid
+			
+			checks.time_of_deploy = 0;
+			checks.end_date = 0;
+		}	    
 	}
 
 }
