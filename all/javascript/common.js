@@ -228,6 +228,20 @@ var rentContract = web3.eth.contract([
 		"type": "function"
 	},
 	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "i",
+				"type": "uint256"
+			}
+		],
+		"name": "govReject",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"constant": true,
 		"inputs": [
 			{
@@ -323,7 +337,7 @@ var rentContract = web3.eth.contract([
 				"type": "bool"
 			},
 			{
-				"name": "securityfee",
+				"name": "securityFee",
 				"type": "bool"
 			},
 			{
@@ -407,6 +421,20 @@ var rentContract = web3.eth.contract([
 		"constant": false,
 		"inputs": [
 			{
+				"name": "i",
+				"type": "uint256"
+			}
+		],
+		"name": "govApproval",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
 				"name": "_lat",
 				"type": "string"
 			},
@@ -449,6 +477,28 @@ var rentContract = web3.eth.contract([
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "govLogin",
+		"outputs": [
+			{
+				"name": "message",
+				"type": "string"
+			},
+			{
+				"name": "array",
+				"type": "uint256[]"
+			},
+			{
+				"name": "size",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -551,4 +601,4 @@ var rentContract = web3.eth.contract([
 	}
 ]);
 
-var rentInfo = rentContract.at('0x84f373df29339cef88f37e08d5e69c61ac0f54da');
+var rentInfo = rentContract.at('0x50b90ccd4297ba2fa1f43ee8259c245fb182ec5a');
