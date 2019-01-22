@@ -183,7 +183,7 @@ request.send();
             if(($("#latitude").val() != '')&&($("#longitude").val() != '')&&($("#sqFt").val() != 0)&&($("#rooms").val() > 0)&&($("#extra").val() != 0))
             {
                 rentInfo.newDetails($("#latitude").val(), $("#longitude").val(), $("#sqFt").val(), $("#rooms").val(), 
-                    $("#extra").val(), Number(price),  (err, res) => {
+                    $("#extra").val(),  (err, res) => {
 
                     if(err) {
                         $("#loader3").hide();
@@ -265,7 +265,7 @@ var event = rentInfo.feePay({}, 'latest');
 
             if(ans != false)
             {
-                rentInfo.feePayment(String(message), (err, res) => {
+                rentInfo.feePayment(Number(price), String(message), (err, res) => {
                         
                     if(err) {
                         $("#loader4").hide();

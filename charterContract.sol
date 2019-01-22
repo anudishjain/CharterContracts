@@ -81,8 +81,6 @@ contract Rent is Owned {
 
 		uint time_of_deploy;
 		uint end_date;
-		
-		uint ethInr;
 	}
 
 
@@ -94,6 +92,9 @@ contract Rent is Owned {
 	mapping(address => Person) public addressToPerson;
 	mapping(address => bool) private checkUser;
 	mapping(uint => bool) private checkAadhaar;
+	
+	mapping(address => uint) private landlordRegister;
+	mapping(address => uint) private tenantSecurity;
 
 	// -------------------------------------------------------------------------------------------------------
 
@@ -149,7 +150,7 @@ contract Rent is Owned {
 				var newRent = OtherDetails('N/A', 'N/A', 'N/A', 0, 0, 'N/A', false);
 				allOtherDetails.push(newRent);
 				
-				var newExtras = Checks(false, false, false, now, 0, 0);
+				var newExtras = Checks(false, false, false, now, 0);
 				allChecks.push(newExtras);
 
 				var user = addressToPerson[msg.sender];
@@ -157,6 +158,9 @@ contract Rent is Owned {
 
 				var tenant = addressToPerson[_tenant];
 				tenant.myRented.push(index);
+				
+				tenantSecurity[_tenant] = 0;
+				landlordRegister[msg.sender] = 0;
 
 				registerParty('Step 1 Completed - Proceed to Step 2 to enter Contract Details', 1);
 			}
@@ -213,6 +217,9 @@ contract Rent is Owned {
 						home.rentAmount = _rent;
 						home.securityFee = _security;
 						
+						var _tenant = allParties[index].tenant; 
+						
+
 						if(_timeMonths <= 0)
 						{
 							home.completed = false;
@@ -223,6 +230,9 @@ contract Rent is Owned {
 						{
 							home.governFee = 100;
 							home.completed = true;
+							
+						    tenantSecurity[_tenant] = _security;
+				            landlordRegister[msg.sender] = home.governFee;
 
 							registerHome('Step 2 Completed - Proceed to Step 3 to Complete the Process', 1, home.governFee);
 						}
@@ -236,7 +246,10 @@ contract Rent is Owned {
 							home.governFee = ((2 * 12 * _rent) / 100) + 1100;
 
 							home.completed = true;
-
+							
+						    tenantSecurity[_tenant] = _security;
+				            landlordRegister[msg.sender] = home.governFee;
+				            
 							registerHome('Step 2 Completed - Proceed to Step 3 to Complete the Process', 1, home.governFee);
 						}
 
@@ -248,7 +261,10 @@ contract Rent is Owned {
 							else
 							home.governFee = ((3 * 12 * _rent) / 100) + 1100;		
 
-							home.completed = true;	
+							home.completed = true;
+
+						    tenantSecurity[_tenant] = _security;
+				            landlordRegister[msg.sender] = home.governFee;
 
 							registerHome('Step 2 Completed - Proceed to Step 3 to Complete the Process', 1, home.governFee);			
 						}
@@ -262,6 +278,9 @@ contract Rent is Owned {
 							home.governFee = ((6 * 12 * _rent) / 100) + 1100;
 
 							home.completed = true;
+
+						    tenantSecurity[_tenant] = _security;
+				            landlordRegister[msg.sender] = home.governFee;
 
 							registerHome('Step 2 Completed - Proceed to Step 3 to Complete the Process', 1, home.governFee);
 						}
@@ -294,7 +313,7 @@ contract Rent is Owned {
 	event registerDetails(string message, uint status);
 	
 
-	function newDetails(string _lat, string _lon, uint _sqFt, uint _rooms, string _extra, uint _currentRate) external {
+	function newDetails(string _lat, string _lon, uint _sqFt, uint _rooms, string _extra) external {
 		
 		if(checkUser[msg.sender] == true)
 		{
@@ -320,9 +339,6 @@ contract Rent is Owned {
 				{
 					var details = allOtherDetails[index];
 					var home = allHouses[index];
-					var check = allChecks[index];
-					
-					check.ethInr = _currentRate;
 
 					if(home.completed == false)
 					{
@@ -361,17 +377,9 @@ contract Rent is Owned {
 
 	event feePay(string message);
 
-	function feePayment(string sign) external payable {
+	function feePayment(uint _currentRate, string sign) external payable {
 		
-		var user1 = addressToPerson[msg.sender];
-		uint num1 = user1.myOwned.length - 1;
-		
-		uint index1 = user1.myOwned[num1];
-		
-		var feeInr = allHouses[index1].governFee;
-		var ethPrice = allChecks[index1].ethInr;
-
-		require(msg.value ==((feeInr*(10^18))/ethPrice));
+		require(msg.value == (landlordRegister[msg.sender] * (10^18)/_currentRate));
 		
 		if(checkUser[msg.sender] == true)
 		{
@@ -568,23 +576,18 @@ contract Rent is Owned {
 
 
 	function tenantAccept(string _sign, uint _currentRate) external payable {
-		
-		var t = addressToPerson[msg.sender];
-		
-		uint num = t.myRented.length - 1;
-		uint index = t.myRented[num];
 
-		var party = allParties[index];
-		var house = allHouses[index];
-		var details = allOtherDetails[index];
-		var checks = allChecks[index];
-		
-		var feeInr = allHouses[index].securityFee;
-
-		require(msg.value == ((feeInr*(10^18))/_currentRate));
+		require(msg.value == (tenantSecurity[msg.sender] * (10^18)/_currentRate));
 		
 		if(checkUser[msg.sender] == true)
 		{
+		    var t = addressToPerson[msg.sender];
+		    uint num = t.myRented.length - 1;
+		    uint index = t.myRented[num];
+		    var party = allParties[index];
+		    var house = allHouses[index];
+		    var details = allOtherDetails[index];
+		    var checks = allChecks[index];
 		    
 		    if(checks.time_of_deploy == 0)
 		    {
