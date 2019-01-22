@@ -377,9 +377,7 @@ contract Rent is Owned {
 
 	event feePay(string message);
 
-	function feePayment(uint _currentRate, string sign) external payable {
-		
-		require(msg.value == (landlordRegister[msg.sender] * (10^18)/_currentRate));
+	function feePayment(uint _currentRate, string sign) external { /// make payable -----------------------------------
 		
 		if(checkUser[msg.sender] == true)
 		{
@@ -575,10 +573,8 @@ contract Rent is Owned {
 	}
 
 
-	function tenantAccept(string _sign, uint _currentRate) external payable {
-
-		require(msg.value == (tenantSecurity[msg.sender] * (10^18)/_currentRate));
-		
+	function tenantAccept(string _sign, uint _currentRate) external { /// make payable ------------------------------------
+	
 		if(checkUser[msg.sender] == true)
 		{
 		    var t = addressToPerson[msg.sender];
