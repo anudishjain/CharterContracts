@@ -42,7 +42,7 @@
                     if(error)
                     {
                         $("#loader").hide();
-                        alert('Failed !! Digital Message Signature cannot be performed..');
+                        alert('Failed !! Signature cannot be performed..');
                     }
 
                     else
@@ -84,7 +84,7 @@
 
             else {
 
-                alert('Complete Step 1 - Verify your Address, by signing the Disclaimer (Click Verify)');
+                alert('Kindly sign the Terms and Conditions first.');
             }
 
         });   
