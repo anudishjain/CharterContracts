@@ -28,6 +28,44 @@
 var rentContract = web3.eth.contract([
 	{
 		"constant": true,
+		"inputs": [],
+		"name": "tenantData2",
+		"outputs": [
+			{
+				"name": "security",
+				"type": "uint256"
+			},
+			{
+				"name": "registration",
+				"type": "uint256"
+			},
+			{
+				"name": "lat",
+				"type": "string"
+			},
+			{
+				"name": "long",
+				"type": "string"
+			},
+			{
+				"name": "sqFt",
+				"type": "uint256"
+			},
+			{
+				"name": "rooms",
+				"type": "uint256"
+			},
+			{
+				"name": "extra",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
 		"inputs": [
 			{
 				"name": "",
@@ -98,45 +136,53 @@ var rentContract = web3.eth.contract([
 		"type": "function"
 	},
 	{
-		"constant": false,
-		"inputs": [
+		"constant": true,
+		"inputs": [],
+		"name": "tenantData1",
+		"outputs": [
 			{
-				"name": "_add",
+				"name": "landlordName",
 				"type": "string"
 			},
 			{
-				"name": "_type",
+				"name": "landlordAadhaar",
+				"type": "uint256"
+			},
+			{
+				"name": "addressHouse",
 				"type": "string"
 			},
 			{
-				"name": "_timeMonths",
+				"name": "typeProperty",
+				"type": "string"
+			},
+			{
+				"name": "startEpoch",
 				"type": "uint256"
 			},
 			{
-				"name": "_rent",
+				"name": "endEpoch",
 				"type": "uint256"
 			},
 			{
-				"name": "_security",
+				"name": "rent",
 				"type": "uint256"
 			}
 		],
-		"name": "newHome",
-		"outputs": [],
 		"payable": false,
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
 		"constant": false,
 		"inputs": [
 			{
-				"name": "_currentRate",
-				"type": "uint256"
+				"name": "_sign",
+				"type": "string"
 			},
 			{
-				"name": "sign",
-				"type": "string"
+				"name": "_currentRate",
+				"type": "uint256"
 			}
 		],
 		"name": "feePayment",
@@ -172,7 +218,7 @@ var rentContract = web3.eth.contract([
 				"type": "uint256"
 			},
 			{
-				"name": "sign",
+				"name": "signTerms",
 				"type": "string"
 			}
 		],
@@ -191,14 +237,6 @@ var rentContract = web3.eth.contract([
 		"name": "allParties",
 		"outputs": [
 			{
-				"name": "tenantApprove",
-				"type": "bool"
-			},
-			{
-				"name": "govApprove",
-				"type": "bool"
-			},
-			{
 				"name": "landlord",
 				"type": "address"
 			},
@@ -207,38 +245,20 @@ var rentContract = web3.eth.contract([
 				"type": "address"
 			},
 			{
-				"name": "government",
-				"type": "address"
+				"name": "signLandlord",
+				"type": "string"
+			},
+			{
+				"name": "signTenant",
+				"type": "string"
 			},
 			{
 				"name": "completed",
 				"type": "bool"
-			},
-			{
-				"name": "sign_landlord",
-				"type": "string"
-			},
-			{
-				"name": "sign_tenant",
-				"type": "string"
 			}
 		],
 		"payable": false,
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "i",
-				"type": "uint256"
-			}
-		],
-		"name": "govReject",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -260,7 +280,15 @@ var rentContract = web3.eth.contract([
 				"type": "string"
 			},
 			{
-				"name": "duration",
+				"name": "startEpoch",
+				"type": "uint256"
+			},
+			{
+				"name": "endEpoch",
+				"type": "uint256"
+			},
+			{
+				"name": "monthDuration",
 				"type": "uint256"
 			},
 			{
@@ -272,81 +300,12 @@ var rentContract = web3.eth.contract([
 				"type": "uint256"
 			},
 			{
-				"name": "governFee",
+				"name": "registerFee",
 				"type": "uint256"
 			},
 			{
 				"name": "completed",
 				"type": "bool"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "tenantApproval2",
-		"outputs": [
-			{
-				"name": "registration",
-				"type": "uint256"
-			},
-			{
-				"name": "lat",
-				"type": "string"
-			},
-			{
-				"name": "long",
-				"type": "string"
-			},
-			{
-				"name": "sqFt",
-				"type": "uint256"
-			},
-			{
-				"name": "rooms",
-				"type": "uint256"
-			},
-			{
-				"name": "extra",
-				"type": "string"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "allChecks",
-		"outputs": [
-			{
-				"name": "isValid",
-				"type": "bool"
-			},
-			{
-				"name": "registerFee",
-				"type": "bool"
-			},
-			{
-				"name": "securityFee",
-				"type": "bool"
-			},
-			{
-				"name": "time_of_deploy",
-				"type": "uint256"
-			},
-			{
-				"name": "end_date",
-				"type": "uint256"
 			}
 		],
 		"payable": false,
@@ -380,52 +339,38 @@ var rentContract = web3.eth.contract([
 		"type": "function"
 	},
 	{
-		"constant": true,
-		"inputs": [],
-		"name": "tenantApproval1",
-		"outputs": [
-			{
-				"name": "landlordName",
-				"type": "string"
-			},
-			{
-				"name": "landlordAadhaar",
-				"type": "uint256"
-			},
-			{
-				"name": "addressHouse",
-				"type": "string"
-			},
-			{
-				"name": "typeProperty",
-				"type": "string"
-			},
-			{
-				"name": "duration",
-				"type": "uint256"
-			},
-			{
-				"name": "rent",
-				"type": "uint256"
-			},
-			{
-				"name": "security",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
 		"constant": false,
 		"inputs": [
 			{
-				"name": "i",
+				"name": "_add",
+				"type": "string"
+			},
+			{
+				"name": "_type",
+				"type": "string"
+			},
+			{
+				"name": "_startEpoch",
+				"type": "uint256"
+			},
+			{
+				"name": "_endEpoch",
+				"type": "uint256"
+			},
+			{
+				"name": "_months",
+				"type": "uint256"
+			},
+			{
+				"name": "_rent",
+				"type": "uint256"
+			},
+			{
+				"name": "_security",
 				"type": "uint256"
 			}
 		],
-		"name": "govApproval",
+		"name": "newHome",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -480,28 +425,6 @@ var rentContract = web3.eth.contract([
 		"type": "function"
 	},
 	{
-		"constant": true,
-		"inputs": [],
-		"name": "govLogin",
-		"outputs": [
-			{
-				"name": "message",
-				"type": "string"
-			},
-			{
-				"name": "array",
-				"type": "uint256[]"
-			},
-			{
-				"name": "size",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
 		"inputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -526,11 +449,6 @@ var rentContract = web3.eth.contract([
 				"indexed": false,
 				"name": "message",
 				"type": "string"
-			},
-			{
-				"indexed": false,
-				"name": "status",
-				"type": "uint256"
 			}
 		],
 		"name": "registerParty",
@@ -543,11 +461,6 @@ var rentContract = web3.eth.contract([
 				"indexed": false,
 				"name": "message",
 				"type": "string"
-			},
-			{
-				"indexed": false,
-				"name": "status",
-				"type": "uint256"
 			},
 			{
 				"indexed": false,
@@ -565,11 +478,6 @@ var rentContract = web3.eth.contract([
 				"indexed": false,
 				"name": "message",
 				"type": "string"
-			},
-			{
-				"indexed": false,
-				"name": "status",
-				"type": "uint256"
 			}
 		],
 		"name": "registerDetails",
@@ -601,4 +509,4 @@ var rentContract = web3.eth.contract([
 	}
 ]);
 
-var rentInfo = rentContract.at('0x50b90ccd4297ba2fa1f43ee8259c245fb182ec5a');
+var rentInfo = rentContract.at('0x51d37f9d48d39431dbf40257a3943942ab038ef6');

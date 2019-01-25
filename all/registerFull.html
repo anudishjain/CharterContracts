@@ -92,16 +92,13 @@
     <h1 class="heading3"><b>Step - I</b></h1>
     <h1 class="heading3">Tenant's Information</h1>
     <br>
-
-    <img src="extra/loader.gif" id="loader1" class="loader">
-
-    <br>
     <br>
 
     <div class="alert alert-dark message"><b>Transaction on EtherScan - <a href="" id="hashBlock1"> Click Here</b></a></div>
     <br>
     <div class="alert alert-danger message" id="message1" style="font-weight: bold; display: none;"></div> 
-
+    <br>
+    <img src="extra/loader.gif" id="loader1" class="loader">
     <br>
 
     <form style="margin-left: 1rem">
@@ -129,16 +126,13 @@
     <h1 class="heading3"><b>Step - II</b></h1>
     <h1 class="heading3">Property's Information</h1>
     <br>
-
-    <img src="extra/loader.gif" id="loader2" class="loader">
-
-    <br>
     <br>
 
     <div class="alert alert-dark message"><b>Transaction on EtherScan - <a href="" id="hashBlock2">Click Here</b></a></div>
     <br>
     <div class="alert alert-danger message" id="message2" style="font-weight: bold; display: none;"></div> 
-
+    <br>
+    <img src="extra/loader.gif" id="loader2" class="loader">
     <br>
 
     <form style="margin-left: 1rem;">
@@ -152,10 +146,22 @@
         </select>
         <br>
         <br>
-        <input class="formInput form-control" type="number" id="duration" placeholder="Duration (in Months) of Contract" required>
+        <br>
+        <p class="textPara" style="color: #263854; font-weight: bold">Start Date of the Contract</p>
+        <div class="alert alert-warning message" style="font-weight: bold; width: 75%">Kindly ensure that your Contract's Start Date is atleast 7 Days
+        from Today, as Government Verification of Contract is also required after the Deployment</div> 
+        <br>
+        <input class="formInput form-control" type="date" id="startDate" required>
+        <br>
+        <br>
+        <p class="textPara" style="color: #263854; font-weight: bold">End Date of the Contract</p>
+        <div class="alert alert-warning message" style="font-weight: bold; width: 75%">Minimum Duration of Agreement is 1 Month and Maximum Duration of Agreement is 240 Months (20 Years)</div> 
+        <br>
+        <input class="formInput form-control" type="date" id="endDate" required>
+        <br>
         <br>
         <input class="formInput form-control" type="number" id="rent" placeholder="Monthly Rent (> 0 and in ₹)" required>
-        <input class="formInput form-control" type="text" id="security" placeholder="Security Deposit (0 if N/A, in ₹)" required>
+        <input class="formInput form-control" type="number" id="security" placeholder="Security Deposit (0 if N/A, in ₹)" required>
         <br>
         <button type="button" id="registerButton2" class="getStarted">Submit</button>
 
@@ -177,28 +183,27 @@
 
     <h1 class="heading3"><b>Step - III</b></h1>
     <h1 class="heading3">Miscellaneous Information</h1>
+    <br> 
     <br>
 
-    <img src="extra/loader.gif" id="loader3" class="loader">
+    <div class="alert alert-info message"><b>Use the feature of GeoTagging, enter the Latitude, Longitude Coordinates of Property. 
+    <a href="https://www.youtube.com/watch?v=0C0-2ph1nQk">How to get them from Google Maps (Click Here) ?</a></b></div>
 
+    <div class="alert alert-warning message"><b>Upload your Physical Contracts here, so that this contract can be a Valid Document Proof for the Governments, Contracts will be Publicly Visible</b></div>
     <br>
     <br>
 
     <div class="alert alert-dark message"><b>Transaction on EtherScan - <a href="" id="hashBlock3"> Click Here</b></a></div>
     <br>
     <div class="alert alert-danger message" id="message3" style="font-weight: bold; display: none;"></div> 
-
     <br>
-
-    <div class="alert alert-info message"><b>Use the feature of GeoTagging, enter the Latitude, Longitude Coordinates of Property from Google Maps</b></div>
-    <div class="alert alert-warning message"><b>Upload your Physical Contracts here, so that this contract can be a Valid Document Proof for the Governments, Your Contracts will be Publicly Visible</b></div>
-    <br>
+    <img src="extra/loader.gif" id="loader3" class="loader">
     <br>
 
     <form style="margin-left: 1rem">
 
-        <input class="formInput form-control" type="text" id="latitude" placeholder="Latitude Coordinate" required>
-        <input class="formInput form-control" type="text" id="longitude" placeholder="Longitude Coordinate" required>
+        <input class="formInput form-control" type="text" id="latitude" placeholder="Latitude Coordinate (eg. 28.7041)" required>
+        <input class="formInput form-control" type="text" id="longitude" placeholder="Longitude Coordinate (eg. 77.1025)" required>
         <br>
         <input class="formInput form-control" type="number" id="sqFt" placeholder="Square Footage of Property" required>
         <input class="formInput form-control" type="number" id="rooms" placeholder="Number of Rooms (0 if N/A)" required>
@@ -239,27 +244,23 @@
     <h1 class="heading3"><b>Step - IV</b></h1>
     <h1 class="heading3">Registration Fee Payment</h1>
     <br>
-
-    <img src="extra/loader.gif" id="loader4" class="loader">
-
-    <br>
     <br>
 
     <div class="alert alert-dark message">Transaction on EtherScan - <a href="" id="hashBlock4"><b> Click Here</b></a></div>
     <br>
     <div class="alert alert-danger message" id="message4" style="font-weight: bold; display: none;"></div> 
-
     <br>
+    <img src="extra/loader.gif" id="loader4" class="loader">
     <br>
-    <div class="alert alert-danger message"><b>Please make sure you have sufficient Ether Balance in your MetaMask Wallet</b></div>
-    <div class="alert alert-info message" id="showFee" style="font-weight: bold">Fee to be paid - N/A (First Complete above Steps)</div>
+    <div class="alert alert-success message"><b>Please make sure you have sufficient Ether Balance in your MetaMask Wallet</b></div>
+    <div class="alert alert-warning message" id="showFee" style="font-weight: bold">Fee to be paid (First Complete above Steps)</div>
     <br>
 
     <form style="margin-left: 1rem">    
 
         <button type="button" id="contractSign" class="getStarted">Sign the Contract</button>
          <br>
-        <button type="button" id="registerButton4" class="getStarted">Pay Registration Fees</button>
+        <button type="button" id="registerButton4" class="getStarted">Pay Stamp Duty Fee</button>
 
     </form>
 
