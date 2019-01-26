@@ -28,12 +28,18 @@
         });
 
         //---------
-        var tenant = ($("#tenantAdd").val());
+        var tenant;
+        var check1 = false;
         //---------
 
         $("#registerButton1").click(function() {
 
             $("#loader1").show();
+
+            if(check1 == false)
+            {
+                tenant = ($("#tenantAdd").val());
+            }
 
             if($("#tenantAdd").val() != '')
             {
@@ -42,6 +48,9 @@
                     if(err) {
                         $("#loader1").hide();
                     }
+
+                    else
+                        check1 = true;
                 });
 
             }
@@ -94,24 +103,63 @@ var feeGovern;
         });
 
         // -----------------
-        var address = ($("#address").val());
-        var duration = ($("#duration").val());
-        var rent = ($("#rent").val());
-        var security = ($("#security").val());
+        var address;
+        var duration;
+        var rent;
+        var security;
+        var startdate;
+        var enddate;
+        var durationMonths;
+        var check2 = false;
         // -----------------
+
+
 
         $("#registerButton2").click(function() {
 
             $("#loader2").show();
 
-            if(($("#address").val() != '')&&($("#type").val() != '')&&($("#address").val() != '')&&($("#rent").val() > 0))
+            if(check2 == false)
             {
-                rentInfo.newHome($("#address").val(), $("#type").val(), $("#duration").val(), $("#rent").val(), 
-                    $("#security").val(), (err, res) => {
+                address = ($("#address").val());
+                duration = ($("#duration").val());
+                startdate = ($("#startDate").val());
+                enddate = ($("#endDate").val());
+                rent = ($("#rent").val());
+                security = ($("#security").val());
+            }
+
+
+            // get epochtimes for start and end date - 0 hr, 0 min, 0 sec
+            var startEpoch = new Date(String(startdate)).getTime() / 1000;
+            var endEpoch = new Date(String(enddate)).getTime() / 1000;
+
+            var sixDayFromToday = (new Date().getTime()/1000) + (86400 * 6); // added 6 full day seconds from Today.
+
+            // checks to ensure correct epoch time is inserted into contract
+
+            if(startEpoch <= sixDayFromToday)
+                alert('Start Date must be atleast a week from Today');
+            else if(endEpoch <= sixDayFromToday)
+                alert('End Date must be atleast a month from Start Date');
+            else if(endEpoch - startEpoch < 2592000)
+                alert('Minimum Duration of Contract is 30 Days');
+            
+            else if(($("#address").val() != '')&&($("#type").val() != '')&&($("#address").val() != '')&&($("#rent").val() > 0))
+            {
+                            // we round off to the Greatest Integer if 1.8 months so it becomes 2 months
+                durationMonths = Math.ceil((endEpoch - startEpoch)/(2592000));
+                console.log(durationMonths);
+                
+                rentInfo.newHome($("#address").val(), $("#type").val(), Number(startEpoch), Number(endEpoch), Number(durationMonths),
+                $("#rent").val(), $("#security").val(), (err, res) => {
 
                     if(err) {
                         $("#loader2").hide();
                     }
+
+                    else
+                        check2 = true;
                 });
             }
 
@@ -173,12 +221,18 @@ request.send();
         });
 
         // -----------------
-        var extra = ($("#extra").val());
+        var extra;
+        var check3 = false;
         // -----------------
 
         $("#registerButton3").click(function() {
 
             $("#loader3").show();
+
+            if(check3 == false)
+            {
+                extra = ($("#extra").val());
+            }
 
             if(($("#latitude").val() != '')&&($("#longitude").val() != '')&&($("#sqFt").val() != 0)&&($("#rooms").val() > 0)&&($("#extra").val() != 0))
             {
@@ -188,6 +242,9 @@ request.send();
                     if(err) {
                         $("#loader3").hide();
                     }
+
+                    else
+                    check3 = true;
                 });
             }
 
@@ -237,15 +294,18 @@ var event = rentInfo.feePay({}, 'latest');
 
             var currentDate = new Date();
             
-            web3.personal.sign(web3.toHex("\nI hereby lease Property Situated at \n\n" + ($("#address").val()) + "\n\nto Tenant Address -" + 
-            ($("#tenantAdd").val()) + '\n\nfor ' + String($("#duration").val()) + ' Months,' + ' at Rent Amount of ' + String($("#rent").val()) + 
-            ' Rupees and Security Fee of ' + String($("#security").val()) + ' Rupees ' + '\nOther terms of agreement are - \n\n'+ ($("#extra").val()) + 
-            '\n\nDated - ' + (currentDate) + '\n\n1 Ether priced at ' + String(price) + ' Rupees') ,web3.eth.accounts[0], function(error, result){
+            web3.personal.sign(web3.toHex("I hereby Lease property situated at -\n\n" + String(address) + "\n\nTo Tenant Address -\n\n" + 
+            String(tenant) + "\n\nStarting From - " + String(new Date(String(startdate))) + "\nUpto Date - " + String(new Date(String(enddate)))
+            + "\n\nAt Monthly Rent of - " + String(rent) + " INR\nand Security Deposit of - " + String(security) + " INR" + 
+            "\n\nThe Contract Duration is of - " + String(durationMonths) + " Months" + "\n\nStamp Duty to the Government is -" + 
+            String(feeGovern) + " INR" + "\n\nOther Terms of Agreement are -\n" + String(extra) + "\n\nI hereby declare that as of - " + 
+            String(currentDate) + ", I will abide by all the Terms of Agreement I have stated above," + "\n\n1 Ether priced at - " + 
+            String(price) + " INR"), web3.eth.accounts[0], function(error, result){
 
                     if(error)
                     {
                         $("#loader4").hide();
-                        alert('Failed !! Contract Signature cannot be performed..');
+                        alert('Signature cannot be Verified');
                     }
 
                     else
@@ -265,7 +325,7 @@ var event = rentInfo.feePay({}, 'latest');
 
             if(ans != false)
             {
-                rentInfo.feePayment(Number(price), String(message), (err, res) => {
+                rentInfo.feePayment(String(message), Number(price), (err, res) => {
                         
                     if(err) {
                         $("#loader4").hide();
