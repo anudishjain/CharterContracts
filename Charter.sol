@@ -1,4 +1,3 @@
-
 //@author- Anudish Jain
 //@about - Charter User Registration and Contract Details File
 
@@ -153,7 +152,7 @@ contract Rent is Owned {
 		{
 			if(checkUser[_tenant] == true)
 			{
-				var newParty = Parties(msg.sender, _tenant,'N/A', 'N/A', false);
+				var newParty = Parties(msg.sender, _tenant,'N/A', 'N/A', true);
 				var index = allParties.push(newParty) - 1;
 
 				var newHouse = House('No Address Added', 'No Property Type', 0, 0, 0, 0, 0, 0, false);
