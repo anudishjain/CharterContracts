@@ -2,7 +2,7 @@
 var latitude;
 var longitude;
 var value;
-var val;
+var value2;
 
 // ------------------------------------------------------------------------------------------------------
 var price;
@@ -28,58 +28,47 @@ web3.eth.defaultAccount = web3.eth.accounts[0];
 
 $("#seeContract").click(function() {
 
-    rentInfo.tenantApproval1(function(error, result ) {
+    rentInfo.tenantData1(function(error, result ) {
 
-        if(error)
-        {
-            alert('Error !! Contract cannot be Displayed..');
-        }
-
-        else
-        {
             value = JSON.stringify(result); // convert the result to a String with all strings as part
             value = value.replace(/'/g, '"'); // seperate the strings from the main string
             value = JSON.parse(value);
             console.log(value);
 
+            
+            var startEpoch = new Date(parseInt(value[4]) * 1000);
+            var endEpoch = new Date(parseInt(value[5]) * 1000);
+            var durationMonths = Math.ceil((Number(value[5])-Number(value[4]))/(2592000));                
+
             $("#landlordName").html(value[0]);
             $("#landlordAadhaar").html(value[1]);
             $("#propertyAddress").html(value[2]);
             $("#propertyType").html(value[3]);
-            $("#propertyDuration").html(value[4]);
-            $("#propertyRent").html(value[5]);
-            $("#propertySecurity").html(value[6]);
-        }
-
+            $("#startDate").html(startEpoch);
+            $("#endDate").html(endEpoch);
+            $("#duration").html(durationMonths);
+            $("#propertyRent").html(value[6]);
     });
 
-    rentInfo.tenantApproval2(function(error, result) {
+    rentInfo.tenantData2(function(error, result) {
 
-        if(error)
-        {
-            alert('Contract cannot be Displayed..');
-        }
+            value2 = JSON.stringify(result); // convert the result to a String with all strings as part
+            value2 = value2.replace(/'/g, '"'); // seperate the strings from the main string
+            value2 = JSON.parse(value2);
+            console.log(value2);            
 
-        else
-        {
-            val = JSON.stringify(result); // convert the result to a String with all strings as part
-            val = val.replace(/'/g, '"'); // seperate the strings from the main string
-            val = JSON.parse(val);
-            console.log(val);            
+            latitude = value2[2];
+            longitude = value2[3];
 
-            latitude = val[1];
-            longitude = val[2];
-
-            $("#governFee").html(val[0]);
-            $("#sqFt").html(val[3]);
-            $("#rooms").html(val[4]);
-            $("#extra").html(val[5]);
+            $("#propertySecurity").html(value2[0]);
+            $("#registerFee").html(value2[1]);
+            $("#sqFt").html(value2[4]);
+            $("#rooms").html(value2[5]);
+            $("#extra").html(value2[6]);
 
 
             var map=new MapmyIndia.Map("map",{ center:[latitude, longitude],zoomControl: true, hybrid:true});
             L.marker([latitude, longitude]).addTo(map);
-        }
-
     });
 
     $("#contractDetails").show();

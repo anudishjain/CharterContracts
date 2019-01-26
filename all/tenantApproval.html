@@ -83,7 +83,7 @@
 
 <div class="container-fluid" align="center" id="contractDetails" style="display: none">
 
-    <div align="left" style="margin-left: 3.5%; margin-right: 8%">
+    <div align="left" style="margin-left: 3.5%; margin-right: 5%">
 
     <h1 class="jumboHead" style="margin-top: 1rem"><b>LandLord Details</b></h1>
     <br>
@@ -105,19 +105,22 @@
     <pre><h1 class="jumboText" id="propertyAddress"></h1></pre>
     <h1 class="jumboText"><b>Property Type</b></h1>
     <h1 class="jumboText" id="propertyType"></h1>
-    <h1 class="jumboText"><b>Duration of Contract (in Months)</b></h1>
-    <h1 class="jumboText" id="propertyDuration"></h1>
-
+    <h1 class="jumboText"><b>Start Date of the Contract</b></h1>
+    <h1 class="jumboText" id="startDate"></h1>
+    <h1 class="jumboText"><b>End Date of the Contract</b></h1>
+    <h1 class="jumboText" id="endDate"></h1>
+    <br>
     <div align="right">
+    <h1 class="jumboText"><b>Duration of Contract (in Months)</b></h1>
+    <h1 class="jumboText" id="duration"></h1>
     <h1 class="jumboText"><b>Rent Amount per Month (in Rupees)</b></h1>
     <h1 class="jumboText" id="propertyRent"></h1>
     <h1 class="jumboText"><b>Security Deposit (in Rupees, One Time)</b></h1>
     <h1 class="jumboText" id="propertySecurity"></h1>   
     <h1 class="jumboText"><b>Registration Fee (in Rupees, One Time)</b></h1>
-    <h1 class="jumboText" id="governFee"></h1> 
+    <h1 class="jumboText" id="registerFee"></h1> 
     <hr>
     </div>
-
     <h1 class="jumboHead"><b>Other Details</b></h1>
     <br>
     <div align="right">
@@ -131,19 +134,17 @@
 
     <br>
     <h1 class="jumboText"><b>Other Terms of Agreement</b></h1>
-    <pre><h1 class="jumboText" id="extra"></h1></pre>   
+    <pre><h1 class="jumboText" id="extra" style="white-space: initial;"></h1></pre>   
 
     </div>
 
     <br>
     <br>
-
-    <img src="extra/loader.gif" id="loader" class="loader"> 
+    <div class="alert alert-dark message" id="hashBlock2"><b>Transaction on EtherScan - <a href="" id="hashBlock"> Click Here</b></a></div>
     <br>
     <div class="alert alert-danger message" id="message" style="font-weight: bold"></div>
     <br>
-    <div class="alert alert-dark message" id="hashBlock2"><b>Transaction on EtherScan - <a href="" id="hashBlock"> Click Here</b></a></div>
-    <br>
+    <img src="extra/loader.gif" id="loader" class="loader"> 
     <br>  
 
     <button type="button" class="getStarted1" id="signButton" style="background: #3C557D">Sign Contract</button>

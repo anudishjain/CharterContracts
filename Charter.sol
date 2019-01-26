@@ -417,7 +417,7 @@ contract Rent is Owned {
 		}
 	}
 
-	// --------------------------------------------------  TENANT SECTION BELOW  ------------------------------------------
+	// -------------------------------  TENANT SECTION BELOW  ------------------------------------------
 
 	function tenantData1() view external returns ( 
 		
@@ -431,14 +431,10 @@ contract Rent is Owned {
 		uint endEpoch,
 		uint rent){
     
-        require(checkUser[msg.sender] == true);
-    
 		if(checkUser[msg.sender] == true)
 		{
 			var t = addressToPerson[msg.sender];
 			uint num = t.myRented.length - 1;
-			
-            require(num > 0);
 
 			if(num >= 0)
 			{
@@ -459,12 +455,14 @@ contract Rent is Owned {
 				}
 				
 				else
-				{
-				    return('No Data Available', 0, 'No Data Available', 'No Data Available', 0, 0, 0);
-				}
+				return('No Data Available', 0, 'No Data Available', 'No Data Available', 0, 0, 0);
 			}
+			
+			else
+			return('No Data Available', 0, 'No Data Available', 'No Data Available', 0, 0, 0);
 		}
-		
+		else
+		return('No Data Available', 0, 'No Data Available', 'No Data Available', 0, 0, 0);
 	}
 
 	function tenantData2() view external returns ( 
@@ -477,14 +475,10 @@ contract Rent is Owned {
 		uint rooms,
 		string extra ){
         
-        require(checkUser[msg.sender] == true);
-    
 		if(checkUser[msg.sender] == true)
 		{
 			var t = addressToPerson[msg.sender];
 			uint num = t.myRented.length - 1;
-			
-            require(num > 0);
 
 			if(num >= 0)
 			{
@@ -502,13 +496,18 @@ contract Rent is Owned {
 				}
 				
 				else
-				{
-				    return(0, 0, '28.7041', '77.1025', 0, 0, 'No Data Available');
-				}
+				return(0, 0, '28.7041', '77.1025', 0, 0, 'No Data Available');
 			}
+			
+			else
+			return(0, 0, '28.7041', '77.1025', 0, 0, 'No Data Available');
 		}
-    
+	    
+	    else
+		return(0, 0, '28.7041', '77.1025', 0, 0, 'No Data Available');
 	}
+	
+	event rejection(string str);
 	
 	// payable pending *****
 	function tenantAccept(string _sign, uint _currentRate) external {
@@ -554,8 +553,6 @@ contract Rent is Owned {
 		
 	}
 
-
-	event rejection(string str);
 
 	function tenantReject(uint _currentRate) external {
 
