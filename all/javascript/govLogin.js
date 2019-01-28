@@ -7,6 +7,7 @@ var length;
 
 $("#showButton").click(function() {  
 
+
     rentInfo.govLogin(function(error, result ) {
 
         value = JSON.stringify(result); // convert the result to a String with all strings as part
@@ -17,25 +18,32 @@ $("#showButton").click(function() {
         arrayIndexes = Array(value[1]);
         length = Number(value[2]);
 
-        console.log(arrayIndexes);
-        console.log(message);
-        console.log(length);
-
         if(length == 0)
         {
             $("#contractMessage").html(message);
             $("#contractMessage").show();
         }
 
+        console.log(length);
     });
 
+
+    var intIndexes = new Array(length);
     var allData = "";
 
-    for(var i = 7658 ; i <= 7660 ; i++)
-    {
+    for(var i = 0 ; i < length ; i++)
+        intIndexes[i] = parseInt(arrayIndexes[i]);
 
-        allData += '<br><br><h1 class="jumboHead" align="center"><b>Contract Number  - ' + i + 
-        '</b></h1><div align="center"><button type="button" class="getStarted2" id="signButton" style="background: #3B4A66">Show Contract</button></div>'
+    console.log(intIndexes);
+    console.log(intIndexes.length);
+
+    for(var i = 0 ; i < intIndexes.length ; i++)
+    {
+        var id_num = intIndexes[i];
+
+        allData += '<br><br><h1 class="jumboHead" align="center"><b>Contract Number  - ' + id_num 
+        + '</b></h1><div align="center"><button type="button" class="getStarted2" id="signButton" style="background: #3B4A66">Show Contract</button></div>'
+
         +
 
         '<br><br><div id=""><h1 class="jumboHead" style="margin-top: 1rem"><b>LandLord Details</b></h1><h1 class="jumboText"><b>Landlord Name</b></h1>'  
@@ -62,7 +70,7 @@ $("#showButton").click(function() {
         + '<h1 class="jumboText"><b>Number of Rooms</b></h1><h1 class="jumboText" id="rooms"></h1></div><br><h1 class="jumboText"><b>Other Terms of Agreement</b></h1>'
         + '<pre><h1 class="jumboText" id="extra"></h1></pre></div><br><div align="center"><div class="alert alert-dark message" id="hashBlock2" style="display: none;"><b>Transaction on EtherScan - <a href="" id="hashBlock"> Click Here</b></a></div>'
         + '<br><div class="alert alert-danger message" id="message" style="font-weight: bold; display: none"></div><br><img src="extra/loader.gif" id="loader" class="loader"></div>'
-        
+
         + 
 
         '<div align="center"><button type="button" class="getStarted2" id="signButton" style="background: #44664e">Sign Contract</button>'
@@ -72,6 +80,7 @@ $("#showButton").click(function() {
 
     $("#allContracts").append(allData);
     $('#allContracts').show();
+
 
 });
 
