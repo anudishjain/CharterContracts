@@ -110,14 +110,15 @@ contract Rent is Owned {
 	function Rent() public {
 
 		checkUser[owner] = true;
-		var govt = Person(owner, 'Government is the Owner', 'Contact Government', 0, 'No Sign',  new uint[](0), new uint[](0));
+		var govt = Person(owner, 'Government is the Owner', 'Contact Government', 0, 'No Sign',  
+		new uint[](0), new uint[](0));
 		
 		addressToPerson[owner] = govt;
 		
 		last_index = 0;
 	}
 
-	// --------------------------------------------------------------------------------------------------------------------------------
+	// ------------------------------------------
 
 	event startMessage(string message);
 
@@ -140,7 +141,7 @@ contract Rent is Owned {
 		}
 	}
 
-	// --------------------------------------------------------------------------------------------------------------------------------
+	// ----------------------------------------------
 
 	event registerParty(string message);
 
@@ -186,7 +187,7 @@ contract Rent is Owned {
 	}
 
 
-	// --------		
+	// ----------------------------------------------		
 
 	event registerHome(string message, uint FeePayable);
 
@@ -303,7 +304,7 @@ contract Rent is Owned {
 	}
 
 
-	// -------------
+	// ----------------------------------------------
 
 	event registerDetails(string message);
 	
@@ -367,7 +368,7 @@ contract Rent is Owned {
 		}
 	}
 
-	// ----------------
+	// ---------------------------------------------
 
 	event feePay(string message);
 	
@@ -596,5 +597,88 @@ contract Rent is Owned {
 		{
 			rejection("You are not registered on Charter, Register Today..");
 		}
+	}
+	
+	// -------------------------------  ADMIN SECTION BELOW  ------------------------------------------
+	
+	function govLogin() view external onlyOwner returns(string message, uint[] array, uint size) {
+		
+		var len = allParties.length;
+		uint[] memory indexes = new uint[](len);
+		
+		if(last_index + 1 <= allParties.length)
+		{
+			uint num = 0;
+			
+			for(uint i = last_index ; i < allParties.length ; i++)
+			{
+				var party = allParties[i];
+				var home = allHouses[i];
+				var detail = allOtherDetails[i];
+				var checks = allChecks[i];
+				
+				if((party.completed == true)&&(home.completed == true)&&(detail.completed == true)&&(checks.paidRegisterFee == true)&&
+					(checks.paidSecurityFee == true)&&(checks.tenantApprove == true)&&(checks.tenantCheck == true)&&(checks.govApprove == false))
+				{
+					indexes[num] = i;
+					num++;
+				}
+			}
+			
+			last_index = allParties.length;
+			return('Following Contracts have their Verification Pending', array, num);
+		}
+		
+		else
+		return('Done for Today.. No Pending Verifications', array, 0);
+		
+	}
+	
+	
+	function govApproval(uint i, uint _currentRate) external onlyOwner {
+		
+		require(i < allParties.length);
+		
+		var party = allParties[i];
+		var home = allHouses[i];
+		var detail = allOtherDetails[i];
+		var checks = allChecks[i];
+		
+		if((party.completed == true)&&(home.completed == true)&&(detail.completed == true)&&(checks.paidRegisterFee == true)&&
+			(checks.paidSecurityFee == true)&&(checks.tenantApprove == true)&&(checks.tenantCheck == true))
+		{
+			checks.govApprove = true; // government approves
+			checks.isValid = true; // marked as valid
+			
+			owner.transfer(home.registerFee/_currentRate);
+		}
+	}
+	
+	function govReject(uint i, uint _currentRate) external onlyOwner {
+	    
+		require(i < allParties.length);
+		
+		var party = allParties[i];
+		var home = allHouses[i];
+		var detail = allOtherDetails[i];
+		var checks = allChecks[i];
+		
+		if((party.completed == true)&&(home.completed == true)&&(detail.completed == true)&&(checks.paidRegisterFee == true)&&
+			(checks.paidSecurityFee == true)&&(checks.tenantApprove == true)&&(checks.tenantCheck == true))
+		{
+			checks.govApprove = false; // government approves
+			checks.isValid = false; // marked as valid
+
+			var _tenant = party.tenant;
+			var _landlord = party.landlord;
+			
+			_landlord.transfer(home.registerFee/_currentRate);
+			_tenant.transfer(home.securityFee/_currentRate); // refund the Registration Fee and Security Deposit back to parties
+
+			party.completed = false;
+			home.completed = false;
+			detail.completed = false;
+        
+		}	    
 	}
 }

@@ -74,6 +74,42 @@ var rentContract = web3.eth.contract([
 		"constant": false,
 		"inputs": [
 			{
+				"name": "i",
+				"type": "uint256"
+			},
+			{
+				"name": "_currentRate",
+				"type": "uint256"
+			}
+		],
+		"name": "govApproval",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "i",
+				"type": "uint256"
+			},
+			{
+				"name": "_currentRate",
+				"type": "uint256"
+			}
+		],
+		"name": "govReject",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
 				"name": "_lat",
 				"type": "string"
 			},
@@ -434,6 +470,28 @@ var rentContract = web3.eth.contract([
 	{
 		"constant": true,
 		"inputs": [],
+		"name": "govLogin",
+		"outputs": [
+			{
+				"name": "message",
+				"type": "string"
+			},
+			{
+				"name": "array",
+				"type": "uint256[]"
+			},
+			{
+				"name": "size",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
 		"name": "tenantData1",
 		"outputs": [
 			{
@@ -509,4 +567,4 @@ var rentContract = web3.eth.contract([
 	}
 ]);
 
-var rentInfo = rentContract.at('0x0336bae11320362befeda7c225a5bf327fe4b064');
+var rentInfo = rentContract.at('0x97da5d219fccfb6cac5030f0528c67401504c0b5');
