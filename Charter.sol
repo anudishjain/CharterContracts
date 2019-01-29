@@ -21,14 +21,14 @@ contract Owned {
 
 
 contract Rent is Owned {
-    
+	
     // basic info of every user
-	struct Person {
+    struct Person {
 
-		address eth;
-		string legalName;
-		string email;
-		uint aadhaar;
+    	address eth;
+    	string legalName;
+    	string email;
+    	uint aadhaar;
 
 		string signTerms; //sign on the Terms and Conditions
 		
@@ -37,22 +37,22 @@ contract Rent is Owned {
 	}
 
     // parties for a contract
-	struct Parties {
+    struct Parties {
 
-		address landlord;
-		address tenant;
+    	address landlord;
+    	address tenant;
 
-		string signLandlord;
-		string signTenant;
-		
-		bool completed;
-	}
+    	string signLandlord;
+    	string signTenant;
+    	
+    	bool completed;
+    }
     
     // details of the property
-	struct House {
+    struct House {
 
-		string addressHouse;
-		string type_of_property;
+    	string addressHouse;
+    	string type_of_property;
 
 		uint startEpoch; // start of the Contract - Date in Epoch
 		uint endEpoch;   // end of the Contact - Date in Epoch
@@ -65,13 +65,13 @@ contract Rent is Owned {
 
 		bool completed;
 	}
-    
+	
     //all other extra details of the contract
-	struct OtherDetails {
+    struct OtherDetails {
 
-		string latitude;
-		string longitude;
-		
+    	string latitude;
+    	string longitude;
+    	
 		string ipfs_url; // for Future Versions of, when we support IPFS URLs
 
 		uint squareFootage;
@@ -89,7 +89,7 @@ contract Rent is Owned {
 		bool tenantApprove;
 		bool govApprove;
 		
-        bool tenantCheck;
+		bool tenantCheck;
 		
 		bool paidRegisterFee;
 		bool paidSecurityFee;
@@ -111,7 +111,7 @@ contract Rent is Owned {
 
 		checkUser[owner] = true;
 		var govt = Person(owner, 'Government is the Owner', 'Contact Government', 0, 'No Sign',  
-		new uint[](0), new uint[](0));
+			new uint[](0), new uint[](0));
 		
 		addressToPerson[owner] = govt;
 		
@@ -431,7 +431,7 @@ contract Rent is Owned {
 		uint startEpoch,
 		uint endEpoch,
 		uint rent){
-    
+		
 		if(checkUser[msg.sender] == true)
 		{
 			var t = addressToPerson[msg.sender];
@@ -452,7 +452,7 @@ contract Rent is Owned {
 					var land = addressToPerson[landowner];
 
 					return(land.legalName, land.aadhaar, house.addressHouse, house.type_of_property, house.startEpoch, 
-					house.endEpoch, house.rentAmount);
+						house.endEpoch, house.rentAmount);
 				}
 				
 				else
@@ -475,7 +475,7 @@ contract Rent is Owned {
 		uint sqFt,
 		uint rooms,
 		string extra ){
-        
+		
 		if(checkUser[msg.sender] == true)
 		{
 			var t = addressToPerson[msg.sender];
@@ -493,7 +493,7 @@ contract Rent is Owned {
 				if((party.completed == true)&&(house.completed == true)&&(details.completed == true)&&(checks.paidRegisterFee = true))
 				{
 					return(house.securityFee, house.registerFee, details.latitude, details.longitude, details.squareFootage, 
-					details.numberBedrooms, details.others);
+						details.numberBedrooms, details.others);
 				}
 				
 				else
@@ -503,8 +503,8 @@ contract Rent is Owned {
 			else
 			return(0, 0, '28.7041', '77.1025', 0, 0, 'No Data Available');
 		}
-	    
-	    else
+		
+		else
 		return(0, 0, '28.7041', '77.1025', 0, 0, 'No Data Available');
 	}
 	
@@ -529,7 +529,7 @@ contract Rent is Owned {
 			}
 			
 			else if((party.completed == true)&&(house.completed == true)&&(details.completed == true)
-			&&(checks.tenantCheck == false)&&(checks.tenantApprove == false))
+				&&(checks.tenantCheck == false)&&(checks.tenantApprove == false))
 			{
 				checks.isValid = false;
 				checks.tenantCheck = true;
@@ -570,7 +570,7 @@ contract Rent is Owned {
 			var checks = allChecks[index];
 
 			if((party.completed == true)&&(house.completed == true)&&(details.completed == true)
-			&&(checks.tenantApprove == false)&&(checks.tenantCheck == false))
+				&&(checks.tenantApprove == false)&&(checks.tenantCheck == false))
 			{
 				checks.tenantApprove = false;
 				checks.isValid = false;
@@ -626,37 +626,39 @@ contract Rent is Owned {
 			}
 			
 			last_index = allParties.length;
-			return('Following Contracts have their Verification Pending', array, num);
+			return('Following Contracts have Verifications Pending', indexes, num);
 		}
 		
 		else
-		return('Done for Today.. No Pending Verifications', array, 0);
+		return('Done for Today, No Pending Verifications', indexes, 0);
 		
 	}
 	
 	
 	function govApproval(uint i, uint _currentRate) external onlyOwner {
 		
-		require(i < allParties.length);
-		
-		var party = allParties[i];
-		var home = allHouses[i];
-		var detail = allOtherDetails[i];
-		var checks = allChecks[i];
-		
-		if((party.completed == true)&&(home.completed == true)&&(detail.completed == true)&&(checks.paidRegisterFee == true)&&
-			(checks.paidSecurityFee == true)&&(checks.tenantApprove == true)&&(checks.tenantCheck == true))
+		if(i < allParties.length)
 		{
+			var party = allParties[i];
+			var home = allHouses[i];
+			var detail = allOtherDetails[i];
+			var checks = allChecks[i];
+			
+			if((party.completed == true)&&(home.completed == true)&&(detail.completed == true)&&(checks.paidRegisterFee == true)&&
+				(checks.paidSecurityFee == true)&&(checks.tenantApprove == true)&&(checks.tenantCheck == true))
+			{
 			checks.govApprove = true; // government approves
 			checks.isValid = true; // marked as valid
 			
 			owner.transfer(home.registerFee/_currentRate);
 		}
 	}
+}
+
+function govReject(uint i, uint _currentRate) external onlyOwner {
 	
-	function govReject(uint i, uint _currentRate) external onlyOwner {
-	    
-		require(i < allParties.length);
+	if(i < allParties.length)
+	{
 		
 		var party = allParties[i];
 		var home = allHouses[i];
@@ -678,7 +680,8 @@ contract Rent is Owned {
 			party.completed = false;
 			home.completed = false;
 			detail.completed = false;
-        
-		}	    
+			
+		}
 	}
+}
 }

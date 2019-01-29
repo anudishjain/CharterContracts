@@ -40,6 +40,16 @@ $("#showButton").click(function() {
     for(var i = 0 ; i < intIndexes.length ; i++)
     {
         var id_num = intIndexes[i];
+        var contract;
+
+        rentInfo.govLogin(id_num,(function (error, result) {
+
+            contract = result;
+            console.log(contract);
+            console.log(result);
+
+        }));
+   
 
         allData += '<br><br><h1 class="jumboHead" align="center"><b>Contract Number  - ' + id_num 
         + '</b></h1><div align="center"><button type="button" class="getStarted2" id="signButton" style="background: #3B4A66">Show Contract</button></div>'
