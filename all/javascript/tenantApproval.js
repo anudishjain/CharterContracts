@@ -15,8 +15,6 @@ request.onload = function () {
     var data = JSON.parse(this.response);
 
     price = parseInt(data["INR"]);
-
-    console.log(price);
 }
 
 request.send();
@@ -33,8 +31,6 @@ $("#seeContract").click(function() {
             value = JSON.stringify(result); // convert the result to a String with all strings as part
             value = value.replace(/'/g, '"'); // seperate the strings from the main string
             value = JSON.parse(value);
-            console.log(value);
-
             
             var startEpoch = new Date(parseInt(value[4]) * 1000);
             var endEpoch = new Date(parseInt(value[5]) * 1000);
@@ -54,8 +50,7 @@ $("#seeContract").click(function() {
 
             value2 = JSON.stringify(result); // convert the result to a String with all strings as part
             value2 = value2.replace(/'/g, '"'); // seperate the strings from the main string
-            value2 = JSON.parse(value2);
-            console.log(value2);            
+            value2 = JSON.parse(value2);      
 
             latitude = value2[2];
             longitude = value2[3];

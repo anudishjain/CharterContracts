@@ -58,7 +58,6 @@
         $("#registerButton").click(function() {
 
             $("#loader").show();
-            console.log(message);
 
             if(ans != false)
             {

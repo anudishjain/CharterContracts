@@ -4,6 +4,27 @@ var message;
 var arrayIndexes;
 var length;
 
+function reply_click(_id) {  
+
+// function to get the ID  the SHOW BUTTON
+//and display the corresponding Contract
+
+    var button = "#showButton" + String(_id); // the Button that was pressed  
+    var string = "#contract" + String(_id); // the Contract DIV to be showed
+
+    if($(button).html() == 'Show Contract')
+    {     
+      $(button).html('Hide Contract');
+      $(string).show();
+    }
+
+    else
+    {
+      $(button).html('Show Contract');
+      $(string).hide();
+    }   
+}
+
 
 $("#showButton").click(function() {  
 
@@ -64,11 +85,11 @@ $("#showButton").click(function() {
 
 
             allData += '<br><br><h1 class="jumboHead" align="center"><b>Contract Number  - ' + id_num 
-            + '</b></h1><div align="center"><button type="button" class="getStarted2" id="showButton'+id_num+'" style="background: #3B4A66" value="'+id_num+'">Show Contract</button></div>'
+            + '</b></h1><div align="center"><button type="button" class="getStarted2" id="showButton'+id_num+'" style="background: #3B4A66" value="'+id_num+'" onClick="reply_click(this.value)" >Show Contract</button></div>'
 
             +
 
-            '<br><div id="contract' +id_num+'"><h1 class="jumboHead" style="margin-top: 1rem"><b>LandLord Details</b></h1><h1 class="jumboText"><b>Landlord Name</b></h1>'  
+            '<br><div id="contract' +id_num+'" style = "display: none;"><h1 class="jumboHead" style="margin-top: 1rem"><b>LandLord Details</b></h1><h1 class="jumboText"><b>Landlord Name</b></h1>'  
             + '<h1 class="jumboText" id="landlordName' +id_num+'"></h1><h1 class="jumboText"><b>Landlord Aadhaar Number</b></h1><h1 class="jumboText" id="landlordAadhaar' +id_num+'"></h1>'
             +' <h1 class="jumboText"><b>Landlord Email</b></h1><h1 class="jumboText" id="landlordEmail' +id_num+'"><br><br>'
 
@@ -106,5 +127,7 @@ $("#showButton").click(function() {
         }
 
       });
+
+
 
 });

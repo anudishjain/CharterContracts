@@ -149,7 +149,6 @@ var feeGovern;
             {
                             // we round off to the Greatest Integer if 1.8 months so it becomes 2 months
                 durationMonths = Math.ceil((endEpoch - startEpoch)/(2592000));
-                console.log(durationMonths);
                 
                 rentInfo.newHome($("#address").val(), $("#type").val(), Number(startEpoch), Number(endEpoch), Number(durationMonths),
                 $("#rent").val(), $("#security").val(), (err, res) => {
@@ -184,8 +183,6 @@ request.onload = function () {
     var data = JSON.parse(this.response);
 
     price = parseInt(data["INR"]);
-
-    console.log(price);
 }
 
 request.send();
