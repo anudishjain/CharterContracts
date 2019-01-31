@@ -68,7 +68,7 @@ $("#showButton").click(function() {
 
             +
 
-            '<br><br><div id="contract' +id_num+'"><h1 class="jumboHead" style="margin-top: 1rem"><b>LandLord Details</b></h1><h1 class="jumboText"><b>Landlord Name</b></h1>'  
+            '<br><div id="contract' +id_num+'"><h1 class="jumboHead" style="margin-top: 1rem"><b>LandLord Details</b></h1><h1 class="jumboText"><b>Landlord Name</b></h1>'  
             + '<h1 class="jumboText" id="landlordName' +id_num+'"></h1><h1 class="jumboText"><b>Landlord Aadhaar Number</b></h1><h1 class="jumboText" id="landlordAadhaar' +id_num+'"></h1>'
             +' <h1 class="jumboText"><b>Landlord Email</b></h1><h1 class="jumboText" id="landlordEmail' +id_num+'"><br><br>'
 
@@ -87,7 +87,7 @@ $("#showButton").click(function() {
             + '<h1 class="jumboText" id="endDate' +id_num+'"></h1><br><div align="right"><h1 class="jumboText"><b>Duration of Contract (in Months)</b></h1>'
             + '<h1 class="jumboText" id="duration' +id_num+'"></h1><h1 class="jumboText"><b>Rent Amount per Month (in Rupees)</b></h1><h1 class="jumboText" id="propertyRent' +id_num+'"></h1>'
             + '<h1 class="jumboText"><b>Security Deposit</b></h1><h1 class="jumboText" id="propertySecurity' +id_num+'"></h1><h1 class="jumboText"><b>Registration Fee</b></h1>'
-            + '<h1 class="jumboText" id="registerFee' +id_num+'"></h1></div><h1 class="jumboHead"><b>Other Details</b></h1><div align="right"><h1 class="jumboText"><b>Check Real Contract</b></h1>'
+            + '<h1 class="jumboText" id="registerFee' +id_num+'"></h1></div><h1 class="jumboHead"><b>Other Details</b></h1><br><div align="right"><h1 class="jumboText"><b>Check Real Contract</b></h1>'
             + '<h1 class="jumboText" id="ipfsUrl' +id_num+'">Currently not Supported</h1><h1 class="jumboText"><b>Square Foot Area of Property</b></h1><h1 class="jumboText" id="sqFt' +id_num+'"></h1>'
             + '<h1 class="jumboText"><b>Number of Rooms</b></h1><h1 class="jumboText" id="rooms' +id_num+'"></h1></div><br><h1 class="jumboText"><b>Other Terms of Agreement</b></h1>'
             + '<pre><h1 class="jumboText" id="extra' +id_num+'"></h1></pre><br><div align="center"><div class="alert alert-dark message" id="hashBlocks' +id_num+'" style="display: none;"><b>Transaction on EtherScan - <a href="" id="hashBlock"> Click Here</b></a></div>'
