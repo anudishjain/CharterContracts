@@ -164,3 +164,21 @@ button:focus {
 	font-family: 'Anaheim', sans-serif;
 	font-size: 1.3rem;
 }
+
+@media only screen  and (min-width : 1024px) {
+
+.geoLoc {
+
+	width: 60rem !important;
+	height: 30rem !important;
+}
+}
+
+@media only screen and (min-device-width : 300px) and (max-device-width : 940px) and (orientation : landscape) {
+
+.geoLoc {
+
+	width: 40rem !important;
+	height: 30rem !important;
+}
+}

@@ -30,13 +30,34 @@ function reply_click(_id) {
 	$('#tenantEmail'+ _id).html(tenant_email[_id - start_index]);
 	$('#tenantAadhaar' + _id).html(tenant_aadhaar[_id - start_index]);
 
+
+	$('#propertyAddress' + _id).html(prop_address[_id - start_index]);
+	$('#propertyType'+ _id).html(prop_type[_id - start_index]);
+	$('#startDate' + _id).html(start[_id - start_index]);
+	$('#endDate' + _id).html(end[_id - start_index]);
+	$('#duration'+ _id).html(duration[_id - start_index]);
+	$('#propertyRent' + _id).html(rent[_id - start_index]);
+	$('#propertySecurity' + _id).html(security[_id - start_index]);
+	$('#registerFee'+ _id).html(register[_id - start_index]);
+
+	var latitude = String(lat[_id - start_index]);
+	var longitude = String(long[_id - start_index]);
+
 	if ($(button).html() == 'Show Contract') {
 		$(button).html('Hide Contract');
 		$(string).show();
-	} else {
+	} 
+	else {
 		$(button).html('Show Contract');
 		$(string).hide();
 	}
+
+	var map=new MapmyIndia.Map(String("map" + _id),{ center:[latitude, longitude],zoomControl: true, hybrid:true});
+ 	L.marker([latitude, longitude]).addTo(map);
+
+	$('#sqFt' + _id).html(sqft[_id - start_index]);
+	$('#rooms'+ _id).html(rooms[_id - start_index]);
+	$('#extra' + _id).html(extra[_id - start_index]);
 }
 
 
@@ -56,10 +77,14 @@ $("#showButton").click(function() {
 						arrayIndexes = value[1]; // the arrayIndexes will be a Object with form 0: "0", 1: "1"
 						length = Number(value[2]);
 
-						if (length == 0) {
+						if (length == 0) 
+						{
 							$("#contractMessage").html(message);
 							$("#contractMessage").show();
-						} else {
+						} 
+
+						else 
+						{
 							var allData = "";
 
 							for (var i = 0; i < arrayIndexes.length; i++)
@@ -87,7 +112,7 @@ $("#showButton").click(function() {
 
 									+
 
-									'</h1><h1 class="jumboHead"><b>Property Details</b></h1><br><div align="center"><h1 class="jumboText" id="geoProp' + id_num + '"><b>Geographical Location of Property</b></h1>' +
+									'</h1><br><h1 class="jumboHead"><b>Property Details</b></h1><br><div align="center"><h1 class="jumboText" id="geoProp' + id_num + '"><b>Geographical Location of Property</b></h1>' +
 									'<br><div style="width: 24rem; height: 28rem" class="geoLoc" id="map' + id_num + '"></div></div><br><h1 class="jumboText"><b>Property Address</b></h1>' +
 									'<pre><h1 class="jumboText" id="propertyAddress' + id_num + '"></h1></pre><h1 class="jumboText"><b>Property Type</b></h1><h1 class="jumboText" id="propertyType' + id_num + '"></h1>' +
 									'<h1 class="jumboText"><b>Start Date of the Contract</b></h1><h1 class="jumboText" id="startDate' + id_num + '"></h1><h1 class="jumboText"><b>End Date of the Contract</b></h1>' +
@@ -113,7 +138,6 @@ $("#showButton").click(function() {
 								rentInfo.allParties(id_num, (function(error, result) {
 
 										parties = (result);
-										console.log(parties);
 										
 										rentInfo.addressToPerson(parties[0], function(error, result) {
 
@@ -127,8 +151,8 @@ $("#showButton").click(function() {
 
 										rentInfo.addressToPerson(parties[1], function(error, result) {
 
-												tenant_name = result[1];
-												tenant_email = result[2];
+												tenant_name.push(result[1]);
+												tenant_email.push(result[2]);
 
 												var value = JSON.stringify(result[3]);
 												tenant_aadhaar.push(value);
@@ -138,17 +162,35 @@ $("#showButton").click(function() {
 								}));
 
 
-									rentInfo.allHouses(id_num, (function(error, result) {
+								rentInfo.allHouses(id_num, (function(error, result) {
 
 										home = result;
-										console.log(home);
+										
+										prop_address.push(home[0]);
+										prop_type.push(home[1]);
+										
+										var startEpoch = new Date(parseInt(home[2]) * 1000);
+										var endEpoch = new Date(parseInt(home[3]) * 1000);
 
-									}));
+										start.push(String(startEpoch));
+										end.push(String(endEpoch));
+
+										duration.push(parseInt(home[4]));
+										rent.push(parseInt(home[5]));
+										security.push(parseInt(home[6]));
+										register.push(parseInt(home[7]));
+
+								}));
 
 									rentInfo.allOtherDetails(id_num, (function(error, result) {
 
 										miscellaneous = result;
-										console.log(miscellaneous);
+
+										lat.push(miscellaneous[0]);
+										long.push(miscellaneous[1]);
+										sqft.push(miscellaneous[3]);
+										rooms.push(miscellaneous[4]);
+										extra.push(miscellaneous[5]);
 
 									}));
 								}
