@@ -52,12 +52,12 @@ function reply_click(_id) {
 		$(string).hide();
 	}
 
-	var map=new MapmyIndia.Map(String("map" + _id),{ center:[latitude, longitude],zoomControl: true, hybrid:true});
- 	L.marker([latitude, longitude]).addTo(map);
-
 	$('#sqFt' + _id).html(sqft[_id - start_index]);
 	$('#rooms'+ _id).html(rooms[_id - start_index]);
 	$('#extra' + _id).html(extra[_id - start_index]);
+
+	var map=new MapmyIndia.Map(String("map" + _id),{ center:[latitude, longitude],zoomControl: true, hybrid:true});
+ 	L.marker([latitude, longitude]).addTo(map);
 }
 
 
@@ -143,20 +143,14 @@ $("#showButton").click(function() {
 
 												landlord_name.push(result[1]);
 												landlord_email.push(result[2]); 
-										
-												var value = JSON.stringify(result[3]);
-												landlord_aadhaar.push(value);
-
+												landlord_aadhaar.push(parseInt(result[3]));
 										});
 
 										rentInfo.addressToPerson(parties[1], function(error, result) {
 
 												tenant_name.push(result[1]);
 												tenant_email.push(result[2]);
-
-												var value = JSON.stringify(result[3]);
-												tenant_aadhaar.push(value);
-
+												tenant_aadhaar.push(parseInt(result[3]));
 											});
 
 								}));
@@ -186,10 +180,13 @@ $("#showButton").click(function() {
 
 										miscellaneous = result;
 
+										
+
 										lat.push(miscellaneous[0]);
 										long.push(miscellaneous[1]);
-										sqft.push(miscellaneous[3]);
-										rooms.push(miscellaneous[4]);
+										var value = JSON.stringify();
+										sqft.push(parseInt(miscellaneous[3]));
+										rooms.push(parseInt(miscellaneous[4]));
 										extra.push(miscellaneous[5]);
 
 									}));
