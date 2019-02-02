@@ -1,6 +1,6 @@
         web3.eth.defaultAccount = web3.eth.accounts[0];
 
-        var event = rentInfo.registerParty({}, 'latest');
+        var event = rentInfo.registerParty();
 
         event.watch(function(error, result) {
 
@@ -13,7 +13,7 @@
                 if(result.transactionHash != $("#hashBlock1").html())
                 $("#loader1").hide(); /// hide loader once we get successful response
 
-            $('#hashBlock1').attr("href", "https://ropsten.etherscan.io/tx/" + result.transactionHash);
+            $('#hashBlock1').attr("href", "https://kovan.etherscan.io/tx/" + result.transactionHash);
             $("#message1").html(result.args.message);
                 /// load data once we get the data back from the event User()
                 //we used toAscii as we are using bytes we need to convert hex to string format for display
@@ -71,7 +71,7 @@ var feeGovern;
 // ----
 
 
-        var event = rentInfo.registerHome({}, 'latest');
+        var event = rentInfo.registerHome();
 
         event.watch(function(error, result) {
 
@@ -84,7 +84,7 @@ var feeGovern;
                 if(result.transactionHash != $("#hashBlock2").html())
                 $("#loader2").hide(); /// hide loader once we get successful response
 
-                $('#hashBlock2').attr("href", "https://ropsten.etherscan.io/tx/" + result.transactionHash);
+                $('#hashBlock2').attr("href", "https://kovan.etherscan.io/tx/" + result.transactionHash);
                 $("#message2").html(result.args.message);
                 /// load data once we get the data back from the event User()
                 //we used toAscii as we are using bytes we need to convert hex to string format for display
@@ -190,7 +190,7 @@ request.send();
 //--------------------
 
 
-        var event = rentInfo.registerDetails({}, 'latest');
+        var event = rentInfo.registerDetails();
 
         event.watch(function(error, result) {
 
@@ -203,7 +203,7 @@ request.send();
                 if(result.transactionHash != $("#hashBlock3").html())
                 $("#loader3").hide(); /// hide loader once we get successful response
 
-                $('#hashBlock3').attr("href", "https://ropsten.etherscan.io/tx/" + result.transactionHash);
+                $('#hashBlock3').attr("href", "https://kovan.etherscan.io/tx/" + result.transactionHash);
                 $("#message3").html(result.args.message);
                 /// load data once we get the data back from the event User()
                 //we used toAscii as we are using bytes we need to convert hex to string format for display
@@ -255,7 +255,7 @@ request.send();
 
 // -----------------------------------------------------------------------------------------------------
 
-var event = rentInfo.feePay({}, 'latest');
+var event = rentInfo.feePay();
 
         event.watch(function(error, result) {
 
@@ -268,7 +268,7 @@ var event = rentInfo.feePay({}, 'latest');
                 if(result.transactionHash != $("#hashBlock4").html())
                 $("#loader4").hide(); /// hide loader once we get successful response
 
-            $('#hashBlock4').attr("href", "https://ropsten.etherscan.io/tx/" + result.transactionHash);
+            $('#hashBlock4').attr("href", "https://kovan.etherscan.io/tx/" + result.transactionHash);
             $("#message4").html(result.args.message);
                 /// load data once we get the data back from the event User()
                 //we used toAscii as we are using bytes we need to convert hex to string format for display

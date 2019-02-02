@@ -179,9 +179,7 @@ $("#showButton").click(function() {
 									rentInfo.allOtherDetails(id_num, (function(error, result) {
 
 										miscellaneous = result;
-
 										
-
 										lat.push(miscellaneous[0]);
 										long.push(miscellaneous[1]);
 										var value = JSON.stringify();

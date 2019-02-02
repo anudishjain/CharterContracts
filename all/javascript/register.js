@@ -1,19 +1,18 @@
         web3.eth.defaultAccount = web3.eth.accounts[0];
 
-        var event = rentInfo.startMessage({}, 'latest');
+        var event = rentInfo.startMessage();
 
         event.watch(function(error, result) {
 
             if(!error)
             {
-
                 $("#message1").show();
                 $("#hashBlock").show();
 
                 if(result.transactionHash != $("#hashBlock").html())
                 $("#loader").hide(); /// hide loader once we get successful response
 
-            $('#hashBlock').attr("href", "https://ropsten.etherscan.io/tx/" + result.transactionHash);
+            $('#hashBlock').attr("href", "https://kovan.etherscan.io/tx/" + result.transactionHash);
             $("#message1").html(result.args.message);
                 /// load data once we get the data back from the event User()
                 //we used toAscii as we are using bytes we need to convert hex to string format for display

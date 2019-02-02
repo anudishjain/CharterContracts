@@ -70,7 +70,7 @@ $("#seeContract").click(function() {
 });
 
 // --------------------------------------------------------------------------------------------------------
-var event = rentInfo.rejection({}, 'latest');
+var event = rentInfo.rejection();
 
         event.watch(function(error, result) {
 
@@ -82,7 +82,7 @@ var event = rentInfo.rejection({}, 'latest');
                 if(result.transactionHash != $("#hashBlock").html())
                 $("#loader").hide(); /// hide loader once we get successful response
 
-            $('#hashBlock').attr("href", "https://ropsten.etherscan.io/tx/" + result.transactionHash);
+            $('#hashBlock').attr("href", "https://kovan.etherscan.io/tx/" + result.transactionHash);
             $("#message").html(result.args.str);
                 /// load data once we get the data back from the event User()
                 //we used toAscii as we are using bytes we need to convert hex to string format for display
