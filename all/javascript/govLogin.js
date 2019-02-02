@@ -57,18 +57,18 @@ function reply_click(_id) {
 	$('#extra' + _id).html(extra[_id - start_index]);
 
 	var map=new MapmyIndia.Map(String("map" + _id),{ center:[latitude, longitude],zoomControl: true, hybrid:true});
- 	L.marker([latitude, longitude]).addTo(map);
+	L.marker([latitude, longitude]).addTo(map);
 }
 
 
 $("#showButton").click(function() {
 
-			if (check == false) {
-				check = true;
+	if (check == false) {
+		check = true;
 
-				rentInfo.govLogin(function(error, result) {
+		rentInfo.govLogin(function(error, result) {
 
-						var value;
+			var value;
 						value = JSON.stringify(result); // convert the result to a String with all strings as part
 						value = value.replace(/'/g, '"'); // seperate the strings from the main string
 						value = JSON.parse(value);
@@ -83,7 +83,7 @@ $("#showButton").click(function() {
 							$("#contractMessage").show();
 						} 
 
-						else 
+						else if(length > 0)
 						{
 							var allData = "";
 
@@ -96,40 +96,40 @@ $("#showButton").click(function() {
 								start_index = intIndexes[0];
 
 								allData += '<br><br><h1 class="jumboHead" align="center"><b>Contract Number  - ' + id_num +
-									'</b></h1><div align="center"><button type="button" class="getStarted2" id="showButton' + id_num + '" style="background: #3B4A66" value="' + id_num + '" onClick="reply_click(this.value)" >Show Contract</button></div>'
+								'</b></h1><div align="center"><button type="button" class="getStarted2" id="showButton' + id_num + '" style="background: #3B4A66" value="' + id_num + '" onClick="reply_click(this.value)" >Show Contract</button></div>'
 
-									+
+								+
 
-									'<br><div id="contract' + id_num + '" style = "display: none;"><h1 class="jumboHead" style="margin-top: 1rem"><b>LandLord Details</b></h1><h1 class="jumboText"><b>Landlord Name</b></h1>' +
-									'<h1 class="jumboText" id="landlordName' + id_num + '"></h1><h1 class="jumboText"><b>Landlord Aadhaar Number</b></h1><h1 class="jumboText" id="landlordAadhaar' + id_num + '"></h1>' +
-									' <h1 class="jumboText"><b>Landlord Email</b></h1><h1 class="jumboText" id="landlordEmail' + id_num + '"></h1><br>'
+								'<br><div id="contract' + id_num + '" style = "display: none;"><h1 class="jumboHead" style="margin-top: 1rem"><b>LandLord Details</b></h1><h1 class="jumboText"><b>Landlord Name</b></h1>' +
+								'<h1 class="jumboText" id="landlordName' + id_num + '"></h1><h1 class="jumboText"><b>Landlord Aadhaar Number</b></h1><h1 class="jumboText" id="landlordAadhaar' + id_num + '"></h1>' +
+								' <h1 class="jumboText"><b>Landlord Email</b></h1><h1 class="jumboText" id="landlordEmail' + id_num + '"></h1><br>'
 
-									+
+								+
 
-									'<h1 class="jumboHead" style="margin-top: 1rem"><b>Tenant Details</b></h1><h1 class="jumboText"><b>Tenant Name</b></h1>' +
-									'<h1 class="jumboText" id="tenantName' + id_num + '"></h1><h1 class="jumboText"><b>Tenant Aadhaar Number</b></h1><h1 class="jumboText" id="tenantAadhaar' + id_num + '"></h1>' +
-									'<h1 class="jumboText"><b>Tenant Email</b></h1><h1 class="jumboText" id="tenantEmail' + id_num + '"><br>'
+								'<h1 class="jumboHead" style="margin-top: 1rem"><b>Tenant Details</b></h1><h1 class="jumboText"><b>Tenant Name</b></h1>' +
+								'<h1 class="jumboText" id="tenantName' + id_num + '"></h1><h1 class="jumboText"><b>Tenant Aadhaar Number</b></h1><h1 class="jumboText" id="tenantAadhaar' + id_num + '"></h1>' +
+								'<h1 class="jumboText"><b>Tenant Email</b></h1><h1 class="jumboText" id="tenantEmail' + id_num + '"><br>'
 
-									+
+								+
 
-									'</h1><br><h1 class="jumboHead"><b>Property Details</b></h1><br><div align="center"><h1 class="jumboText" id="geoProp' + id_num + '"><b>Geographical Location of Property</b></h1>' +
-									'<br><div style="width: 24rem; height: 28rem" class="geoLoc" id="map' + id_num + '"></div></div><br><h1 class="jumboText"><b>Property Address</b></h1>' +
-									'<pre><h1 class="jumboText" id="propertyAddress' + id_num + '"></h1></pre><h1 class="jumboText"><b>Property Type</b></h1><h1 class="jumboText" id="propertyType' + id_num + '"></h1>' +
-									'<h1 class="jumboText"><b>Start Date of the Contract</b></h1><h1 class="jumboText" id="startDate' + id_num + '"></h1><h1 class="jumboText"><b>End Date of the Contract</b></h1>' +
-									'<h1 class="jumboText" id="endDate' + id_num + '"></h1><br><div align="right"><h1 class="jumboText"><b>Duration of Contract (in Months)</b></h1>' +
-									'<h1 class="jumboText" id="duration' + id_num + '"></h1><h1 class="jumboText"><b>Rent Amount per Month (in Rupees)</b></h1><h1 class="jumboText" id="propertyRent' + id_num + '"></h1>' +
-									'<h1 class="jumboText"><b>Security Deposit</b></h1><h1 class="jumboText" id="propertySecurity' + id_num + '"></h1><h1 class="jumboText"><b>Registration Fee</b></h1>' +
-									'<h1 class="jumboText" id="registerFee' + id_num + '"></h1></div><h1 class="jumboHead"><b>Other Details</b></h1><br><div align="right"><h1 class="jumboText"><b>Check Real Contract</b></h1>' +
-									'<h1 class="jumboText" id="ipfsUrl' + id_num + '">Currently not Supported</h1><h1 class="jumboText"><b>Square Foot Area of Property</b></h1><h1 class="jumboText" id="sqFt' + id_num + '"></h1>' +
-									'<h1 class="jumboText"><b>Number of Rooms</b></h1><h1 class="jumboText" id="rooms' + id_num + '"></h1></div><br><h1 class="jumboText"><b>Other Terms of Agreement</b></h1>' +
-									'<pre><h1 class="jumboText" id="extra' + id_num + '"></h1></pre><br><div align="center"><div class="alert alert-dark message" id="hashBlocks' + id_num + '" style="display: none;"><b>Transaction on EtherScan - <a href="" id="hashBlock"> Click Here</b></a></div>' +
-									'<br><div class="alert alert-danger message" id="message' + id_num + '" style="font-weight: bold; display: none"></div><br><img src="extra/loader.gif" id="loader' + id_num + '" class="loader"></div>'
+								'</h1><br><h1 class="jumboHead"><b>Property Details</b></h1><br><div align="center"><h1 class="jumboText" id="geoProp' + id_num + '"><b>Geographical Location of Property</b></h1>' +
+								'<br><div style="width: 24rem; height: 28rem" class="geoLoc" id="map' + id_num + '"></div></div><br><h1 class="jumboText"><b>Property Address</b></h1>' +
+								'<pre><h1 class="jumboText" id="propertyAddress' + id_num + '"></h1></pre><h1 class="jumboText"><b>Property Type</b></h1><h1 class="jumboText" id="propertyType' + id_num + '"></h1>' +
+								'<h1 class="jumboText"><b>Start Date of the Contract</b></h1><h1 class="jumboText" id="startDate' + id_num + '"></h1><h1 class="jumboText"><b>End Date of the Contract</b></h1>' +
+								'<h1 class="jumboText" id="endDate' + id_num + '"></h1><br><div align="right"><h1 class="jumboText"><b>Duration of Contract (in Months)</b></h1>' +
+								'<h1 class="jumboText" id="duration' + id_num + '"></h1><h1 class="jumboText"><b>Rent Amount per Month (in Rupees)</b></h1><h1 class="jumboText" id="propertyRent' + id_num + '"></h1>' +
+								'<h1 class="jumboText"><b>Security Deposit</b></h1><h1 class="jumboText" id="propertySecurity' + id_num + '"></h1><h1 class="jumboText"><b>Registration Fee</b></h1>' +
+								'<h1 class="jumboText" id="registerFee' + id_num + '"></h1></div><h1 class="jumboHead"><b>Other Details</b></h1><br><div align="right"><h1 class="jumboText"><b>Check Real Contract</b></h1>' +
+								'<h1 class="jumboText" id="ipfsUrl' + id_num + '">Currently not Supported</h1><h1 class="jumboText"><b>Square Foot Area of Property</b></h1><h1 class="jumboText" id="sqFt' + id_num + '"></h1>' +
+								'<h1 class="jumboText"><b>Number of Rooms</b></h1><h1 class="jumboText" id="rooms' + id_num + '"></h1></div><br><h1 class="jumboText"><b>Other Terms of Agreement</b></h1>' +
+								'<pre><h1 class="jumboText" id="extra' + id_num + '"></h1></pre><br><div align="center"><div class="alert alert-dark message" id="hashBlocks' + id_num + '" style="display: none;"><b>Transaction on EtherScan - <a href="" id="hashBlock"> Click Here</b></a></div>' +
+								'<br><div class="alert alert-danger message" id="message' + id_num + '" style="font-weight: bold; display: none"></div><br><img src="extra/loader.gif" id="loader' + id_num + '" class="loader"></div>'
 
-									+
+								+
 
-									'<div align="center"><button type="button" class="getStarted2" id="signButton' + id_num + '" style="background: #44664e" value="' + id_num + '">Sign Contract</button>' +
-									'<button type="button" class="getStarted2" id="payButton' + id_num + '" style="background: #44664e; margin-left : 1.5%" value="' + id_num + '">Approve Contract</button>' +
-									'<br><button type="button" class="getStarted2" id="rejectButton' + id_num + '" style="background: #7C2E29" value="' + id_num + '">Reject Contract</button></div><br></div><hr></div>'
+								'<div align="center"><button type="button" class="getStarted2" id="signButton' + id_num + '" style="background: #44664e" value="' + id_num + '">Sign Contract</button>' +
+								'<button type="button" class="getStarted2" id="payButton' + id_num + '" style="background: #44664e; margin-left : 1.5%" value="' + id_num + '">Approve Contract</button>' +
+								'<br><button type="button" class="getStarted2" id="rejectButton' + id_num + '" style="background: #7C2E29" value="' + id_num + '">Reject Contract</button></div><br></div><hr></div>'
 
 								var parties;
 								var home;
@@ -137,64 +137,64 @@ $("#showButton").click(function() {
 
 								rentInfo.allParties(id_num, (function(error, result) {
 
-										parties = (result);
-										
-										rentInfo.addressToPerson(parties[0], function(error, result) {
+									parties = (result);
+									
+									rentInfo.addressToPerson(parties[0], function(error, result) {
 
-												landlord_name.push(result[1]);
-												landlord_email.push(result[2]); 
-												landlord_aadhaar.push(parseInt(result[3]));
-										});
+										landlord_name.push(result[1]);
+										landlord_email.push(result[2]); 
+										landlord_aadhaar.push(parseInt(result[3]));
+									});
 
-										rentInfo.addressToPerson(parties[1], function(error, result) {
+									rentInfo.addressToPerson(parties[1], function(error, result) {
 
-												tenant_name.push(result[1]);
-												tenant_email.push(result[2]);
-												tenant_aadhaar.push(parseInt(result[3]));
-											});
+										tenant_name.push(result[1]);
+										tenant_email.push(result[2]);
+										tenant_aadhaar.push(parseInt(result[3]));
+									});
 
 								}));
 
 
 								rentInfo.allHouses(id_num, (function(error, result) {
 
-										home = result;
-										
-										prop_address.push(home[0]);
-										prop_type.push(home[1]);
-										
-										var startEpoch = new Date(parseInt(home[2]) * 1000);
-										var endEpoch = new Date(parseInt(home[3]) * 1000);
+									home = result;
+									
+									prop_address.push(home[0]);
+									prop_type.push(home[1]);
+									
+									var startEpoch = new Date(parseInt(home[2]) * 1000);
+									var endEpoch = new Date(parseInt(home[3]) * 1000);
 
-										start.push(String(startEpoch));
-										end.push(String(endEpoch));
+									start.push(String(startEpoch));
+									end.push(String(endEpoch));
 
-										duration.push(parseInt(home[4]));
-										rent.push(parseInt(home[5]));
-										security.push(parseInt(home[6]));
-										register.push(parseInt(home[7]));
+									duration.push(parseInt(home[4]));
+									rent.push(parseInt(home[5]));
+									security.push(parseInt(home[6]));
+									register.push(parseInt(home[7]));
 
 								}));
 
-									rentInfo.allOtherDetails(id_num, (function(error, result) {
+								rentInfo.allOtherDetails(id_num, (function(error, result) {
 
-										miscellaneous = result;
-										
-										lat.push(miscellaneous[0]);
-										long.push(miscellaneous[1]);
-										var value = JSON.stringify();
-										sqft.push(parseInt(miscellaneous[3]));
-										rooms.push(parseInt(miscellaneous[4]));
-										extra.push(miscellaneous[5]);
+									miscellaneous = result;
+									
+									lat.push(miscellaneous[0]);
+									long.push(miscellaneous[1]);
+									var value = JSON.stringify();
+									sqft.push(parseInt(miscellaneous[3]));
+									rooms.push(parseInt(miscellaneous[4]));
+									extra.push(miscellaneous[5]);
 
-									}));
-								}
-
-								$("#allContracts").append(allData);
-								$('#allContracts').show();
-
+								}));
 							}
-						});
-				}
 
-			});
+							$("#allContracts").append(allData);
+							$('#allContracts').show();
+
+						}
+					});
+}
+
+});

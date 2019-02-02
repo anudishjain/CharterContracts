@@ -576,8 +576,12 @@ contract Rent is Owned {
 				checks.isValid = false;
 				checks.tenantCheck = true;
 				
+				party.completed = false;
+				house.completed = false;
+				details.completed = false;
+				
 				var landowner = party.landlord; // return the registration fee back to the landlord after rejection
-				landowner.transfer(house.registerFee/_currentRate);
+				//landowner.transfer(house.registerFee/_currentRate);
 				
 				rejection("Contract Rejected, Inform Landlord to draft New Contract..");
 			}
@@ -650,7 +654,7 @@ contract Rent is Owned {
 			checks.govApprove = true; // government approves
 			checks.isValid = true; // marked as valid
 			
-			owner.transfer(home.registerFee/_currentRate);
+			//owner.transfer(home.registerFee/_currentRate);
 		}
 	}
 }
@@ -674,8 +678,9 @@ function govReject(uint i, uint _currentRate) external onlyOwner {
 			var _tenant = party.tenant;
 			var _landlord = party.landlord;
 			
-			_landlord.transfer(home.registerFee/_currentRate);
-			_tenant.transfer(home.securityFee/_currentRate); // refund the Registration Fee and Security Deposit back to parties
+			//_landlord.transfer(home.registerFee/_currentRate);
+			//_tenant.transfer(home.securityFee/_currentRate); 
+			// refund the Registration Fee and Security Deposit back to parties
 
 			party.completed = false;
 			home.completed = false;
