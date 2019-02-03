@@ -567,4 +567,4 @@ var rentContract = web3.eth.contract([
 	}
 ]);
 
-var rentInfo = rentContract.at('0xea6ccb600187e45045b343275dc9d452751c4ff5');
+var rentInfo = rentContract.at('0x0ad528b05ea93ad033838955e17faf6456844739');

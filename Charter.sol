@@ -94,9 +94,7 @@ contract Rent is Owned {
 		bool paidRegisterFee;
 		bool paidSecurityFee;
 	}
-	
-	uint private last_index; // for the Government Login and Approval Part
-	
+
 	Parties[] public allParties; 
 	House[] public allHouses;
 	OtherDetails[] public allOtherDetails;
@@ -114,8 +112,6 @@ contract Rent is Owned {
 			new uint[](0), new uint[](0));
 		
 		addressToPerson[owner] = govt;
-		
-		last_index = 0;
 	}
 
 	// ------------------------------------------
@@ -610,28 +606,27 @@ contract Rent is Owned {
 		var len = allParties.length;
 		uint[] memory indexes = new uint[](len);
 		
-		if(last_index + 1 <= allParties.length)
+		uint num = 0;
+		bool check = false;
+		
+		for(uint i = 0 ; i < allParties.length ; i++)
 		{
-			uint num = 0;
+			var party = allParties[i];
+			var home = allHouses[i];
+			var detail = allOtherDetails[i];
+			var checks = allChecks[i];
 			
-			for(uint i = last_index ; i < allParties.length ; i++)
+			if((party.completed == true)&&(home.completed == true)&&(detail.completed == true)&&(checks.paidRegisterFee == true)&&
+				(checks.paidSecurityFee == true)&&(checks.tenantApprove == true)&&(checks.tenantCheck == true)&&(checks.govApprove == false))
 			{
-				var party = allParties[i];
-				var home = allHouses[i];
-				var detail = allOtherDetails[i];
-				var checks = allChecks[i];
-				
-				if((party.completed == true)&&(home.completed == true)&&(detail.completed == true)&&(checks.paidRegisterFee == true)&&
-					(checks.paidSecurityFee == true)&&(checks.tenantApprove == true)&&(checks.tenantCheck == true)&&(checks.govApprove == false))
-				{
-					indexes[num] = i;
-					num++;
-				}
+				indexes[num] = i;
+				num++;
+				check = true;
 			}
-			
-			last_index = allParties.length;
-			return('Following Contracts have Verifications Pending', indexes, num);
 		}
+		
+		if(check == true)
+		return('Following Contracts have Verifications Pending', indexes, num);
 		
 		else
 		return('Done for Today, No Pending Verifications', indexes, 0);

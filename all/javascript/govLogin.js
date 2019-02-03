@@ -1,3 +1,20 @@
+// getting the ETH - RATE HERE
+var price;
+
+var request = new XMLHttpRequest();
+request.open('GET', "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=INR&api_key=090d85bbb88aab5c93774929f2196d54fb4664cabf15ffc234d2d4d1e74c792b", true);
+
+request.onload = function () {
+    
+    var data = JSON.parse(this.response);
+
+    price = parseInt(data["INR"]);
+}
+
+request.send();
+
+
+
 var check = false;
 
 var intIndexes = [];
@@ -61,6 +78,84 @@ function reply_click(_id) {
 }
 
 
+function approve_click(_id) {
+
+	var etherScanDiv = '#hashBlocks' + _id;
+	var messageUser = '#message' + _id;
+	var loaderGif = '#loader' + _id;
+
+	$(loaderGif).show();
+
+	rentInfo.govApproval(Number(_id), Number(price), function(error, result) {
+
+		if(error)
+		{
+			$(loaderGif).hide();
+			$(messageUser).html(error);
+
+			if(result.transactionHash != $("#etherScanDiv").html())
+            $('#etherScanDiv').attr("href", "https://kovan.etherscan.io/tx/" + result.transactionHash);
+
+			$(messageUser).show();
+			$(etherScanDiv).show();
+		}
+
+		if(!error)
+		{
+			$(loaderGif).hide();
+			$(messageUser).html('Contract was Approved and is now Active on Blockchain !!');
+
+			if(result.transactionHash != $("#etherScanDiv").html())
+            $('#etherScanDiv').attr("href", "https://kovan.etherscan.io/tx/" + result.transactionHash);
+
+			$(messageUser).show();
+			$(etherScanDiv).show();			
+		}
+
+	});
+
+}
+
+function reject_click(_id) {
+
+	var etherScanDiv = '#hashBlocks' + _id;
+	var messageUser = '#message' + _id;
+	var loaderGif = '#loader' + _id;
+
+	$(loaderGif).show();
+
+	rentInfo.govReject(Number(_id), Number(price), function(error, result) {
+
+		if(error)
+		{
+			$(loaderGif).hide();
+			$(messageUser).html(error);
+
+			if(result.transactionHash != $("#etherScanDiv").html())
+            $(etherScanDiv).attr("href", "https://kovan.etherscan.io/tx/" + result.transactionHash);
+
+
+			$(messageUser).show();
+			$(etherScanDiv).show();
+		}
+
+		if(!error)
+		{
+			$(loaderGif).hide();
+			$(messageUser).html('Contract was Rejected, inform the Parties involved to deploy New Contract ');		
+
+			if(result.transactionHash != $("#etherScanDiv").html())
+            $('#etherScanDiv').attr("href", "https://kovan.etherscan.io/tx/" + result.transactionHash);
+
+			$(messageUser).show();
+			$(etherScanDiv).show();	
+		}
+
+	});
+
+}
+
+
 $("#showButton").click(function() {
 
 	if (check == false) {
@@ -81,13 +176,16 @@ $("#showButton").click(function() {
 						{
 							$("#contractMessage").html(message);
 							$("#contractMessage").show();
-						} 
+						}
 
 						else if(length > 0)
 						{
 							var allData = "";
 
-							for (var i = 0; i < arrayIndexes.length; i++)
+							$("#contractMessage").html(message);
+							$("#contractMessage").show();
+
+							for (var i = 0 ; i < length ; i++)
 								intIndexes.push(parseInt(arrayIndexes[i]));
 
 							for (var i = 0; i < intIndexes.length; i++) {
@@ -95,7 +193,7 @@ $("#showButton").click(function() {
 
 								start_index = intIndexes[0];
 
-								allData += '<br><br><h1 class="jumboHead" align="center"><b>Contract Number  - ' + id_num +
+								allData += '<br><h1 class="jumboHead" align="center"><b>Contract Number  - ' + id_num +
 								'</b></h1><div align="center"><button type="button" class="getStarted2" id="showButton' + id_num + '" style="background: #3B4A66" value="' + id_num + '" onClick="reply_click(this.value)" >Show Contract</button></div>'
 
 								+
@@ -127,9 +225,8 @@ $("#showButton").click(function() {
 
 								+
 
-								'<div align="center"><button type="button" class="getStarted2" id="signButton' + id_num + '" style="background: #44664e" value="' + id_num + '">Sign Contract</button>' +
-								'<button type="button" class="getStarted2" id="payButton' + id_num + '" style="background: #44664e; margin-left : 1.5%" value="' + id_num + '">Approve Contract</button>' +
-								'<br><button type="button" class="getStarted2" id="rejectButton' + id_num + '" style="background: #7C2E29" value="' + id_num + '">Reject Contract</button></div><br></div><hr></div>'
+								'<div align="center"><button type="button" class="getStarted2" id="payButton' + id_num + '" style="background: #44664e;" value="' + id_num + '" onClick="approve_click(this.value)">Approve Contract</button>' +
+								'<br><button type="button" class="getStarted2" id="rejectButton' + id_num + '" style="background: #7C2E29" value="' + id_num + '" onClick="reject_click(this.value)">Reject Contract</button></div></div><hr></div>'
 
 								var parties;
 								var home;
