@@ -654,7 +654,7 @@ contract Rent is Owned {
 	}
 }
 
-function govReject(uint i, uint _currentRate) external onlyOwner {
+    function govReject(uint i, uint _currentRate) external onlyOwner {
 	
 	if(i < allParties.length)
 	{
@@ -665,7 +665,8 @@ function govReject(uint i, uint _currentRate) external onlyOwner {
 		var checks = allChecks[i];
 		
 		if((party.completed == true)&&(home.completed == true)&&(detail.completed == true)&&(checks.paidRegisterFee == true)&&
-			(checks.paidSecurityFee == true)&&(checks.tenantApprove == true)&&(checks.tenantCheck == true))
+			(checks.paidSecurityFee == true)&&(checks.tenantApprove == true)&&(checks.tenantCheck == true)&&
+			(checks.govApprove == false)&&(checks.isValid == false))
 		{
 			checks.govApprove = false; // government approves
 			checks.isValid = false; // marked as valid
@@ -682,6 +683,6 @@ function govReject(uint i, uint _currentRate) external onlyOwner {
 			detail.completed = false;
 			
 		}
-	}
-}
+	   }
+    }
 }
