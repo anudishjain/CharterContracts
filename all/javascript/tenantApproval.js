@@ -1,1 +1,188 @@
-var _0x29f2=['\x20Rupees.','#payButton','#hashBlock2','tenantAccept','#rejectButton','Warning\x20!!\x20The\x20Contract\x20will\x20be\x20Permanently\x20Rejected\x20and\x20Marked\x20Unapproved.\x20','\x0a\x0aImportant\x20-\x20Inform\x20Landlord\x20to\x20draft\x20a\x20New\x20Contract\x20with\x20renewed\x20Terms\x20and\x20Conditions.','\x0a\x0aClick\x20Reject\x20again\x20to\x20Complete\x20Rejection.','tenantReject','Contract\x20already\x20Approved\x20!!','onload','parse','response','INR','send','#contractDetails','hide','eth','defaultAccount','accounts','#seeContract','click','replace','#landlordName','html','#landlordAadhaar','#propertyType','#startDate','#propertyRent','tenantData2','#propertySecurity','#registerFee','#sqFt','#extra','Map','map','marker','show','rejection','watch','#hashBlock','transactionHash','attr','href','https://kovan.etherscan.io/tx/','#message','args','str','#loader','personal','sign','I\x20hereby\x20declare\x20that\x20I\x20accept\x20all\x20the\x20terms\x20as\x20stated\x20above\x20&\x20understand\x20that\x20once\x20deployed\x20details\x20cannot\x20be\x20changed.','\x0a\x0aI\x20know\x20that\x20after\x20this\x20step\x20a\x20Thorough\x20Government\x20Verification\x20of\x20this\x20Contract\x20will\x20be\x20performed.','\x0a\x0aDated\x20-\x20','\x0a\x0a1\x20Ether\x20priced\x20at\x20-\x20'];(function(_0x521c7a,_0x58f861){var _0x234bf0=function(_0x5e6497){while(--_0x5e6497){_0x521c7a['push'](_0x521c7a['shift']());}};_0x234bf0(++_0x58f861);}(_0x29f2,0x1c2));var _0x13cd=function(_0x38ee1a,_0x2c4e85){_0x38ee1a=_0x38ee1a-0x0;var _0x7467ae=_0x29f2[_0x38ee1a];return _0x7467ae;};var latitude;var longitude;var value;var value2;var price;var request=new XMLHttpRequest();request['open']('GET','https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=INR&api_key=090d85bbb88aab5c93774929f2196d54fb4664cabf15ffc234d2d4d1e74c792b',!![]);request[_0x13cd('0x0')]=function(){var _0x17a893=JSON[_0x13cd('0x1')](this[_0x13cd('0x2')]);price=parseInt(_0x17a893[_0x13cd('0x3')]);};request[_0x13cd('0x4')]();$(_0x13cd('0x5'))[_0x13cd('0x6')]();web3[_0x13cd('0x7')][_0x13cd('0x8')]=web3[_0x13cd('0x7')][_0x13cd('0x9')][0x0];$(_0x13cd('0xa'))[_0x13cd('0xb')](function(){rentInfo['tenantData1'](function(_0x68d7af,_0x417c87){value=JSON['stringify'](_0x417c87);value=value[_0x13cd('0xc')](/'/g,'\x22');value=JSON['parse'](value);var _0x5d069a=new Date(parseInt(value[0x4])*0x3e8);var _0x4d5ba0=new Date(parseInt(value[0x5])*0x3e8);var _0x27534c=Math['ceil']((Number(value[0x5])-Number(value[0x4]))/0x278d00);$(_0x13cd('0xd'))[_0x13cd('0xe')](value[0x0]);$(_0x13cd('0xf'))[_0x13cd('0xe')](value[0x1]);$('#propertyAddress')[_0x13cd('0xe')](value[0x2]);$(_0x13cd('0x10'))['html'](value[0x3]);$(_0x13cd('0x11'))[_0x13cd('0xe')](_0x5d069a);$('#endDate')[_0x13cd('0xe')](_0x4d5ba0);$('#duration')[_0x13cd('0xe')](_0x27534c);$(_0x13cd('0x12'))[_0x13cd('0xe')](value[0x6]);});rentInfo[_0x13cd('0x13')](function(_0x30de33,_0xfd985b){value2=JSON['stringify'](_0xfd985b);value2=value2[_0x13cd('0xc')](/'/g,'\x22');value2=JSON[_0x13cd('0x1')](value2);latitude=value2[0x2];longitude=value2[0x3];$(_0x13cd('0x14'))[_0x13cd('0xe')](value2[0x0]);$(_0x13cd('0x15'))[_0x13cd('0xe')](value2[0x1]);$(_0x13cd('0x16'))[_0x13cd('0xe')](value2[0x4]);$('#rooms')[_0x13cd('0xe')](value2[0x5]);$(_0x13cd('0x17'))[_0x13cd('0xe')](value2[0x6]);var _0x44ebbe=new MapmyIndia[(_0x13cd('0x18'))](_0x13cd('0x19'),{'center':[latitude,longitude],'zoomControl':!![],'hybrid':!![]});L[_0x13cd('0x1a')]([latitude,longitude])['addTo'](_0x44ebbe);});$('#contractDetails')[_0x13cd('0x1b')]();});var event=rentInfo[_0x13cd('0x1c')]();event[_0x13cd('0x1d')](function(_0x1b6440,_0x41b6fe){if(!_0x1b6440){$('#message')[_0x13cd('0x1b')]();$(_0x13cd('0x1e'))[_0x13cd('0x1b')]();if(_0x41b6fe[_0x13cd('0x1f')]!=$(_0x13cd('0x1e'))[_0x13cd('0xe')]())$('#loader')[_0x13cd('0x6')]();$(_0x13cd('0x1e'))[_0x13cd('0x20')](_0x13cd('0x21'),_0x13cd('0x22')+_0x41b6fe[_0x13cd('0x1f')]);$(_0x13cd('0x23'))['html'](_0x41b6fe[_0x13cd('0x24')][_0x13cd('0x25')]);}else{$(_0x13cd('0x26'))[_0x13cd('0x6')]();console['log'](_0x1b6440);}});var ans=![];var check=![];var message;$('#signButton')[_0x13cd('0xb')](function(){$(_0x13cd('0x26'))[_0x13cd('0x1b')]();var _0x1dd052=new Date();web3[_0x13cd('0x27')][_0x13cd('0x28')](web3['toHex'](_0x13cd('0x29')+_0x13cd('0x2a')+_0x13cd('0x2b')+String(_0x1dd052)+_0x13cd('0x2c')+String(price)+_0x13cd('0x2d')),web3[_0x13cd('0x7')][_0x13cd('0x9')][0x0],function(_0x59d3bf,_0x27371d){if(_0x59d3bf){$('#loader')[_0x13cd('0x6')]();alert('Failed\x20!!\x20Contract\x20Signature\x20cannot\x20be\x20performed..');}else{message=_0x27371d;ans=!![];$(_0x13cd('0x26'))[_0x13cd('0x6')]();}});});$(_0x13cd('0x2e'))[_0x13cd('0xb')](function(){if(ans==![]){alert('Sign\x20the\x20Contract\x20before\x20paying\x20the\x20Security\x20Deposit');}else{$('#loader')[_0x13cd('0x1b')]();check=!![];$(_0x13cd('0x2f'))[_0x13cd('0x1b')]();rentInfo[_0x13cd('0x30')](message,Number(price),(_0x2305d8,_0x38a747)=>{if(_0x2305d8){$('#loader')[_0x13cd('0x6')]();}});}});$(_0x13cd('0x31'))[_0x13cd('0xb')](function(){if(ans==![]&&check==![]){alert(_0x13cd('0x32')+_0x13cd('0x33')+_0x13cd('0x34'));ans=!![];}else if(ans==!![]&&check==![]){$(_0x13cd('0x26'))[_0x13cd('0x1b')]();$(_0x13cd('0x2f'))['show']();rentInfo[_0x13cd('0x35')](Number(price),(_0x57268f,_0x563614)=>{if(_0x57268f){$('#loader')[_0x13cd('0x6')]();}});}else{alert(_0x13cd('0x36'));}});
+
+var latitude;
+var longitude;
+var value;
+var value2;
+
+// ------------------------------------------------------------------------------------------------------
+var price;
+
+var request = new XMLHttpRequest();
+request.open('GET', "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=INR&api_key=090d85bbb88aab5c93774929f2196d54fb4664cabf15ffc234d2d4d1e74c792b", true);
+
+request.onload = function () {
+    
+    var data = JSON.parse(this.response);
+
+    price = parseInt(data["INR"]);
+}
+
+request.send();
+$("#contractDetails").hide();
+
+// -------------------------------------------------------------------------------------------------------------
+
+web3.eth.defaultAccount = web3.eth.accounts[0];
+
+$("#seeContract").click(function() {
+
+    rentInfo.tenantData1(function(error, result ) {
+
+            value = JSON.stringify(result); // convert the result to a String with all strings as part
+            value = value.replace(/'/g, '"'); // seperate the strings from the main string
+            value = JSON.parse(value);
+            
+            var startEpoch = new Date(parseInt(value[4]) * 1000);
+            var endEpoch = new Date(parseInt(value[5]) * 1000);
+            var durationMonths = Math.ceil((Number(value[5])-Number(value[4]))/(2592000));                
+
+            $("#landlordName").html(value[0]);
+            $("#landlordAadhaar").html(value[1]);
+            $("#propertyAddress").html(value[2]);
+            $("#propertyType").html(value[3]);
+            $("#startDate").html(startEpoch);
+            $("#endDate").html(endEpoch);
+            $("#duration").html(durationMonths);
+            $("#propertyRent").html(value[6]);
+    });
+
+    rentInfo.tenantData2(function(error, result) {
+
+            value2 = JSON.stringify(result); // convert the result to a String with all strings as part
+            value2 = value2.replace(/'/g, '"'); // seperate the strings from the main string
+            value2 = JSON.parse(value2);      
+
+            latitude = value2[2];
+            longitude = value2[3];
+
+            $("#propertySecurity").html(value2[0]);
+            $("#registerFee").html(value2[1]);
+            $("#sqFt").html(value2[4]);
+            $("#rooms").html(value2[5]);
+            $("#extra").html(value2[6]);
+
+
+            var map=new MapmyIndia.Map("map",{ center:[latitude, longitude],zoomControl: true, hybrid:true});
+            L.marker([latitude, longitude]).addTo(map);
+    });
+
+    $("#contractDetails").show();
+});
+
+// --------------------------------------------------------------------------------------------------------
+var event = rentInfo.rejection();
+
+        event.watch(function(error, result) {
+
+            if(!error)
+            {
+                $("#message").show();
+                $("#hashBlock").show();
+
+                if(result.transactionHash != $("#hashBlock").html())
+                $("#loader").hide(); /// hide loader once we get successful response
+
+            $('#hashBlock').attr("href", "https://kovan.etherscan.io/tx/" + result.transactionHash);
+            $("#message").html(result.args.str);
+                /// load data once we get the data back from the event User()
+                //we used toAscii as we are using bytes we need to convert hex to string format for display
+            }
+
+            else
+            {
+                $('#loader').hide();
+                console.log(error);
+            }
+
+        });
+
+        //---------------------
+
+        var ans = false;
+        var check = false;
+
+        var message;
+
+        $("#signButton").click(function() {
+
+            $("#loader").show();
+
+            var currentDate = new Date();
+            
+            web3.personal.sign(web3.toHex("I hereby declare that I accept all the terms as stated above & understand that once deployed details cannot be changed." + 
+            "\n\nI know that after this step a Thorough Government Verification of this Contract will be performed." + "\n\nDated - " + String(currentDate) + 
+            "\n\n1 Ether priced at - " + String(price) + " Rupees.") ,web3.eth.accounts[0], function(error, result){
+
+                    if(error)
+                    {
+                        $("#loader").hide();
+                        alert('Failed !! Contract Signature cannot be performed..');
+                    }
+
+                    else
+                    {
+                        message = result;
+                        ans = true;
+                        $("#loader").hide();
+                    }
+
+                });
+        });
+
+        $("#payButton").click(function() {
+
+            if(ans == false)
+            {
+               alert("Sign the Contract before paying the Security Deposit");
+            }  
+
+            else
+            {
+                $("#loader").show();
+                check = true;
+
+                $("#hashBlock2").show();
+
+                rentInfo.tenantAccept(message, Number(price), (err, res) => {
+
+                    if(err) {
+                        $("#loader").hide();
+                    }
+                });
+            }
+
+        });
+
+
+
+// ----------------------------------------------------------------------------------------------------------
+
+         $("#rejectButton").click(function() {
+
+            if((ans == false)&&(check == false))
+            {
+                alert("Warning !! The Contract will be Permanently Rejected and Marked Unapproved. " + 
+                    "\n\nImportant - Inform Landlord to draft a New Contract with renewed Terms and Conditions." + 
+                    "\n\nClick Reject again to Complete Rejection.");
+
+                ans = true;
+            }
+
+            else if((ans == true)&&(check == false))
+            {
+                $("#loader").show();
+                $("#hashBlock2").show();
+
+                rentInfo.tenantReject(Number(price), (err, res) => {
+                    if(err) {
+                        $("#loader").hide();
+                    }
+                });
+            }
+
+            else
+            {
+                alert("Contract already Approved !!");
+            }
+
+        });
