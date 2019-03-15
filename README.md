@@ -1,7 +1,7 @@
 ## Charter - Ethereum Rental Smart Contracts
 
 ### 🔺 Current Features
-#### 🎉 Latest Feature - Payment of Registeration Fee (Stamp Duty Fees) and Security Deposit now supported 🎉
+#### 🎉 Latest Feature - Payment of Registration Fee (Stamp Duty Fees) and Security Deposit now supported 🎉
 - Landlords can draft contracts, add geolocation of the property and digitally sign the contract.
 - Tenants can verify these details and sign the contract digitally for further verification.
 - The government will further verify these contracts and activate them on the blockchain.
