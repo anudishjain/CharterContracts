@@ -1,4 +1,22 @@
-# Charter - Ethereum Rental Smart Contracts
+## Charter - Ethereum Rental Smart Contracts
+
+### 🔺 Current Features
+#### 🎉 Latest Feature - Payment of Registeration Fee (Stamp Duty Fees) and Security Deposit now supported 🎉
+- Landlords can draft contracts, add geolocation of the property and digitally sign the contract.
+- Tenants can verify these details and sign the contract digitally for further verification.
+- The government will further verify these contracts and activate them on the blockchain.
+- Has multi-language support using Yandex API and MapMyIndia API for GeoTagging Rented Property.
+- Get the Instantaneous Rate of Eth vs INR using CryptoCompare API.
+
+
+Hosted on Kovan Test Network.
+For more info - ReadMore.pdf
+
+### 🔺 Future Features
+- Users can see all the past contracts they deployed on Charter Platform.
+- IPFS Python API support not ready, so no PDF contracts can be uploaded currently.
+
+
 
 **What are Smart Contracts and Why Use Them ?**
 
@@ -40,8 +58,3 @@ Read below to know how to get MetaMask and start using Charter.
 Download MetaMask Chrome Extension - Every data upload to the Contract requires some Transaction Fees and this is paid using Ethereum Cryptocurrency, to simplify this process MetaMask Chrome Extension Wallet is used.
 
 Get Ropsten TestCoins - This application is deployed on Ropsten TestNet, users need to select Ropsten TestNet in their MetaMask wallets and get Test Coins (These are free).
-
-
-
-
-
