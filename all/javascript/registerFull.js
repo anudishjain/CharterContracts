@@ -64,13 +64,9 @@
 
 // -------------------------------------------------------------------------------------------------------------------
 
+
 // ----
-
-var feeGovern;
-    
-// ----
-
-
+        var registerFee; // save the Registeration Fee that was returned by the contract
         var event = rentInfo.registerHome();
 
         event.watch(function(error, result) {
@@ -89,9 +85,10 @@ var feeGovern;
                 /// load data once we get the data back from the event User()
                 //we used toAscii as we are using bytes we need to convert hex to string format for display
 
-                feeGovern = Number(result.args.FeePayable);
+                console.log(result.args.FeePayable);
+                registerFee = parseInt(result.args.FeePayable);
 
-                $("#showFee").html("Registration Fee to be paid " + result.args.FeePayable + " Rupees");
+                $("#showFee").html("Registration Fee to be paid " + (result.args.FeePayable) + " Rupees");
             }
 
             else
@@ -188,8 +185,7 @@ request.onload = function () {
 request.send();
 
 //--------------------
-
-
+        
         var event = rentInfo.registerDetails();
 
         event.watch(function(error, result) {
@@ -295,7 +291,7 @@ var event = rentInfo.feePay();
             String(tenant) + "\n\nStarting From - " + String(new Date(String(startdate))) + "\nUpto Date - " + String(new Date(String(enddate)))
             + "\n\nAt Monthly Rent of - " + String(rent) + " INR\nand Security Deposit of - " + String(security) + " INR" + 
             "\n\nThe Contract Duration is of - " + String(durationMonths) + " Months" + "\n\nStamp Duty to the Government is -" + 
-            String(feeGovern) + " INR" + "\n\nOther Terms of Agreement are -\n" + String(extra) + "\n\nI hereby declare that as of - " + 
+            String(registerFee) + " INR" + "\n\nOther Terms of Agreement are -\n" + String(extra) + "\n\nI hereby declare that as of - " + 
             String(currentDate) + ", I will abide by all the Terms of Agreement I have stated above," + "\n\n1 Ether priced at - " + 
             String(price) + " INR"), web3.eth.accounts[0], function(error, result){
 
@@ -315,6 +311,7 @@ var event = rentInfo.feePay();
                 });
         });
 
+        var calculated_value;
         $("#registerButton4").click(function() {
 
             $("#loader4").show();
@@ -322,8 +319,8 @@ var event = rentInfo.feePay();
 
             if(ans != false)
             {
-                rentInfo.feePayment(String(message), Number(price), (err, res) => {
-                        
+                calculated_value = registerFee/price;
+                rentInfo.feePayment(String(message), Number(price), {value : web3.toWei(calculated_value.toString(), 'ether')}, (err, res) => {                      
                     if(err) {
                         $("#loader4").hide();
                     }

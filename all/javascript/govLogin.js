@@ -86,7 +86,7 @@ function approve_click(_id) {
 
 	$(loaderGif).show();
 
-	rentInfo.govApproval(Number(_id), Number(price), function(error, result) {
+	rentInfo.govApproval(parseInt(_id), Number(price), function(error, result) {
 
 		if(error)
 		{
@@ -123,8 +123,8 @@ function reject_click(_id) {
 	var loaderGif = '#loader' + _id;
 
 	$(loaderGif).show();
-
-	rentInfo.govReject(Number(_id), Number(price), function(error, result) {
+	console.log(_id);
+	rentInfo.govReject(parseInt(_id), Number(price), function(error, result) {
 
 		if(error)
 		{

@@ -66,8 +66,8 @@ var rentContract = web3.eth.contract([
 		],
 		"name": "feePayment",
 		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
+		"payable": true,
+		"stateMutability": "payable",
 		"type": "function"
 	},
 	{
@@ -202,8 +202,8 @@ var rentContract = web3.eth.contract([
 		],
 		"name": "tenantAccept",
 		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
+		"payable": true,
+		"stateMutability": "payable",
 		"type": "function"
 	},
 	{
@@ -567,4 +567,4 @@ var rentContract = web3.eth.contract([
 	}
 ]);
 
-var rentInfo = rentContract.at('0x0ad528b05ea93ad033838955e17faf6456844739');
+var rentInfo = rentContract.at('0x55db09bfde7b2bb77bea29dbf204bdc945228081');

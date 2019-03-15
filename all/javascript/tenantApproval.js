@@ -129,7 +129,10 @@ var event = rentInfo.rejection();
                 });
         });
 
+
         $("#payButton").click(function() {
+
+            var calculated_value = parseInt(value2[0])/price;
 
             if(ans == false)
             {
@@ -143,7 +146,7 @@ var event = rentInfo.rejection();
 
                 $("#hashBlock2").show();
 
-                rentInfo.tenantAccept(message, Number(price), (err, res) => {
+                rentInfo.tenantAccept(message, Number(price),  {value : web3.toWei(calculated_value.toString(), 'ether')}, (err, res) => {
 
                     if(err) {
                         $("#loader").hide();
