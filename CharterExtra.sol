@@ -3,18 +3,8 @@
 pragma solidity ^0.4.19;
 import "./CharterMain.sol";
 
-
 contract Rent2 is Rent {
     
-    Rent rentInstance = Rent(0x3e672f6f834e08812892d6c32202ac0a364f1bdf); 
-    // address where Rent is Deployed
-    
-    function landlordPast() view external returns(uint[] array, uint size) {
+    Rent rentInstance = Rent(0xb30cdffde29a168ed01218499397337475f73ee1); 
 
-	}
-
-	function tenantPast() view external returns(uint[] array, uint size) {
-
-
-	}    
 }

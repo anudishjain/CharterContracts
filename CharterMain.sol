@@ -1,6 +1,4 @@
 //@author- Anudish Jain
-
-
 pragma solidity ^0.4.19;
 
 contract Owned {
@@ -68,7 +66,7 @@ contract Rent is Owned {
     	string latitude;
     	string longitude;
 	
-		string ipfs_url; // for Future Versions of, when we support IPFS URLs
+		string ipfs_url;
 
 		uint squareFootage;
 		uint numberBedrooms;
@@ -95,7 +93,7 @@ contract Rent is Owned {
 	OtherDetails[] public allOtherDetails;
 	Checks[] public allChecks;
 
-	mapping(address => Person) private addressToPerson;
+	mapping(address => Person) public addressToPerson;
 	mapping(address => bool) private checkUser;
 	mapping(uint => bool) private checkAadhaar;
 
@@ -107,22 +105,19 @@ contract Rent is Owned {
 		
 		addressToPerson[owner] = govt;
 	}
+	 
+	 
+	function getDetails() view external returns(uint _aadhaar, uint[] _owned, uint[] _rented) {
+	    
+	    if(checkUser[msg.sender] == true)
+	    {
+	        var currentUser = addressToPerson[msg.sender];
+	        return(currentUser.aadhaar, currentUser.myOwned, currentUser.myRented);
+	    }
+	    
+	}
 	
-	
-    function getUserInfo() view external returns(string _name, string _email, uint _aadhaar, uint[] _myOwned, uint lenOwned, 
-    uint[] _myRented, uint lenRented) { 	
-        
-        if(checkUser[msg.sender] == true)
-        {
-            var user = addressToPerson[msg.sender];
-            return(user.legalName, user.email, user.aadhaar, user.myOwned, user.myOwned.length, 
-            user.myRented, user.myRented.length);
-        }
-    }
-	
-
 	event startMessage(string message);
-
 	function createNewUser(string _name, string _email, uint _aadhaar, string _sign) external {
 
 		if((checkUser[msg.sender] == true)||(checkAadhaar[_aadhaar] == true))
@@ -143,7 +138,6 @@ contract Rent is Owned {
 	}
 
 	event registerParty(string message);
-
 	function registerParties(address _tenant) external 	{
 
 		require(msg.sender != _tenant);
@@ -170,7 +164,7 @@ contract Rent is Owned {
 				var tenant = addressToPerson[_tenant];
 				tenant.myRented.push(index);
 				
-				registerParty('Tenant was Successfully added, Proceed to Step 2');
+				registerParty('Tenant Successfully added, Proceed to Step 2');
 			}
 
 			else
@@ -181,7 +175,7 @@ contract Rent is Owned {
 
 		else
 		{
-			registerParty('Kindly register on Charter, before drafting a Contract');
+			registerParty('Register on Charter, before drafting a Contract');
 		}
 	}
 	
@@ -198,7 +192,7 @@ contract Rent is Owned {
 			
 			if(num < 0)
 			{
-				registerHome('Kindly fill Tenant Info in Step 1 before proceeding to Step 2', 0);
+				registerHome('Kindly fill Step 1 before proceeding to Step 2', 0);
 			}
 			
 			else
@@ -235,7 +229,7 @@ contract Rent is Owned {
 							home.registerFee = 100;
 							home.completed = true;
 							
-							registerHome("Property's Information successfully entered, Proceed to Step-3", (home.registerFee));
+							registerHome("Information successfully entered, Proceed to Step-3", (home.registerFee));
 						}
 
 						else if(home.monthDuration <= 60)
@@ -248,7 +242,7 @@ contract Rent is Owned {
 
 							home.completed = true;
 							
-							registerHome("Property's Information successfully entered, Proceed to Step-3", (home.registerFee));
+							registerHome("Information successfully entered, Proceed to Step-3", (home.registerFee));
 						}
 
 						else if(home.monthDuration <= 120)
@@ -261,7 +255,7 @@ contract Rent is Owned {
 
 							home.completed = true;
 
-							registerHome("Property's Information successfully entered, Proceed to Step-3", (home.registerFee));		
+							registerHome("Information successfully entered, Proceed to Step-3", (home.registerFee));		
 						}
 
 						else if(home.monthDuration <= 240)
@@ -273,19 +267,19 @@ contract Rent is Owned {
 							home.registerFee = ((6 * 12 * _rent) / 100) + 1100;
 
 							home.completed = true;
-							registerHome("Property's Information successfully entered, Proceed to Step-3", (home.registerFee));
+							registerHome("Information successfully entered, Proceed to Step-3", (home.registerFee));
 						}
 
 						else
 						{
 							home.completed = false;
-							registerHome('Kindly Enter Duration of Contract Correctly.. (Min - 1 month, Max - 240 Months' , 0);
+							registerHome('Enter Duration of Contract Correctly.. (Min - 1 month, Max - 240 Months' , 0);
 						}
 					}
 
 					else
 					{
-						registerHome('Home Registration is already Completed ', 0);
+						registerHome('Home Registration already Completed ', 0);
 					}
 					
 				}
@@ -300,7 +294,6 @@ contract Rent is Owned {
 	}
 
 	event registerDetails(string message);
-	
 	function newDetails(string _lat, string _lon, uint _sqFt, uint _rooms, string _extra) external {
 		
 		if(checkUser[msg.sender] == true)
@@ -362,7 +355,6 @@ contract Rent is Owned {
 	}
 
 	event feePay(string message);
-	
 	function feePayment(string _sign, uint _currentRate) external payable {
 
 		require(msg.value > 0 ether);
@@ -393,7 +385,7 @@ contract Rent is Owned {
 					checks.paidRegisterFee = true;
 					party.signLandlord = _sign;
 
-					feePay('Registration Fee Payment Successful, Tenant Verification pending..');
+					feePay('Registration Fee Payment Successful');
 				}
 
 				else 
@@ -528,12 +520,12 @@ contract Rent is Owned {
 				party.signTenant = _sign;
 				checks.paidSecurityFee = true;
 				
-				rejection("Tenant Approval of Contract succesful, Government Verification pending");
+				rejection("Tenant Approval of Contract succesful");
 			}
 			
 			else if((checks.tenantCheck == true)&&(checks.tenantApprove == true))
 			{
-				rejection("Contract already Approved, wait for Government Verification");    
+				rejection("Contract already Approved");    
 			}
 		}
 
@@ -546,7 +538,6 @@ contract Rent is Owned {
 
 
 	function tenantReject(uint _currentRate) external {
-
 		if(checkUser[msg.sender] == true)
 		{
 			var t = addressToPerson[msg.sender];
@@ -578,7 +569,7 @@ contract Rent is Owned {
 			
 			else if((checks.tenantCheck == true)&&(checks.tenantApprove == true))
 			{
-				rejection("Contract already Approved, Government Verification pending.."); 
+				rejection("Contract already Approved"); 
 			}
 			
 			else
@@ -595,7 +586,6 @@ contract Rent is Owned {
 	
 
 	function govLogin() view external onlyOwner returns(string message, uint[] array, uint size) {
-		
 		var len = allParties.length;
 		uint[] memory indexes = new uint[](len);
 		
@@ -628,7 +618,6 @@ contract Rent is Owned {
 	
 	
 	function govApproval(uint i, uint _currentRate) external onlyOwner {
-		
 		if(i < allParties.length)
 		{
 			var party = allParties[i];
@@ -648,7 +637,6 @@ contract Rent is Owned {
 	}
 
 	function govReject(uint i, uint _currentRate) external onlyOwner {
-		
 		if(i < allParties.length)
 		{
 			
