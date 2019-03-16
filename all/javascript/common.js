@@ -1,9 +1,9 @@
     
-    window.addEventListener('load', async () => {
+window.addEventListener('load', async () => {
             // Modern dapp browsers...
             if (window.ethereum) {
-                window.web3 = new Web3(ethereum);
-                try {
+            	window.web3 = new Web3(ethereum);
+            	try {
                         // Request account access if needed
                         await ethereum.enable();
                         // Acccounts now exposed
@@ -14,108 +14,39 @@
             }
                 // Legacy dapp browsers...
                 else if (window.web3) {
-                    window.web3 = new Web3(web3.currentProvider);
+                	window.web3 = new Web3(web3.currentProvider);
                 // Acccounts always exposed
             web3.eth.sendTransaction({/* ... */});
         }
             // Non-dapp browsers...
             else {
 
-                alert('Install MetaMask for using Charter Contracts ');
+            	alert('Install MetaMask for using Charter Contracts ');
             }
         });
 
 var rentContract = web3.eth.contract([
 	{
-		"constant": true,
-		"inputs": [],
-		"name": "tenantData2",
-		"outputs": [
-			{
-				"name": "security",
-				"type": "uint256"
-			},
-			{
-				"name": "registration",
-				"type": "uint256"
-			},
-			{
-				"name": "lat",
-				"type": "string"
-			},
-			{
-				"name": "long",
-				"type": "string"
-			},
-			{
-				"name": "sqFt",
-				"type": "uint256"
-			},
-			{
-				"name": "rooms",
-				"type": "uint256"
-			},
-			{
-				"name": "extra",
-				"type": "string"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "allOtherDetails",
-		"outputs": [
-			{
-				"name": "latitude",
-				"type": "string"
-			},
-			{
-				"name": "longitude",
-				"type": "string"
-			},
-			{
-				"name": "ipfs_url",
-				"type": "string"
-			},
-			{
-				"name": "squareFootage",
-				"type": "uint256"
-			},
-			{
-				"name": "numberBedrooms",
-				"type": "uint256"
-			},
-			{
-				"name": "others",
-				"type": "string"
-			},
-			{
-				"name": "completed",
-				"type": "bool"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
 		"constant": false,
 		"inputs": [
 			{
-				"name": "_currentRate",
+				"name": "_name",
+				"type": "string"
+			},
+			{
+				"name": "_email",
+				"type": "string"
+			},
+			{
+				"name": "_aadhaar",
 				"type": "uint256"
+			},
+			{
+				"name": "_sign",
+				"type": "string"
 			}
 		],
-		"name": "tenantReject",
+		"name": "createNewUser",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -125,11 +56,33 @@ var rentContract = web3.eth.contract([
 		"constant": false,
 		"inputs": [
 			{
-				"name": "_tenant",
-				"type": "address"
+				"name": "_sign",
+				"type": "string"
+			},
+			{
+				"name": "_currentRate",
+				"type": "uint256"
 			}
 		],
-		"name": "registerParties",
+		"name": "feePayment",
+		"outputs": [],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "i",
+				"type": "uint256"
+			},
+			{
+				"name": "_currentRate",
+				"type": "uint256"
+			}
+		],
+		"name": "govApproval",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -154,203 +107,30 @@ var rentContract = web3.eth.contract([
 		"type": "function"
 	},
 	{
-		"constant": true,
-		"inputs": [],
-		"name": "tenantData1",
-		"outputs": [
-			{
-				"name": "landlordName",
-				"type": "string"
-			},
-			{
-				"name": "landlordAadhaar",
-				"type": "uint256"
-			},
-			{
-				"name": "addressHouse",
-				"type": "string"
-			},
-			{
-				"name": "typeProperty",
-				"type": "string"
-			},
-			{
-				"name": "startEpoch",
-				"type": "uint256"
-			},
-			{
-				"name": "endEpoch",
-				"type": "uint256"
-			},
-			{
-				"name": "rent",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
 		"constant": false,
 		"inputs": [
 			{
-				"name": "_sign",
+				"name": "_lat",
 				"type": "string"
 			},
 			{
-				"name": "_currentRate",
-				"type": "uint256"
-			}
-		],
-		"name": "feePayment",
-		"outputs": [],
-		"payable": true,
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "",
-				"type": "address"
-			}
-		],
-		"name": "addressToPerson",
-		"outputs": [
-			{
-				"name": "eth",
-				"type": "address"
-			},
-			{
-				"name": "legalName",
+				"name": "_lon",
 				"type": "string"
 			},
 			{
-				"name": "email",
-				"type": "string"
-			},
-			{
-				"name": "aadhaar",
+				"name": "_sqFt",
 				"type": "uint256"
 			},
 			{
-				"name": "signTerms",
+				"name": "_rooms",
+				"type": "uint256"
+			},
+			{
+				"name": "_extra",
 				"type": "string"
 			}
 		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "allParties",
-		"outputs": [
-			{
-				"name": "landlord",
-				"type": "address"
-			},
-			{
-				"name": "tenant",
-				"type": "address"
-			},
-			{
-				"name": "signLandlord",
-				"type": "string"
-			},
-			{
-				"name": "signTenant",
-				"type": "string"
-			},
-			{
-				"name": "completed",
-				"type": "bool"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "allHouses",
-		"outputs": [
-			{
-				"name": "addressHouse",
-				"type": "string"
-			},
-			{
-				"name": "type_of_property",
-				"type": "string"
-			},
-			{
-				"name": "startEpoch",
-				"type": "uint256"
-			},
-			{
-				"name": "endEpoch",
-				"type": "uint256"
-			},
-			{
-				"name": "monthDuration",
-				"type": "uint256"
-			},
-			{
-				"name": "rentAmount",
-				"type": "uint256"
-			},
-			{
-				"name": "securityFee",
-				"type": "uint256"
-			},
-			{
-				"name": "registerFee",
-				"type": "uint256"
-			},
-			{
-				"name": "completed",
-				"type": "bool"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "_name",
-				"type": "string"
-			},
-			{
-				"name": "_email",
-				"type": "string"
-			},
-			{
-				"name": "_aadhaar",
-				"type": "uint256"
-			},
-			{
-				"name": "_sign",
-				"type": "string"
-			}
-		],
-		"name": "createNewUser",
+		"name": "newDetails",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -395,79 +175,14 @@ var rentContract = web3.eth.contract([
 		"type": "function"
 	},
 	{
-		"constant": true,
+		"constant": false,
 		"inputs": [
 			{
-				"name": "_add",
+				"name": "_tenant",
 				"type": "address"
 			}
 		],
-		"name": "sendUserToOthers",
-		"outputs": [
-			{
-				"name": "_myOwned",
-				"type": "uint256[]"
-			},
-			{
-				"name": "lenO",
-				"type": "uint256"
-			},
-			{
-				"name": "_myRented",
-				"type": "uint256[]"
-			},
-			{
-				"name": "lenR",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "i",
-				"type": "uint256"
-			},
-			{
-				"name": "_currentRate",
-				"type": "uint256"
-			}
-		],
-		"name": "govApproval",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "_lat",
-				"type": "string"
-			},
-			{
-				"name": "_lon",
-				"type": "string"
-			},
-			{
-				"name": "_sqFt",
-				"type": "uint256"
-			},
-			{
-				"name": "_rooms",
-				"type": "uint256"
-			},
-			{
-				"name": "_extra",
-				"type": "string"
-			}
-		],
-		"name": "newDetails",
+		"name": "registerParties",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -492,25 +207,17 @@ var rentContract = web3.eth.contract([
 		"type": "function"
 	},
 	{
-		"constant": true,
-		"inputs": [],
-		"name": "govLogin",
-		"outputs": [
+		"constant": false,
+		"inputs": [
 			{
-				"name": "message",
-				"type": "string"
-			},
-			{
-				"name": "array",
-				"type": "uint256[]"
-			},
-			{
-				"name": "size",
+				"name": "_currentRate",
 				"type": "uint256"
 			}
 		],
+		"name": "tenantReject",
+		"outputs": [],
 		"payable": false,
-		"stateMutability": "view",
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -595,7 +302,311 @@ var rentContract = web3.eth.contract([
 		],
 		"name": "rejection",
 		"type": "event"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "allChecks",
+		"outputs": [
+			{
+				"name": "isValid",
+				"type": "bool"
+			},
+			{
+				"name": "tenantApprove",
+				"type": "bool"
+			},
+			{
+				"name": "govApprove",
+				"type": "bool"
+			},
+			{
+				"name": "tenantCheck",
+				"type": "bool"
+			},
+			{
+				"name": "paidRegisterFee",
+				"type": "bool"
+			},
+			{
+				"name": "paidSecurityFee",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "allHouses",
+		"outputs": [
+			{
+				"name": "addressHouse",
+				"type": "string"
+			},
+			{
+				"name": "type_of_property",
+				"type": "string"
+			},
+			{
+				"name": "startEpoch",
+				"type": "uint256"
+			},
+			{
+				"name": "endEpoch",
+				"type": "uint256"
+			},
+			{
+				"name": "monthDuration",
+				"type": "uint256"
+			},
+			{
+				"name": "rentAmount",
+				"type": "uint256"
+			},
+			{
+				"name": "securityFee",
+				"type": "uint256"
+			},
+			{
+				"name": "registerFee",
+				"type": "uint256"
+			},
+			{
+				"name": "completed",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "allOtherDetails",
+		"outputs": [
+			{
+				"name": "latitude",
+				"type": "string"
+			},
+			{
+				"name": "longitude",
+				"type": "string"
+			},
+			{
+				"name": "ipfs_url",
+				"type": "string"
+			},
+			{
+				"name": "squareFootage",
+				"type": "uint256"
+			},
+			{
+				"name": "numberBedrooms",
+				"type": "uint256"
+			},
+			{
+				"name": "others",
+				"type": "string"
+			},
+			{
+				"name": "completed",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "allParties",
+		"outputs": [
+			{
+				"name": "landlord",
+				"type": "address"
+			},
+			{
+				"name": "tenant",
+				"type": "address"
+			},
+			{
+				"name": "signLandlord",
+				"type": "string"
+			},
+			{
+				"name": "signTenant",
+				"type": "string"
+			},
+			{
+				"name": "completed",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getUserInfo",
+		"outputs": [
+			{
+				"name": "_name",
+				"type": "string"
+			},
+			{
+				"name": "_email",
+				"type": "string"
+			},
+			{
+				"name": "_aadhaar",
+				"type": "uint256"
+			},
+			{
+				"name": "_myOwned",
+				"type": "uint256[]"
+			},
+			{
+				"name": "lenOwned",
+				"type": "uint256"
+			},
+			{
+				"name": "_myRented",
+				"type": "uint256[]"
+			},
+			{
+				"name": "lenRented",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "govLogin",
+		"outputs": [
+			{
+				"name": "message",
+				"type": "string"
+			},
+			{
+				"name": "array",
+				"type": "uint256[]"
+			},
+			{
+				"name": "size",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "tenantData1",
+		"outputs": [
+			{
+				"name": "landlordName",
+				"type": "string"
+			},
+			{
+				"name": "landlordAadhaar",
+				"type": "uint256"
+			},
+			{
+				"name": "addressHouse",
+				"type": "string"
+			},
+			{
+				"name": "typeProperty",
+				"type": "string"
+			},
+			{
+				"name": "startEpoch",
+				"type": "uint256"
+			},
+			{
+				"name": "endEpoch",
+				"type": "uint256"
+			},
+			{
+				"name": "rent",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "tenantData2",
+		"outputs": [
+			{
+				"name": "security",
+				"type": "uint256"
+			},
+			{
+				"name": "registration",
+				"type": "uint256"
+			},
+			{
+				"name": "lat",
+				"type": "string"
+			},
+			{
+				"name": "long",
+				"type": "string"
+			},
+			{
+				"name": "sqFt",
+				"type": "uint256"
+			},
+			{
+				"name": "rooms",
+				"type": "uint256"
+			},
+			{
+				"name": "extra",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
 	}
 ]);
 
-var rentInfo = rentContract.at('0x3e672f6f834e08812892d6c32202ac0a364f1bdf');
+var rentInfo = rentContract.at('0x0c56b2881f450e7fec6265577572a69c50b32117');

@@ -1,5 +1,6 @@
 //@author- Anudish Jain
 
+
 pragma solidity ^0.4.19;
 
 contract Owned {
@@ -92,24 +93,13 @@ contract Rent is Owned {
 	Parties[] public allParties; 
 	House[] public allHouses;
 	OtherDetails[] public allOtherDetails;
-	Checks[] private allChecks;
+	Checks[] public allChecks;
 
-	mapping(address => Person) public addressToPerson;
+	mapping(address => Person) private addressToPerson;
 	mapping(address => bool) private checkUser;
 	mapping(uint => bool) private checkAadhaar;
 
-	
-	function sendUserToOthers(address _add) view external returns(uint[] _myOwned, uint lenO, uint[] _myRented, uint lenR) {
-		
-		if(checkUser[_add] == true)
-		{
-		    var currentUser = addressToPerson[_add];
-		    return(currentUser.myOwned, currentUser.myOwned.length, currentUser.myRented, currentUser.myRented.length);
-		}
-
-	}
-	
-
+    
 	function Rent() public {
 
 		checkUser[owner] = true;
@@ -117,6 +107,18 @@ contract Rent is Owned {
 		
 		addressToPerson[owner] = govt;
 	}
+	
+	
+    function getUserInfo() view external returns(string _name, string _email, uint _aadhaar, uint[] _myOwned, uint lenOwned, 
+    uint[] _myRented, uint lenRented) { 	
+        
+        if(checkUser[msg.sender] == true)
+        {
+            var user = addressToPerson[msg.sender];
+            return(user.legalName, user.email, user.aadhaar, user.myOwned, user.myOwned.length, 
+            user.myRented, user.myRented.length);
+        }
+    }
 	
 
 	event startMessage(string message);
@@ -153,10 +155,10 @@ contract Rent is Owned {
 				var newParty = Parties(msg.sender, _tenant,'N/A', 'N/A', true);
 				var index = allParties.push(newParty) - 1;
 
-				var newHouse = House('No Address Added', 'No Property Type', 0, 0, 0, 0, 0, 0, false);
+				var newHouse = House('No Address', 'No Property', 0, 0, 0, 0, 0, 0, false);
 				allHouses.push(newHouse);
 
-				var newDetails = OtherDetails('28.7041', '77.1025', 'Currently IPFS Not Supported', 0, 0, 'N/A', false);
+				var newDetails = OtherDetails('28.7041', '77.1025', 'Currently Not Supported', 0, 0, 'N/A', false);
 				allOtherDetails.push(newDetails);
 				
 				var newChecks = Checks(false, false, false, false, false, false);
@@ -168,7 +170,7 @@ contract Rent is Owned {
 				var tenant = addressToPerson[_tenant];
 				tenant.myRented.push(index);
 				
-				registerParty('Tenant was Successfully added to Contract, Proceed to Step 2');
+				registerParty('Tenant was Successfully added, Proceed to Step 2');
 			}
 
 			else
@@ -373,7 +375,7 @@ contract Rent is Owned {
 			
 			if(num < 0)
 			{
-				feePay('Complete all the Steps, before paying Registration Fee Payment');
+				feePay('Complete all Steps, before paying Registration Fee');
 			}
 			
 			else
@@ -391,7 +393,7 @@ contract Rent is Owned {
 					checks.paidRegisterFee = true;
 					party.signLandlord = _sign;
 
-					feePay('Government Registration Fee Payment Successful, Tenant Verification pending..');
+					feePay('Registration Fee Payment Successful, Tenant Verification pending..');
 				}
 
 				else 
@@ -617,7 +619,7 @@ contract Rent is Owned {
 		}
 		
 		if(check == true)
-		return('Following Contracts have Verifications Pending', indexes, num);
+		return('Contract Verifications Pending', indexes, num);
 		
 		else
 		return('No Pending Verifications', indexes, 0);
@@ -658,8 +660,8 @@ contract Rent is Owned {
 			if((party.completed == true)&&(home.completed == true)&&(detail.completed == true)&&(checks.paidRegisterFee == true)&&
 				(checks.paidSecurityFee == true)&&(checks.tenantApprove == true)&&(checks.tenantCheck == true))
 			{
-				checks.govApprove = false; // government approves
-				checks.isValid = false; // marked as valid
+				checks.govApprove = false;
+				checks.isValid = false;
 
 				var _tenant = party.tenant;
 				var _landlord = party.landlord;
