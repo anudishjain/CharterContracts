@@ -629,3 +629,22 @@ var rentContract = web3.eth.contract([
 ]);
 
 var rentInfo = rentContract.at('0xb30cdffde29a168ed01218499397337475f73ee1');
+
+
+// ------------------------------------------------------------------
+
+// getting the ETH - RATE HERE
+var price;
+
+var request = new XMLHttpRequest();
+request.open('GET', "https://api.coinbase.com/v2/prices/ETH-INR/buy", true);
+
+request.onload = function () {
+    
+    var data = JSON.parse(this.response);
+    price = parseInt(data["data"]["amount"]);
+
+    alert('\nThe current ETH vs INR Rate is,\n1 Ether - ' + (price) + " INR \n\nSource - Coinbase API");
+}
+
+request.send();

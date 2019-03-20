@@ -1,20 +1,3 @@
-// getting the ETH - RATE HERE
-var price;
-
-var request = new XMLHttpRequest();
-request.open('GET', "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=INR&api_key=090d85bbb88aab5c93774929f2196d54fb4664cabf15ffc234d2d4d1e74c792b", true);
-
-request.onload = function () {
-    
-    var data = JSON.parse(this.response);
-
-    price = parseInt(data["INR"]);
-}
-
-request.send();
-
-
-
 var check = false;
 
 var intIndexes = [];
