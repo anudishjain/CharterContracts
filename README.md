@@ -26,7 +26,7 @@
 
 ### Additional Features of Charter
 
-- ***In addition to the above features***, Charter helps it's users (Indian 🇮🇳 Users Specifically) by processing payments in INR using ***CryptoCompare API*** for ETH to INR Conversion Rate.
+- ***In addition to the above features***, Charter helps it's users (Indian 🇮🇳 Users Specifically) by processing payments in INR using ***Coinbase API*** for ETH to INR Conversion Rate.
 - Links the GeoLocation of the Property to it's Digital Identity on the Contract using ***MapMyIndia API***.
 - Provides multiple language supports, using ***Yandex Translate API***.
 - Read for Instructions [here](https://anudishjain.github.io/CharterContracts/all/extra/ReadMore.pdf)
